@@ -1,0 +1,105 @@
+[gd_scene format=3 uid="uid://d2icjiafoy584"]
+
+[ext_resource type="Script" uid="uid://8l1n70488uk8" path="res://scripts/item_box.gd" id="1_or311"]
+[ext_resource type="Texture2D" uid="uid://dsoquqfsdhgxb" path="res://assets/Items/Box/Box1/Hit (28x24).png" id="2_o4270"]
+[ext_resource type="PackedScene" uid="uid://dehce5ru8mitw" path="res://Prefabs/fruit.tscn" id="2_qdld1"]
+[ext_resource type="PackedScene" uid="uid://dqsovm170cuum" path="res://Prefabs/box_particle.tscn" id="3_b35dy"]
+[ext_resource type="Texture2D" uid="uid://da2yqyp8sneo7" path="res://assets/Items/Box/Box1/Idle.png" id="3_qdld1"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b35dy"]
+atlas = ExtResource("2_o4270")
+region = Rect2(0, 0, 28, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j035c"]
+atlas = ExtResource("2_o4270")
+region = Rect2(28, 0, 28, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gv23s"]
+atlas = ExtResource("2_o4270")
+region = Rect2(56, 0, 28, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_47qne"]
+atlas = ExtResource("2_o4270")
+region = Rect2(84, 0, 28, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qxdxt"]
+atlas = ExtResource("3_qdld1")
+region = Rect2(0, 0, 28, 24)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_qtydk"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b35dy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j035c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gv23s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_47qne")
+}],
+"loop": 0,
+"name": &"hit",
+"speed": 18.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qxdxt")
+}],
+"loop": 0,
+"name": &"idle",
+"speed": 20.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_si6ue"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hld54"]
+size = Vector2(18, 3)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qdld1"]
+size = Vector2(18, 5)
+
+[node name="ItemBox" type="StaticBody2D" unique_id=348084858 groups=["item_box"]]
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("1_or311")
+item_scene = ExtResource("2_qdld1")
+particle_scene = ExtResource("3_b35dy")
+spawn_all_at_once = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=594661876]
+position = Vector2(10, -9)
+sprite_frames = SubResource("SpriteFrames_qtydk")
+animation = &"hit"
+autoplay = "idle"
+frame = 3
+frame_progress = 1.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=953923521]
+position = Vector2(10, -9)
+shape = SubResource("RectangleShape2D_si6ue")
+
+[node name="SpawnPoint" type="Marker2D" parent="." unique_id=1822818073]
+position = Vector2(10, -22)
+
+[node name="BumpAreaUp" type="Area2D" parent="." unique_id=550614893]
+position = Vector2(10, -9)
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BumpAreaUp" unique_id=1733712407]
+position = Vector2(0, -11.5)
+shape = SubResource("RectangleShape2D_hld54")
+
+[node name="BumpAreaDown" type="Area2D" parent="." unique_id=2088001903]
+position = Vector2(10, -9)
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BumpAreaDown" unique_id=1403992480]
+position = Vector2(0, 12.5)
+shape = SubResource("RectangleShape2D_qdld1")
+
+[connection signal="body_entered" from="BumpAreaUp" to="." method="_on_bump_area_up_body_entered"]
+[connection signal="body_entered" from="BumpAreaDown" to="." method="_on_bump_area_down_body_entered"]

@@ -1,0 +1,124 @@
+[gd_scene format=3 uid="uid://bkpjhbtfjn21x"]
+
+[ext_resource type="Script" uid="uid://ch6fp7lged80t" path="res://scripts/cannon.gd" id="1_yjxeu"]
+[ext_resource type="PackedScene" uid="uid://c6t36ogpcuyn1" path="res://Prefabs/projectile.tscn" id="2_0285d"]
+[ext_resource type="Texture2D" uid="uid://bie2vvrif0ssf" path="res://assets/Enemies/Cannon/Attack (44x42).png" id="2_jfr8q"]
+[ext_resource type="Texture2D" uid="uid://butcsg1a3s2oc" path="res://assets/Enemies/Cannon/Idle (44x42).png" id="3_0285d"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uvlre"]
+atlas = ExtResource("3_0285d")
+region = Rect2(0, 0, 44, 42)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ogt75"]
+atlas = ExtResource("3_0285d")
+region = Rect2(44, 0, 44, 42)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4a4je"]
+atlas = ExtResource("3_0285d")
+region = Rect2(88, 0, 44, 42)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_22shy"]
+atlas = ExtResource("2_jfr8q")
+region = Rect2(0, 0, 44, 42)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8ssa1"]
+atlas = ExtResource("2_jfr8q")
+region = Rect2(44, 0, 44, 42)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5saov"]
+atlas = ExtResource("2_jfr8q")
+region = Rect2(88, 0, 44, 42)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_si6ue"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uvlre")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uvlre")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uvlre")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ogt75")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4a4je")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4a4je")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4a4je")
+}],
+"loop": 2,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_22shy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_22shy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_22shy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8ssa1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5saov")
+}],
+"loop": 0,
+"name": &"shoot",
+"speed": 15.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yjxeu"]
+size = Vector2(291, 46)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jfr8q"]
+size = Vector2(35, 7)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_si6ue"]
+size = Vector2(35, 18)
+
+[node name="Cannon" type="StaticBody2D" unique_id=713631733]
+collision_layer = 4
+collision_mask = 2
+script = ExtResource("1_yjxeu")
+projectile_scene = ExtResource("2_0285d")
+shoot_cooldown = null
+fire_frame = null
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=2032368557]
+position = Vector2(-22, -21)
+sprite_frames = SubResource("SpriteFrames_si6ue")
+animation = &"shoot"
+
+[node name="DetectionArea" type="Area2D" parent="." unique_id=1882653789]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea" unique_id=1988299158]
+position = Vector2(-21.5, -23)
+shape = SubResource("RectangleShape2D_yjxeu")
+
+[node name="HitBox" type="Area2D" parent="." unique_id=516988080]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox" unique_id=102876839]
+position = Vector2(-21.5, -21.5)
+shape = SubResource("RectangleShape2D_jfr8q")
+
+[node name="ShootPoint" type="Marker2D" parent="." unique_id=1198585953]
+position = Vector2(-44, -17)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=220551477]
+position = Vector2(-21.5, -9)
+shape = SubResource("RectangleShape2D_si6ue")
+
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
+[connection signal="body_entered" from="DetectionArea" to="." method="_on_detection_area_body_entered"]
+[connection signal="body_exited" from="DetectionArea" to="." method="_on_detection_area_body_exited"]

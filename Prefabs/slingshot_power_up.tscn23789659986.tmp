@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://r3xeh0br515u"]
+
+[ext_resource type="Script" uid="uid://05ih6ofrq5q" path="res://scripts/slingshot_power_up.gd" id="1_58qys"]
+[ext_resource type="Texture2D" uid="uid://duaayywdpt7t4" path="res://assets/Items/PowerUps/slingshot.png" id="1_pqpxm"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_58qys"]
+radius = 16.0
+
+[node name="SlingshotPowerUp" type="Area2D" unique_id=295490895]
+collision_layer = 0
+script = ExtResource("1_58qys")
+ammo_amount = null
+pop_gravity = null
+spawn_grace_time = null
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=204342418]
+scale = Vector2(0.063999996, 0.063999996)
+texture = ExtResource("1_pqpxm")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1212185395]
+shape = SubResource("CircleShape2D_58qys")

@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://b2yj5mabr5tha"]
+
+[ext_resource type="Script" uid="uid://wv76jci5bqp0" path="res://scripts/spike.gd" id="1_j2he6"]
+[ext_resource type="Texture2D" uid="uid://5hggq51cqpdj" path="res://assets/Traps/Spikes/Spike3.png" id="2_j2he6"]
+
+[sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_j2he6"]
+points = PackedVector2Array(4, -3.496911e-07, -4, 3.496911e-07, -1.0000014, -16, 0.9999986, -16)
+
+[node name="Spike" type="CharacterBody2D" unique_id=1093526157]
+rotation = 3.1415927
+collision_layer = 4
+collision_mask = 3
+script = ExtResource("1_j2he6")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=398189857]
+modulate = Color(1, 0.35025173, 0.23378068, 1)
+position = Vector2(-6.993822e-07, -8)
+texture = ExtResource("2_j2he6")
+region_rect = Rect2(0, 8.853197, 7.189434, 7.146803)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=506423874]
+visible = false
+shape = SubResource("ConvexPolygonShape2D_j2he6")

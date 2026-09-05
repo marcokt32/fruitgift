@@ -1,0 +1,264 @@
+extends CharacterBody2D
+
+enum BossState { IDLE, CHASE, BRAKING, TAUNT, STUNNED, HIT, DEAD }
+
+@export var flying: bool = false
+
+@export var edge_ray_offset_x := 16.0
+@export var edge_ray_offset_y := 20.0
+@export var wall_ray_offset_x := 20.0
+@export var wall_ray_offset_y := 0.0
+@export var health := 1.0
+@export var max_hits := 2          # quantidade maxima de hits que o boss aguenta, no total
+@export var speed := 250.0
+@export var irritable: bool = false
+@export var edge_ray_active: bool = true
+
+@export_group("Boss behavior")
+@export var player_path: NodePath          # opcional: se nao setar, procura no grupo "player"
+@export var trigger_area_path: NodePath    # Area2D que ativa o boss quando o player entra; vazio = comeca ativo
+@export var brake_deceleration := 150.0    # quanto a velocidade cai por segundo ao frear
+@export var stun_duration := 3.0           # segundos atordoado apos bater na parede em alta velocidade
+
+var state = BossState.IDLE
+var active := false
+var hits_taken := 0
+var angry := false
+var direction := -1
+var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
+var player: Node2D = null
+
+@onready var angry_speed = speed * 2.5
+@onready var half_life = health / 2
+@onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
+@onready var edge_ray: RayCast2D = $EdgeRay
+@onready var wall_ray: RayCast2D = $WallRay
+@onready var hit_box: Area2D = $HitBox
+@onready var reset_speed = speed
+
+
+func _ready() -> void:
+	hit_box.monitoring = false
+	_connect_trigger_area()
+	if trigger_area_path == NodePath():
+		# sem area de trigger configurada: mantem o comportamento antigo, ja comeca ativo
+		_activate()
+
+
+func _connect_trigger_area() -> void:
+	if trigger_area_path == NodePath():
+		return
+	var trigger_area := get_node_or_null(trigger_area_path)
+	if trigger_area and trigger_area.has_signal("body_entered"):
+		trigger_area.body_entered.connect(_on_trigger_area_body_entered)
+
+
+func _on_trigger_area_body_entered(body: Node) -> void:
+	if active:
+		return
+	if body.is_in_group("player"):
+		player = body
+		_activate()
+
+
+func _activate() -> void:
+	active = true
+	_find_player()
+	if player:
+		var start_dir: float = sign(player.global_position.x - global_position.x)
+		direction = int(start_dir) if start_dir != 0 else -1
+	_start_taunt()
+
+
+func _physics_process(delta: float) -> void:
+	_set_animation()
+
+	if state == BossState.DEAD:
+		if not is_on_floor():
+			velocity.y += gravity * delta
+		move_and_slide()
+		return
+
+	if not active:
+		velocity.x = 0
+		if not is_on_floor() and not flying:
+			velocity.y += gravity * delta
+		move_and_slide()
+		return
+
+	_find_player()
+	_update_edge_ray()
+	_update_wall_ray()
+
+	match state:
+		BossState.CHASE:
+			_process_chase(delta)
+		BossState.BRAKING:
+			_process_braking(delta)
+		BossState.TAUNT, BossState.STUNNED, BossState.HIT:
+			velocity.x = 0
+
+	if not is_on_floor() and not flying:
+		velocity.y += gravity * delta
+
+	sprite.flip_h = direction > 0
+	move_and_slide()
+
+
+func _find_player() -> void:
+	if player and is_instance_valid(player):
+		return
+	if player_path != NodePath():
+		player = get_node_or_null(player_path)
+	else:
+		player = get_tree().get_first_node_in_group("player")
+
+
+func _process_chase(delta: float) -> void:
+	if player:
+		var to_player: float = sign(player.global_position.x - global_position.x)
+		# o player passou pelo boss: ele ia pra um lado e agora o alvo esta do lado oposto
+		if to_player != 0 and to_player != direction:
+			_start_braking()
+			return
+
+	if is_on_floor() and not edge_ray.is_colliding() and edge_ray_active:
+		_turn_around()
+
+	if flying and not is_on_floor() and not edge_ray.is_colliding() and edge_ray_active:
+		_turn_around()
+
+	if wall_ray.is_colliding():
+		_start_stun()
+		return
+
+	var target_speed = angry_speed if angry else reset_speed
+	velocity.x = direction * target_speed
+
+
+func _process_braking(delta: float) -> void:
+	if wall_ray.is_colliding():
+		_start_stun()
+		return
+	velocity.x = move_toward(velocity.x, 0, brake_deceleration * delta)
+	if is_zero_approx(velocity.x):
+		velocity.x = 0
+		_start_taunt()
+
+
+func _start_braking() -> void:
+	state = BossState.BRAKING
+	sprite.play("braking")
+
+
+func _start_taunt() -> void:
+	state = BossState.TAUNT
+	if player:
+		var to_player: float = sign(player.global_position.x - global_position.x)
+		if to_player != 0:
+			direction = int(to_player)
+	_update_edge_ray()
+	_update_wall_ray()
+	sprite.play("taunt")
+
+
+func _start_stun() -> void:
+	_turn_around()
+	state = BossState.STUNNED
+	velocity.x = 0
+	hit_box.monitoring = true
+	sprite.play("stun")
+	await get_tree().create_timer(stun_duration).timeout
+	hit_box.monitoring = false
+	if state == BossState.STUNNED:
+		_start_taunt()
+
+
+func _update_edge_ray() -> void:
+	edge_ray.target_position = Vector2(0, edge_ray_offset_y)
+	edge_ray.force_raycast_update()
+
+
+func _update_wall_ray() -> void:
+	wall_ray.target_position = Vector2(wall_ray_offset_x * direction, wall_ray_offset_y)
+	wall_ray.force_raycast_update()
+
+
+func _turn_around() -> void:
+	direction *= -1
+	_update_edge_ray()
+	_update_wall_ray()
+
+
+func _set_animation() -> void:
+	var anim := "idle"
+	match state:
+		BossState.IDLE:
+			anim = "idle"
+		BossState.DEAD, BossState.HIT:
+			anim = "hit"
+		BossState.BRAKING:
+			anim = "braking"
+		BossState.TAUNT:
+			anim = "taunt"
+		BossState.STUNNED:
+			anim = "stun"
+		BossState.CHASE:
+			if abs(velocity.x) > 40:
+				anim = "angry" if angry else "run"
+	if sprite.animation != anim or not sprite.is_playing():
+		sprite.play(anim)
+
+
+func _on_animated_sprite_2d_animation_finished() -> void:
+	var anim = sprite.animation
+	match anim:
+		"hit":
+			if health <= 0:
+				queue_free()
+			else:
+				_start_taunt()
+		"taunt":
+			state = BossState.CHASE
+			var target_speed = angry_speed if angry else reset_speed
+			velocity.x = direction * target_speed
+		# "stun" nao precisa de callback aqui: quem controla é o timer em _start_stun()
+
+
+func _on_hit_box_area_entered(area: Area2D) -> void:
+	if state == BossState.DEAD:
+		return
+	if area.name == "HurtBox":
+		var p := area.get_parent()
+		if p.velocity.y >= 0 and p.global_position.y < global_position.y:
+			_hit(p)
+
+
+func _hit(hitter) -> void:
+	if state == BossState.HIT or state == BossState.DEAD:
+		return
+	hits_taken += 1
+	health -= 1
+	state = BossState.HIT
+	hit_box.monitoring = false
+	if health <= half_life and irritable and not angry:
+		angry = true
+	velocity = Vector2.ZERO
+	hitter.velocity.y = -400
+	sprite.play("hit")
+	if hits_taken >= max_hits or health <= 0:
+		state = BossState.DEAD
+
+
+func take_projectile_hit() -> void:
+	if state == BossState.HIT or state == BossState.DEAD:
+		return
+	hits_taken += 1
+	health -= 1
+	state = BossState.HIT
+	if health <= half_life and irritable and not angry:
+		angry = true
+	velocity = Vector2.ZERO
+	sprite.play("hit")
+	if hits_taken >= max_hits or health <= 0:
+		state = BossState.DEAD

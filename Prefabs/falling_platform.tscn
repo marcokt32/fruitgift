@@ -1,0 +1,34 @@
+[gd_scene format=3 uid="uid://bmtu5cdlo7um5"]
+
+[ext_resource type="Script" uid="uid://dgff0xh4d6nb1" path="res://scripts/falling_platform.gd" id="1_r7qie"]
+[ext_resource type="Texture2D" uid="uid://cynpc1w2bin5o" path="res://assets/TileMap/TerrainMarcov6.png" id="2_imq24"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_imq24"]
+size = Vector2(48, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_si6ue"]
+size = Vector2(48, 4)
+
+[node name="FallingPlatform" type="CharacterBody2D" unique_id=136685166]
+collision_layer = 8
+collision_mask = 0
+script = ExtResource("1_r7qie")
+trigger_area_path = NodePath("TriggerArea")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1239396310]
+texture = ExtResource("2_imq24")
+offset = Vector2(24, -8)
+region_enabled = true
+region_rect = Rect2(128, 0, 48, 16)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=195129030]
+position = Vector2(24, -8)
+shape = SubResource("RectangleShape2D_imq24")
+one_way_collision = true
+
+[node name="TriggerArea" type="Area2D" parent="." unique_id=1861572279]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TriggerArea" unique_id=324921969]
+position = Vector2(24, -18)
+shape = SubResource("RectangleShape2D_si6ue")

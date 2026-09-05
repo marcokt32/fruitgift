@@ -1,0 +1,132 @@
+[gd_scene format=3 uid="uid://mbdv2qxo2hv8"]
+
+[ext_resource type="Texture2D" uid="uid://crl0vceormbor" path="res://assets/Enemies/Ptero/Flying (32x32).png" id="1_ksykq"]
+[ext_resource type="Script" uid="uid://cln747y4vjrmo" path="res://scripts/enemyBase.gd" id="1_vitff"]
+[ext_resource type="Texture2D" uid="uid://cquiyl6xwiune" path="res://assets/Enemies/Ptero/Hit (32x32).png" id="2_vitff"]
+
+[sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_wqki0"]
+points = PackedVector2Array(-20, 2, 0, -12, 20, 2, 0, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vitff"]
+atlas = ExtResource("2_vitff")
+region = Rect2(0, 0, 42, 42)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qlwtw"]
+atlas = ExtResource("2_vitff")
+region = Rect2(42, 0, 42, 42)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0ji8k"]
+atlas = ExtResource("2_vitff")
+region = Rect2(84, 0, 42, 42)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_71kcg"]
+atlas = ExtResource("1_ksykq")
+region = Rect2(0, 0, 42, 42)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dtnts"]
+atlas = ExtResource("1_ksykq")
+region = Rect2(42, 0, 42, 42)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ktuy2"]
+atlas = ExtResource("1_ksykq")
+region = Rect2(84, 0, 42, 42)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2kw4p"]
+atlas = ExtResource("1_ksykq")
+region = Rect2(0, 0, 42, 42)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4hvy0"]
+atlas = ExtResource("1_ksykq")
+region = Rect2(42, 0, 42, 42)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bh3xl"]
+atlas = ExtResource("1_ksykq")
+region = Rect2(84, 0, 42, 42)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_vitff"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vitff")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qlwtw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0ji8k")
+}],
+"loop": 0,
+"name": &"hit",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_71kcg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dtnts")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ktuy2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_71kcg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dtnts")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ktuy2")
+}],
+"loop": 0,
+"name": &"idle",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2kw4p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4hvy0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bh3xl")
+}],
+"loop": 1,
+"name": &"run",
+"speed": 8.0
+}]
+
+[sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_ferg5"]
+points = PackedVector2Array(-20, 2, 0, -12, 20, 2, 0, 12)
+
+[node name="Ptero" type="CharacterBody2D" unique_id=1968208331 groups=["enemy"]]
+collision_layer = 4
+collision_mask = 2
+script = ExtResource("1_vitff")
+flying = true
+edge_ray_offset_y = 60.0
+wall_ray_offset_x = 30.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1919240732]
+shape = SubResource("ConvexPolygonShape2D_wqki0")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=36804422]
+sprite_frames = SubResource("SpriteFrames_vitff")
+animation = &"run"
+
+[node name="HitBox" type="Area2D" parent="." unique_id=643735529]
+collision_layer = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox" unique_id=279938741]
+shape = SubResource("ConvexPolygonShape2D_ferg5")
+
+[node name="EdgeRay" type="RayCast2D" parent="." unique_id=1274342351]
+collision_mask = 2
+
+[node name="WallRay" type="RayCast2D" parent="." unique_id=215897383]
+target_position = Vector2(-25, 0)
+collision_mask = 2
+
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
+[connection signal="area_entered" from="HitBox" to="." method="_on_hit_box_area_entered"]

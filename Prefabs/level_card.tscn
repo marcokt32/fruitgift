@@ -1,0 +1,34 @@
+[gd_scene format=3 uid="uid://c6x17ca2u2a4j"]
+
+[ext_resource type="Texture2D" uid="uid://cl865snlt8dqw" path="res://assets/Menu/Buttons/Level Button 96x160.png" id="1_jmqxb"]
+[ext_resource type="Script" uid="uid://cplgod1mgt5jr" path="res://scripts/level_card.gd" id="1_yi5tt"]
+
+[node name="LevelCard" type="Button" unique_id=1036470898]
+custom_minimum_size = Vector2(64, 96)
+offset_right = 104.0
+offset_bottom = 168.0
+icon = ExtResource("1_jmqxb")
+flat = true
+icon_alignment = 1
+script = ExtResource("1_yi5tt")
+
+[node name="Thumbnail" type="TextureRect" parent="." unique_id=165065768]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="NameLabel" type="Label" parent="." unique_id=839521580]
+layout_mode = 0
+offset_right = 64.0
+offset_bottom = 23.0
+
+[node name="LockIcon" type="TextureRect" parent="." unique_id=1309835049]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2

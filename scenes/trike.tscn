@@ -1,0 +1,109 @@
+[gd_scene format=3 uid="uid://d1fy6hce0t7h"]
+
+[ext_resource type="Script" uid="uid://chhsub8nlfjvo" path="res://scripts/trike.gd" id="1_o02yi"]
+[ext_resource type="Texture2D" uid="uid://dhaia3ud0b2rx" path="res://assets/Enemies/Trike/Blink (42x42).png" id="2_qcgbx"]
+[ext_resource type="Texture2D" uid="uid://0ec0mpk5p26x" path="res://assets/Enemies/Trike/Idle.png" id="3_7hsil"]
+[ext_resource type="Texture2D" uid="uid://b1vannyuq0rd3" path="res://assets/Enemies/Trike/Impact (42x42).png" id="3_aieqt"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aieqt"]
+atlas = ExtResource("2_qcgbx")
+region = Rect2(0, 0, 42, 42)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ke7jv"]
+atlas = ExtResource("2_qcgbx")
+region = Rect2(42, 0, 42, 42)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hwv23"]
+atlas = ExtResource("2_qcgbx")
+region = Rect2(84, 0, 42, 42)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r8mbh"]
+atlas = ExtResource("2_qcgbx")
+region = Rect2(126, 0, 42, 42)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y4v8a"]
+atlas = ExtResource("3_aieqt")
+region = Rect2(0, 0, 42, 42)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tjej3"]
+atlas = ExtResource("3_aieqt")
+region = Rect2(42, 0, 42, 42)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tmupg"]
+atlas = ExtResource("3_aieqt")
+region = Rect2(84, 0, 42, 42)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m0o3l"]
+atlas = ExtResource("3_aieqt")
+region = Rect2(126, 0, 42, 42)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_qx6oe"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_aieqt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ke7jv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hwv23")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r8mbh")
+}],
+"loop": 0,
+"name": &"blink",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_7hsil")
+}],
+"loop": 1,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y4v8a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tjej3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tmupg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m0o3l")
+}],
+"loop": 0,
+"name": &"impact",
+"speed": 15.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_7hsil")
+}],
+"loop": 1,
+"name": &"move",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7hsil"]
+size = Vector2(32, 32)
+
+[node name="Trike" type="AnimatableBody2D" unique_id=1184886891]
+position = Vector2(80, 80)
+collision_layer = 4
+collision_mask = 2
+script = ExtResource("1_o02yi")
+max_speed = 500.0
+acceleration = 100.0
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1244125914]
+sprite_frames = SubResource("SpriteFrames_qx6oe")
+animation = &"idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=477245389]
+shape = SubResource("RectangleShape2D_7hsil")

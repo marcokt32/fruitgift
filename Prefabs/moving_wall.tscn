@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://lduwf8wdmxd7"]
+
+[ext_resource type="Script" uid="uid://chhsub8nlfjvo" path="res://scripts/trike.gd" id="1_68l3j"]
+[ext_resource type="Texture2D" uid="uid://yj7bn0gwyoqa" path="res://assets/Traps/block.png" id="2_xlws4"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_si6ue"]
+size = Vector2(448, 80)
+
+[node name="MovingWall" type="AnimatableBody2D" unique_id=919802588]
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("1_68l3j")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=507640655]
+offset_right = 448.0
+offset_bottom = 80.0
+texture = ExtResource("2_xlws4")
+stretch_mode = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1825931142]
+position = Vector2(224, 40)
+shape = SubResource("RectangleShape2D_si6ue")
+
+[node name="Timer" type="Timer" parent="." unique_id=944198399]

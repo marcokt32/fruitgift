@@ -1,0 +1,82 @@
+[gd_scene format=3 uid="uid://cpcqgdm6p64yl"]
+
+[ext_resource type="Script" uid="uid://btnflv83sjqa6" path="res://scripts/final_flag.gd" id="1_tyj3k"]
+[ext_resource type="Texture2D" uid="uid://c025v4y10st73" path="res://assets/Items/Others/FinalFlag/FinalFlag idle (48x80).png" id="1_u5goc"]
+[ext_resource type="Texture2D" uid="uid://17li4odybx8" path="res://assets/Items/Others/FinalFlag/FinalFlag move (48x80).png" id="2_tyj3k"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tyj3k"]
+atlas = ExtResource("2_tyj3k")
+region = Rect2(0, 0, 48, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2uwit"]
+atlas = ExtResource("2_tyj3k")
+region = Rect2(48, 0, 48, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1xjtn"]
+atlas = ExtResource("2_tyj3k")
+region = Rect2(96, 0, 48, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fwusx"]
+atlas = ExtResource("2_tyj3k")
+region = Rect2(144, 0, 48, 80)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_si6ue"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_u5goc")
+}],
+"loop": 1,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tyj3k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2uwit")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1xjtn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fwusx")
+}],
+"loop": 1,
+"name": &"move",
+"speed": 10.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hld54"]
+size = Vector2(16, 285)
+
+[node name="FinalFlag" type="Area2D" unique_id=1298458719]
+collision_layer = 0
+script = ExtResource("1_tyj3k")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1013525608]
+position = Vector2(24, -40)
+sprite_frames = SubResource("SpriteFrames_si6ue")
+animation = &"move"
+autoplay = "idle"
+frame = 1
+frame_progress = 0.12682015
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1819264961]
+position = Vector2(8, -35.5)
+shape = SubResource("RectangleShape2D_hld54")
+
+[node name="FadeLayer" type="CanvasLayer" parent="." unique_id=1244559020]
+
+[node name="FadeRect" type="ColorRect" parent="FadeLayer" unique_id=1677595846]
+modulate = Color(1, 1, 1, 0)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

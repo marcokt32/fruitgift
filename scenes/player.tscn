@@ -1,0 +1,87 @@
+[gd_scene format=3 uid="uid://d1f8ds10k0egw"]
+
+[ext_resource type="Script" uid="uid://1pepwcjnvark" path="res://scripts/player.gd" id="1_3vyb7"]
+[ext_resource type="SpriteFrames" uid="uid://c0j1rfjeqqwwj" path="res://assets/Player/player_frames.tres" id="2_fjrip"]
+[ext_resource type="Texture2D" uid="uid://d1o1ktrgtl8rl" path="res://assets/Others/Leaf Particle.png" id="4_dqkch"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fjrip"]
+size = Vector2(17, 30)
+
+[sub_resource type="Curve" id="Curve_dqkch"]
+_limits = [-500.0, 500.0, 0.0, 1.0]
+_data = [Vector2(0, -39.325806), 0.0, 0.0, 0, 0, Vector2(1, 39.325867), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_qlg0r"]
+_limits = [-360.0, 360.0, 0.0, 1.0]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 36.40451), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_si6ue"]
+size = Vector2(17, 29)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hld54"]
+size = Vector2(15, 4)
+
+[node name="Player" type="CharacterBody2D" unique_id=230714219 groups=["player"]]
+collision_mask = 10
+floor_max_angle = 1.0471976
+script = ExtResource("1_3vyb7")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1595733077]
+sprite_frames = ExtResource("2_fjrip")
+animation = &"walk"
+frame_progress = 0.40768424
+
+[node name="ShootPoint" type="Marker2D" parent="AnimatedSprite2D" unique_id=1559933070]
+position = Vector2(15, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=13029718]
+visible = false
+position = Vector2(-0.5, 0)
+shape = SubResource("RectangleShape2D_fjrip")
+
+[node name="RayCast2D (left-wall)" type="RayCast2D" parent="." unique_id=1224243617]
+
+[node name="RayCast2D (right-wall)" type="RayCast2D" parent="." unique_id=1002922104]
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1198119006]
+position = Vector2(-16, 0)
+limit_left = -288
+limit_bottom = 128
+drag_vertical_enabled = true
+drag_horizontal_offset = 0.2
+drag_vertical_offset = 0.2
+
+[node name="LeafParticles" type="CPUParticles2D" parent="Camera2D" unique_id=1067830242]
+position = Vector2(578, -45)
+amount = 5
+texture = ExtResource("4_dqkch")
+lifetime = 10.0
+emission_shape = 3
+emission_rect_extents = Vector2(20, 145.005)
+direction = Vector2(0, 1)
+gravity = Vector2(-100, 0)
+orbit_velocity_curve = SubResource("Curve_dqkch")
+angle_max = 90.0
+angle_curve = SubResource("Curve_qlg0r")
+
+[node name="HitBox" type="Area2D" parent="." unique_id=1704580888]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox" unique_id=1639803193]
+visible = false
+position = Vector2(-0.5, -1.5)
+shape = SubResource("RectangleShape2D_si6ue")
+
+[node name="HurtBox" type="Area2D" parent="." unique_id=1910271159]
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox" unique_id=1228025937]
+visible = false
+position = Vector2(-0.5, 14)
+shape = SubResource("RectangleShape2D_hld54")
+
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
+[connection signal="body_entered" from="HitBox" to="." method="_on_hurt_box_body_entered"]

@@ -1,0 +1,97 @@
+[gd_scene format=3 uid="uid://reppsagwwub4"]
+
+[ext_resource type="Script" uid="uid://comthiqyo3syi" path="res://scripts/intro_scene.gd" id="1_3h63u"]
+[ext_resource type="Script" uid="uid://gtg3pfktqk01" path="res://scripts/introBeat.gd" id="2_aqvyq"]
+[ext_resource type="Texture2D" uid="uid://bkcbwjsquqkw3" path="res://assets/Others/arts/Lore-1.png" id="2_ugwa6"]
+[ext_resource type="Texture2D" uid="uid://574sev2py6l6" path="res://assets/Others/arts/lore-2.png" id="4_aqvyq"]
+[ext_resource type="Texture2D" uid="uid://cr1dn24d1iirk" path="res://assets/Others/arts/lore-4.png" id="5_heh0t"]
+[ext_resource type="FontFile" uid="uid://bx3o38mv8l3n8" path="res://assets/Menu/Fonts/Bangers-Regular.ttf" id="5_jed33"]
+
+[sub_resource type="Resource" id="Resource_3h63u"]
+script = ExtResource("2_aqvyq")
+text = "Havia um mundo dominado por duas espécies diferentes ...
+Elas estavam sempre em conflito por poder ..."
+texture = ExtResource("2_ugwa6")
+move_target = 1
+direction = Vector2(0, 1)
+move_distance = 50.0
+fade_out_duration = 1.5
+text_speed = 15.0
+hold_time = 1.5
+metadata/_custom_type_script = "uid://gtg3pfktqk01"
+
+[sub_resource type="Resource" id="Resource_ugwa6"]
+script = ExtResource("2_aqvyq")
+text = "Humanos e Monstros. Guerras duraram eras e toda essa perturbação despertou um mal maior ..."
+texture = ExtResource("4_aqvyq")
+move_target = 2
+direction = Vector2(0, -1)
+move_distance = 50.0
+metadata/_custom_type_script = "uid://gtg3pfktqk01"
+
+[sub_resource type="Resource" id="Resource_jed33"]
+script = ExtResource("2_aqvyq")
+text = "Um mal que nenhum dos seus maiores guerreiros poderiam derrotar."
+texture = ExtResource("5_heh0t")
+move_target = 1
+direction = Vector2(0, -1)
+move_distance = 20.0
+metadata/_custom_type_script = "uid://gtg3pfktqk01"
+
+[node name="IntroScene" type="Node2D" unique_id=510397021]
+script = ExtResource("1_3h63u")
+beats = Array[ExtResource("2_aqvyq")]([SubResource("Resource_3h63u"), SubResource("Resource_ugwa6"), SubResource("Resource_jed33")])
+
+[node name="ArtSprite" type="Sprite2D" parent="." unique_id=729548264]
+position = Vector2(358, 272.5)
+scale = Vector2(0.5441988, 0.52946585)
+texture = ExtResource("2_ugwa6")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=347483235]
+position = Vector2(352, 160)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=2034916560]
+
+[node name="FadeRect" type="ColorRect" parent="CanvasLayer" unique_id=158847588]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextBox" type="TextureRect" parent="CanvasLayer" unique_id=655999998]
+offset_left = 96.0
+offset_top = 128.0
+offset_right = 624.0
+offset_bottom = 192.0
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/TextBox" unique_id=1669938535]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -96.0
+offset_top = -144.0
+offset_right = 96.0
+offset_bottom = 144.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.49019608)
+
+[node name="TextLabel" type="RichTextLabel" parent="CanvasLayer/TextBox" unique_id=1743920016]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 3
+theme_override_fonts/normal_font = ExtResource("5_jed33")
+theme_override_font_sizes/normal_font_size = 24
+
+[node name="SkipButton" type="Button" parent="CanvasLayer" unique_id=829295215]
+offset_left = 624.0
+offset_top = 240.0
+offset_right = 704.0
+offset_bottom = 288.0

@@ -1,0 +1,46 @@
+[gd_scene format=3 uid="uid://dqsovm170cuum"]
+
+[ext_resource type="Texture2D" uid="uid://bsea364d66mrc" path="res://assets/Items/Box/Box1/Break.png" id="1_2wii0"]
+[ext_resource type="Script" uid="uid://qiyaduim70r" path="res://scripts/box_particle.gd" id="2_562fg"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_562fg"]
+atlas = ExtResource("1_2wii0")
+region = Rect2(0, 0, 28, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_burjl"]
+atlas = ExtResource("1_2wii0")
+region = Rect2(28, 0, 28, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1ofi8"]
+atlas = ExtResource("1_2wii0")
+region = Rect2(56, 0, 28, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cucex"]
+atlas = ExtResource("1_2wii0")
+region = Rect2(84, 0, 28, 24)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_2wii0"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_562fg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_burjl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1ofi8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cucex")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 10.0
+}]
+
+[node name="BoxParticle" type="Node2D" unique_id=2093119535]
+script = ExtResource("2_562fg")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1289660718]
+sprite_frames = SubResource("SpriteFrames_2wii0")

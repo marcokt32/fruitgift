@@ -1,0 +1,74 @@
+[gd_scene format=3 uid="uid://cjba2k0ldyhpa"]
+
+[ext_resource type="Script" uid="uid://dpcgxkkpqv6ur" path="res://scripts/main_menu.gd" id="1_8ln24"]
+[ext_resource type="Texture2D" uid="uid://bpwf2u3rfnj2w" path="res://assets/Menu/ConceptArt.png" id="2_8ln24"]
+[ext_resource type="Texture2D" uid="uid://d23fxydw638x7" path="res://assets/Menu/Buttons/play.png" id="2_ekxnf"]
+[ext_resource type="Texture2D" uid="uid://bm0kq33otutk2" path="res://assets/Menu/Buttons/sair.png" id="2_wu84c"]
+[ext_resource type="Texture2D" uid="uid://7sp7tdpugdo5" path="res://assets/Menu/Buttons/options2.png" id="3_8ln24"]
+[ext_resource type="PackedScene" uid="uid://c07s7oyxpi7eb" path="res://Prefabs/pause.tscn" id="6_rtw2f"]
+
+[node name="MainMenu" type="Control" unique_id=1687677949]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_8ln24")
+level_select_path = "res://Prefabs/level_select.tscn"
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=82726928]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_8ln24")
+expand_mode = 1
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=682984206]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.49019608)
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1460616553]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+offset_transform_enabled = true
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=132462184]
+layout_mode = 2
+size_flags_horizontal = 8
+alignment = 1
+
+[node name="QuitButton" type="TextureButton" parent="MarginContainer/VBoxContainer" unique_id=1036673020]
+layout_mode = 2
+texture_normal = ExtResource("2_wu84c")
+
+[node name="OptionsButton" type="TextureButton" parent="MarginContainer/VBoxContainer" unique_id=1506442760]
+layout_mode = 2
+texture_normal = ExtResource("3_8ln24")
+
+[node name="PlayButton" type="TextureButton" parent="MarginContainer" unique_id=1544241013]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture_normal = ExtResource("2_ekxnf")
+
+[node name="Pause" parent="." unique_id=745931159 instance=ExtResource("6_rtw2f")]
+layout_mode = 1
+start_on_options = true
+pause_action_enabled = false

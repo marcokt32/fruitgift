@@ -1,0 +1,225 @@
+[gd_scene format=3 uid="uid://bjxchnv3dexe0"]
+
+[ext_resource type="Script" uid="uid://nlyy0e337acu" path="res://scripts/gate.gd" id="1_oi61f"]
+[ext_resource type="Texture2D" uid="uid://vbij3bd37ner" path="res://assets/TileMap/TileMap.png" id="2_dtnh3"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_oi61f"]
+size = Vector2(80, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_si6ue"]
+atlas = ExtResource("2_dtnh3")
+region = Rect2(32, 160, 16, 16)
+
+[sub_resource type="Animation" id="Animation_dtnh3"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Body:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Gear:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_oi61f"]
+resource_name = "down"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Body:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Gear:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_m4qkj"]
+resource_name = "set_down"
+length = 3.0000000000000004
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Body:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-80, 0), Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Gear:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [6.283185307179586, 0.0]
+}
+
+[sub_resource type="Animation" id="Animation_m6ijw"]
+resource_name = "set_up"
+length = 3.0000000000000004
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Body:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(-80, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Gear:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 6.2831855]
+}
+
+[sub_resource type="Animation" id="Animation_gscmg"]
+resource_name = "up"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Body:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-80, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Gear:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [6.2831855]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_dtnh3"]
+_data = {
+&"RESET": SubResource("Animation_dtnh3"),
+&"down": SubResource("Animation_oi61f"),
+&"set_down": SubResource("Animation_m4qkj"),
+&"set_up": SubResource("Animation_m6ijw"),
+&"up": SubResource("Animation_gscmg")
+}
+
+[node name="Gate" type="Node2D" unique_id=1679839133]
+z_index = -1
+rotation = 1.5707964
+script = ExtResource("1_oi61f")
+
+[node name="Gear" type="Sprite2D" parent="." unique_id=303039360]
+z_index = -1
+position = Vector2(-80, -15.999996)
+texture = ExtResource("2_dtnh3")
+region_enabled = true
+region_rect = Rect2(128, 144, 32, 32)
+
+[node name="Body" type="AnimatableBody2D" parent="." unique_id=1038036228]
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Body" unique_id=208757997]
+position = Vector2(-40, -2.1258463e-06)
+shape = SubResource("RectangleShape2D_oi61f")
+
+[node name="TextureRect" type="TextureRect" parent="Body" unique_id=127927014]
+visible = false
+offset_left = -80.0
+offset_top = -7.999996
+offset_right = -0.050964355
+offset_bottom = 8.000004
+texture = SubResource("AtlasTexture_si6ue")
+stretch_mode = 1
+
+[node name="Node2D" type="Node2D" parent="Body" unique_id=656832675]
+
+[node name="Sprite2D" type="Sprite2D" parent="Body/Node2D" unique_id=1497779137]
+position = Vector2(-72, -2.038384e-06)
+texture = ExtResource("2_dtnh3")
+region_enabled = true
+region_rect = Rect2(160, 144, 16, 32)
+
+[node name="Sprite2D2" type="Sprite2D" parent="Body/Node2D" unique_id=1975179055]
+position = Vector2(-56, -2.0225107e-06)
+texture = ExtResource("2_dtnh3")
+region_enabled = true
+region_rect = Rect2(176, 144, 16, 32)
+
+[node name="Sprite2D3" type="Sprite2D" parent="Body/Node2D" unique_id=1837191006]
+position = Vector2(-40, -2.0662417e-06)
+texture = ExtResource("2_dtnh3")
+region_enabled = true
+region_rect = Rect2(176, 144, 16, 32)
+
+[node name="Sprite2D4" type="Sprite2D" parent="Body/Node2D" unique_id=544697304]
+position = Vector2(-24, -2.0503683e-06)
+texture = ExtResource("2_dtnh3")
+region_enabled = true
+region_rect = Rect2(176, 144, 16, 32)
+
+[node name="Sprite2D5" type="Sprite2D" parent="Body/Node2D" unique_id=1374950364]
+position = Vector2(-8, 4.0929575e-07)
+texture = ExtResource("2_dtnh3")
+region_enabled = true
+region_rect = Rect2(192, 144, 16, 32)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Body" unique_id=813228955]
+root_node = NodePath("../..")
+libraries/ = SubResource("AnimationLibrary_dtnh3")
+autoplay = &"down"
+
+[connection signal="animation_finished" from="Body/AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
