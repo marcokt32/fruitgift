@@ -1,5 +1,10 @@
 extends CharacterBody2D
 
+signal activated
+signal health_changed(current: float, max_health: float)
+signal defeated
+signal boss_reset
+
 enum BossState { IDLE, CHASE, BRAKING, TAUNT, STUNNED, HIT, DEAD }
 
 @export var flying: bool = false
@@ -9,7 +14,6 @@ enum BossState { IDLE, CHASE, BRAKING, TAUNT, STUNNED, HIT, DEAD }
 @export var wall_ray_offset_x := 20.0
 @export var wall_ray_offset_y := 0.0
 @export var health := 1.0
-@export var max_hits := 2          # quantidade maxima de hits que o boss aguenta, no total
 @export var speed := 250.0
 @export var irritable: bool = false
 @export var edge_ray_active: bool = true
@@ -19,17 +23,25 @@ enum BossState { IDLE, CHASE, BRAKING, TAUNT, STUNNED, HIT, DEAD }
 @export var trigger_area_path: NodePath    # Area2D que ativa o boss quando o player entra; vazio = comeca ativo
 @export var brake_deceleration := 150.0    # quanto a velocidade cai por segundo ao frear
 @export var stun_duration := 3.0           # segundos atordoado apos bater na parede em alta velocidade
+@export var knockback_force := 350.0       # forca do empurrao no player no 3o stomp do stun
+@export var door_paths: Array[NodePath] = []  # portas que fecham ao ativar e abrem ao morrer/resetar
+
+const MAX_STUN_HITS := 3
 
 var state = BossState.IDLE
 var active := false
 var hits_taken := 0
+var stun_hits := 0
 var angry := false
 var direction := -1
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var player: Node2D = null
+var spawn_position: Vector2
+var trigger_area: Area2D = null
 
 @onready var angry_speed = speed * 2.5
 @onready var half_life = health / 2
+@onready var max_health = health
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var edge_ray: RayCast2D = $EdgeRay
 @onready var wall_ray: RayCast2D = $WallRay
@@ -38,8 +50,14 @@ var player: Node2D = null
 
 
 func _ready() -> void:
+	spawn_position = global_position
 	hit_box.monitoring = false
 	_connect_trigger_area()
+	if GameEvents.has_signal("player_respawned"):
+		GameEvents.player_respawned.connect(reset_boss)
+		print("Boss: conectado ao GameEvents.player_respawned")
+	else:
+		push_warning("Boss: GameEvents nao tem o sinal 'player_respawned' - confira se voce adicionou 'signal player_respawned' no autoload")
 	if trigger_area_path == NodePath():
 		# sem area de trigger configurada: mantem o comportamento antigo, ja comeca ativo
 		_activate()
@@ -48,7 +66,7 @@ func _ready() -> void:
 func _connect_trigger_area() -> void:
 	if trigger_area_path == NodePath():
 		return
-	var trigger_area := get_node_or_null(trigger_area_path)
+	trigger_area = get_node_or_null(trigger_area_path)
 	if trigger_area and trigger_area.has_signal("body_entered"):
 		trigger_area.body_entered.connect(_on_trigger_area_body_entered)
 
@@ -58,11 +76,16 @@ func _on_trigger_area_body_entered(body: Node) -> void:
 		return
 	if body.is_in_group("player"):
 		player = body
+		if trigger_area:
+			trigger_area.set_deferred("monitoring", false)
 		_activate()
 
 
 func _activate() -> void:
 	active = true
+	visible = true
+	_set_doors_open(false)
+	activated.emit()
 	_find_player()
 	if player:
 		var start_dir: float = sign(player.global_position.x - global_position.x)
@@ -103,6 +126,41 @@ func _physics_process(delta: float) -> void:
 
 	sprite.flip_h = direction > 0
 	move_and_slide()
+
+
+func _set_doors_open(open: bool) -> void:
+	for path in door_paths:
+		var door := get_node_or_null(path)
+		if door == null:
+			push_warning("Boss: door_path invalido ou nao encontrado: %s" % path)
+			continue
+		if open and door.has_method("open"):
+			door.open()
+		elif not open and door.has_method("close"):
+			door.close()
+
+
+func reset_boss() -> void:
+	print("Boss: reset_boss() chamado, trigger_area = ", trigger_area)
+	active = false
+	state = BossState.IDLE
+	angry = false
+	health = max_health
+	hits_taken = 0
+	stun_hits = 0
+	direction = -1
+	velocity = Vector2.ZERO
+	global_position = spawn_position
+	hit_box.monitoring = false
+	visible = false
+	_set_doors_open(true)
+	_reset_trigger()
+	boss_reset.emit()
+
+
+func _reset_trigger() -> void:
+	if trigger_area:
+		trigger_area.set_deferred("monitoring", true)
 
 
 func _find_player() -> void:
@@ -165,6 +223,7 @@ func _start_taunt() -> void:
 func _start_stun() -> void:
 	_turn_around()
 	state = BossState.STUNNED
+	stun_hits = 0
 	velocity.x = 0
 	hit_box.monitoring = true
 	sprite.play("stun")
@@ -216,8 +275,13 @@ func _on_animated_sprite_2d_animation_finished() -> void:
 		"hit":
 			if health <= 0:
 				queue_free()
-			else:
+			elif stun_hits >= MAX_STUN_HITS:
+				stun_hits = 0
 				_start_taunt()
+			else:
+				state = BossState.STUNNED
+				hit_box.monitoring = true
+				sprite.play("stun")
 		"taunt":
 			state = BossState.CHASE
 			var target_speed = angry_speed if angry else reset_speed
@@ -235,19 +299,40 @@ func _on_hit_box_area_entered(area: Area2D) -> void:
 
 
 func _hit(hitter) -> void:
-	if state == BossState.HIT or state == BossState.DEAD:
+	if state != BossState.STUNNED:
 		return
+	stun_hits += 1
 	hits_taken += 1
 	health -= 1
-	state = BossState.HIT
-	hit_box.monitoring = false
+	health_changed.emit(health, max_health)
 	if health <= half_life and irritable and not angry:
 		angry = true
 	velocity = Vector2.ZERO
-	hitter.velocity.y = -400
 	sprite.play("hit")
-	if hits_taken >= max_hits or health <= 0:
+
+	if health <= 0:
 		state = BossState.DEAD
+		hit_box.set_deferred("monitoring", false)
+		var knock_dir: float = sign(hitter.global_position.x - global_position.x)
+		if knock_dir == 0:
+			knock_dir = 1
+		hitter.velocity.x = knock_dir * knockback_force
+		hitter.velocity.y = -400
+		defeated.emit()
+		_set_doors_open(true)
+		return
+
+	if stun_hits >= MAX_STUN_HITS:
+		hit_box.set_deferred("monitoring", false)
+		var knock_dir: float = sign(hitter.global_position.x - global_position.x)
+		if knock_dir == 0:
+			knock_dir = 1
+		hitter.velocity.x = knock_dir * knockback_force
+		hitter.velocity.y = -400
+	else:
+		hitter.velocity.y = -420
+
+	state = BossState.HIT
 
 
 func take_projectile_hit() -> void:
@@ -256,9 +341,12 @@ func take_projectile_hit() -> void:
 	hits_taken += 1
 	health -= 1
 	state = BossState.HIT
+	health_changed.emit(health, max_health)
 	if health <= half_life and irritable and not angry:
 		angry = true
 	velocity = Vector2.ZERO
 	sprite.play("hit")
-	if hits_taken >= max_hits or health <= 0:
+	if health <= 0:
 		state = BossState.DEAD
+		defeated.emit()
+		_set_doors_open(true)

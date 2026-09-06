@@ -56,6 +56,7 @@ func _on_ammo_changed(current_ammo: int) -> void:
 	ammo_label.text = "x " + str(current_ammo)
 
 func _on_continue_button_pressed() -> void:
+	GameEvents.player_respawned.emit()
 	player._reset_status()
 	player.global_position = GameEvents.check_position
 	player.blink()

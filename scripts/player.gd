@@ -76,6 +76,7 @@ func _physics_process(delta: float) -> void:
 			is_hurt = false
 
 	if has_slingshot and Input.is_action_just_pressed("shoot") and can_shoot:
+		print("shoot pressed")
 		_fire_slingshot()
 
 	_set_animation()
@@ -212,6 +213,7 @@ func equip_slingshot(ammo_amount: int) -> void:
 
 func _fire_slingshot() -> void:
 	if ammo <= 0 or slingshot_projectile_scene == null:
+		print("ammo<=0 ou a cena do projeto é nula")
 		return
 
 	can_shoot = false

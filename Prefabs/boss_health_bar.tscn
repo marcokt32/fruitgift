@@ -1,0 +1,52 @@
+[gd_scene format=3 uid="uid://ddu173161eytg"]
+
+[ext_resource type="Script" uid="uid://ci1dicc3u03h1" path="res://scripts/boss_health_bar.gd" id="1_n2ca8"]
+[ext_resource type="FontFile" uid="uid://bx3o38mv8l3n8" path="res://assets/Menu/Fonts/Bangers-Regular.ttf" id="2_3vxdj"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eq1l6"]
+bg_color = Color(0.32156864, 0.44313726, 1, 0.2901961)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.003921569, 0.07058824, 0.16078432, 1)
+expand_margin_left = 3.0
+expand_margin_top = 3.0
+expand_margin_right = 3.0
+expand_margin_bottom = 3.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qy0u1"]
+bg_color = Color(1, 0.87058824, 0.34901962, 1)
+border_color = Color(0.003921569, 0.07058824, 0.16078432, 1)
+
+[node name="BossHealthBar" type="CanvasLayer" unique_id=978260287]
+script = ExtResource("1_n2ca8")
+
+[node name="Control" type="Control" parent="." unique_id=341330957]
+layout_mode = 3
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+
+[node name="Bar" type="ProgressBar" parent="Control" unique_id=872445297]
+custom_minimum_size = Vector2(400, 24)
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -200.0
+offset_top = 16.0
+offset_right = 200.0
+offset_bottom = 43.0
+grow_horizontal = 2
+theme_override_constants/outline_size = 3
+theme_override_fonts/font = ExtResource("2_3vxdj")
+theme_override_font_sizes/font_size = 16
+theme_override_styles/background = SubResource("StyleBoxFlat_eq1l6")
+theme_override_styles/fill = SubResource("StyleBoxFlat_qy0u1")
+value = 50.0
+
+[node name="Label" type="Label" parent="Control" unique_id=1269550944]
+layout_mode = 1
+offset_right = 40.0
+offset_bottom = 23.0

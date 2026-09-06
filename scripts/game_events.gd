@@ -1,6 +1,7 @@
 extends Node
 
 signal fruit_collected(total: int)
+signal player_respawned
 
 var fruit_count: int = 0
 var life_count: int = 3

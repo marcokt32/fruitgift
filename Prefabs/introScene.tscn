@@ -6,23 +6,26 @@
 [ext_resource type="Texture2D" uid="uid://574sev2py6l6" path="res://assets/Others/arts/lore-2.png" id="4_aqvyq"]
 [ext_resource type="Texture2D" uid="uid://cr1dn24d1iirk" path="res://assets/Others/arts/lore-4.png" id="5_heh0t"]
 [ext_resource type="FontFile" uid="uid://bx3o38mv8l3n8" path="res://assets/Menu/Fonts/Bangers-Regular.ttf" id="5_jed33"]
+[ext_resource type="Texture2D" uid="uid://bsopooi7hhau0" path="res://assets/Others/arts/lore-5.png" id="6_qlx33"]
+[ext_resource type="Texture2D" uid="uid://d2t6kjdqhoaj0" path="res://assets/Others/arts/lore-6.png" id="7_4pk32"]
+[ext_resource type="Texture2D" uid="uid://baiu4dv805nc2" path="res://assets/Others/arts/lore-7.png" id="8_q34qr"]
+[ext_resource type="Texture2D" uid="uid://b1jgph52ga5q1" path="res://assets/Others/arts/lore-8.png" id="9_n6glx"]
+[ext_resource type="Texture2D" uid="uid://dn3hxig36mle5" path="res://assets/Others/arts/lore-9.png" id="10_0756k"]
 
 [sub_resource type="Resource" id="Resource_3h63u"]
 script = ExtResource("2_aqvyq")
 text = "Havia um mundo dominado por duas espécies diferentes ...
-Elas estavam sempre em conflito por poder ..."
+Que estavam sempre em conflito por poder ..."
 texture = ExtResource("2_ugwa6")
 move_target = 1
 direction = Vector2(0, 1)
 move_distance = 50.0
 fade_out_duration = 1.5
-text_speed = 15.0
-hold_time = 1.5
 metadata/_custom_type_script = "uid://gtg3pfktqk01"
 
 [sub_resource type="Resource" id="Resource_ugwa6"]
 script = ExtResource("2_aqvyq")
-text = "Humanos e Monstros. Guerras duraram eras e toda essa perturbação despertou um mal maior ..."
+text = "Humanos e Monstros. Guerras duraram eras e toda essa perturbação despertou um terrível mal ancestral ..."
 texture = ExtResource("4_aqvyq")
 move_target = 2
 direction = Vector2(0, -1)
@@ -31,16 +34,51 @@ metadata/_custom_type_script = "uid://gtg3pfktqk01"
 
 [sub_resource type="Resource" id="Resource_jed33"]
 script = ExtResource("2_aqvyq")
-text = "Um mal que nenhum dos seus maiores guerreiros poderiam derrotar."
+text = "tão terrível que tiveram que fazer um acordo para que a paz voltasse.
+e os conflitos se encerraram ..."
 texture = ExtResource("5_heh0t")
 move_target = 1
 direction = Vector2(0, -1)
 move_distance = 20.0
 metadata/_custom_type_script = "uid://gtg3pfktqk01"
 
+[sub_resource type="Resource" id="Resource_7fyyg"]
+script = ExtResource("2_aqvyq")
+text = "Todos os anos as raças entregam os presentes do seu acordo, 
+humanos tem mantido sua parte, mas os monstros ..."
+texture = ExtResource("6_qlx33")
+move_target = 1
+direction = Vector2(0, -1)
+move_distance = 50.0
+metadata/_custom_type_script = "uid://gtg3pfktqk01"
+
+[sub_resource type="Resource" id="Resource_6fa4h"]
+script = ExtResource("2_aqvyq")
+text = "... Estes tem fracassado ..."
+texture = ExtResource("7_4pk32")
+metadata/_custom_type_script = "uid://gtg3pfktqk01"
+
+[sub_resource type="Resource" id="Resource_hvsli"]
+script = ExtResource("2_aqvyq")
+text = "Então esles fizeram um plano para sabotar os humanos e roubar a sua parte ..."
+texture = ExtResource("8_q34qr")
+metadata/_custom_type_script = "uid://gtg3pfktqk01"
+
+[sub_resource type="Resource" id="Resource_k5gwo"]
+script = ExtResource("2_aqvyq")
+text = "Atacaram com tudo o que tinham ..."
+texture = ExtResource("9_n6glx")
+metadata/_custom_type_script = "uid://gtg3pfktqk01"
+
+[sub_resource type="Resource" id="Resource_qihf0"]
+script = ExtResource("2_aqvyq")
+text = "E assim começa a jornada do nosso herói"
+texture = ExtResource("10_0756k")
+metadata/_custom_type_script = "uid://gtg3pfktqk01"
+
 [node name="IntroScene" type="Node2D" unique_id=510397021]
 script = ExtResource("1_3h63u")
-beats = Array[ExtResource("2_aqvyq")]([SubResource("Resource_3h63u"), SubResource("Resource_ugwa6"), SubResource("Resource_jed33")])
+beats = Array[ExtResource("2_aqvyq")]([SubResource("Resource_3h63u"), SubResource("Resource_ugwa6"), SubResource("Resource_jed33"), SubResource("Resource_7fyyg"), SubResource("Resource_6fa4h"), SubResource("Resource_hvsli"), SubResource("Resource_k5gwo"), SubResource("Resource_qihf0")])
 
 [node name="ArtSprite" type="Sprite2D" parent="." unique_id=729548264]
 position = Vector2(358, 272.5)
@@ -61,9 +99,9 @@ grow_vertical = 2
 
 [node name="TextBox" type="TextureRect" parent="CanvasLayer" unique_id=655999998]
 offset_left = 96.0
-offset_top = 128.0
+offset_top = 112.0
 offset_right = 624.0
-offset_bottom = 192.0
+offset_bottom = 208.0
 
 [node name="ColorRect" type="ColorRect" parent="CanvasLayer/TextBox" unique_id=1669938535]
 layout_mode = 1

@@ -23,7 +23,11 @@
 [ext_resource type="PackedScene" uid="uid://bkpjhbtfjn21x" path="res://scenes/cannon.tscn" id="21_eq1l6"]
 [ext_resource type="PackedScene" uid="uid://mbdv2qxo2hv8" path="res://scenes/ptero.tscn" id="22_qy0u1"]
 [ext_resource type="PackedScene" uid="uid://c24t6m45podoq" path="res://Prefabs/check_point.tscn" id="25_eq1l6"]
+[ext_resource type="PackedScene" uid="uid://ddu173161eytg" path="res://Prefabs/boss_health_bar.tscn" id="25_qy0u1"]
+[ext_resource type="PackedScene" uid="uid://dehce5ru8mitw" path="res://Prefabs/fruit.tscn" id="26_n33ao"]
 [ext_resource type="PackedScene" uid="uid://du3qtwuxelj2p" path="res://Prefabs/trigger_area.tscn" id="26_qy0u1"]
+[ext_resource type="PackedScene" uid="uid://d2icjiafoy584" path="res://Prefabs/item_box.tscn" id="27_7fyyg"]
+[ext_resource type="PackedScene" uid="uid://r3xeh0br515u" path="res://Prefabs/slingshot_power_up.tscn" id="28_0cy58"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_iimkc"]
 texture = ExtResource("6_5wr1k")
@@ -483,7 +487,7 @@ position = Vector2(3331, 0)
 shape = SubResource("RectangleShape2D_qy0u1")
 
 [node name="Player" parent="." unique_id=230714219 instance=ExtResource("9_462h2")]
-position = Vector2(5920, -64)
+position = Vector2(5712, -32)
 
 [node name="Traps" type="Node" parent="." unique_id=801532675]
 
@@ -609,18 +613,19 @@ position = Vector2(5552, -128)
 
 [node name="FallingPlatform4" parent="Traps" unique_id=910730346 instance=ExtResource("15_88iqf")]
 position = Vector2(5744, -48)
-
-[node name="FallingPlatform7" parent="Traps" unique_id=1181649277 instance=ExtResource("15_88iqf")]
-position = Vector2(5840, -96)
+respawn_delay = 10.0
 
 [node name="FallingPlatform8" parent="Traps" unique_id=1477299371 instance=ExtResource("15_88iqf")]
 position = Vector2(6384, -96)
+respawn_delay = 10.0
 
-[node name="FallingPlatform5" parent="Traps" unique_id=1600206668 instance=ExtResource("15_88iqf")]
-position = Vector2(6096, -48)
+[node name="FallingPlatform9" parent="Traps" unique_id=1273305311 instance=ExtResource("15_88iqf")]
+position = Vector2(5840, -96)
+respawn_delay = 10.0
 
 [node name="FallingPlatform6" parent="Traps" unique_id=1887738732 instance=ExtResource("15_88iqf")]
 position = Vector2(6480, -48)
+respawn_delay = 10.0
 
 [node name="Enemies" type="Node" parent="." unique_id=42551483]
 
@@ -638,7 +643,7 @@ retreat_speed = 160.0
 position = Vector2(-320, 0)
 
 [node name="ChaseEye2" parent="Enemies" unique_id=1890977389 instance=ExtResource("17_1yi2b")]
-position = Vector2(3472, -192)
+position = Vector2(3424, -240)
 patrol_enabled = true
 patrol_point_a_path = NodePath("Marker2D")
 patrol_point_b_path = NodePath("Marker2D2")
@@ -694,7 +699,6 @@ position = Vector2(4800, -64)
 edge_ray_active = false
 
 [node name="Pause" parent="." unique_id=1526679350 instance=ExtResource("17_wtqdv")]
-visible = false
 
 [node name="CheckPoint" parent="." unique_id=591160321 instance=ExtResource("25_eq1l6")]
 position = Vector2(464, -16)
@@ -708,28 +712,228 @@ position = Vector2(3280, -48)
 [node name="CheckPoint4" parent="." unique_id=1628988269 instance=ExtResource("25_eq1l6")]
 position = Vector2(4208, -96)
 
+[node name="BossHealthBar" parent="." unique_id=978260287 instance=ExtResource("25_qy0u1")]
+boss_path = NodePath("../Boss/Nooby")
+
+[node name="Gate" parent="." unique_id=339742111 instance=ExtResource("14_2urlj")]
+position = Vector2(5719, 80)
+move_speed = 10
+gear_visible = false
+gate_skin = 1
+
+[node name="Gate2" parent="." unique_id=1899781233 instance=ExtResource("14_2urlj")]
+position = Vector2(6553, 80)
+move_speed = 10
+gear_visible = false
+gate_skin = 1
+
 [node name="Boss" type="Node" parent="." unique_id=476175229]
 
 [node name="Nooby" parent="Boss" unique_id=717979164 instance=ExtResource("7_1jtbt")]
 position = Vector2(6448, -272)
 trigger_area_path = NodePath("../TriggerArea2")
-
-[node name="Gate" parent="Boss" unique_id=339742111 instance=ExtResource("14_2urlj")]
-position = Vector2(5719, 80)
-trigger_area_path = NodePath("../TriggerArea")
-move_speed = 10
-gear_visible = false
-gate_skin = 1
-
-[node name="Gate2" parent="Boss" unique_id=1899781233 instance=ExtResource("14_2urlj")]
-position = Vector2(6553, 80)
-trigger_area_path = NodePath("../TriggerArea")
-move_speed = 10
-gear_visible = false
-gate_skin = 1
+door_paths = Array[NodePath]([NodePath("../../Gate"), NodePath("../../Gate2")])
 
 [node name="TriggerArea" parent="Boss" unique_id=477173328 instance=ExtResource("26_qy0u1")]
 position = Vector2(5792, -48)
 
 [node name="TriggerArea2" parent="Boss" unique_id=157196446 instance=ExtResource("26_qy0u1")]
 position = Vector2(6256, -48)
+
+[node name="Fruits" type="Node" parent="." unique_id=210862342]
+
+[node name="Fruit" parent="Fruits" unique_id=1822754849 instance=ExtResource("26_n33ao")]
+position = Vector2(144, 32)
+
+[node name="Fruit2" parent="Fruits" unique_id=396316158 instance=ExtResource("26_n33ao")]
+position = Vector2(176, 32)
+
+[node name="Fruit3" parent="Fruits" unique_id=560769701 instance=ExtResource("26_n33ao")]
+position = Vector2(208, 32)
+
+[node name="Fruit4" parent="Fruits" unique_id=1252633510 instance=ExtResource("26_n33ao")]
+position = Vector2(528, 32)
+
+[node name="Fruit5" parent="Fruits" unique_id=610373607 instance=ExtResource("26_n33ao")]
+position = Vector2(560, 32)
+
+[node name="Fruit6" parent="Fruits" unique_id=800152368 instance=ExtResource("26_n33ao")]
+position = Vector2(592, 32)
+
+[node name="Fruit7" parent="Fruits" unique_id=202591049 instance=ExtResource("26_n33ao")]
+position = Vector2(912, 0)
+
+[node name="Fruit8" parent="Fruits" unique_id=194736971 instance=ExtResource("26_n33ao")]
+position = Vector2(928, -16)
+
+[node name="Fruit9" parent="Fruits" unique_id=399476537 instance=ExtResource("26_n33ao")]
+position = Vector2(944, -32)
+
+[node name="Fruit53" parent="Fruits" unique_id=56787889 instance=ExtResource("26_n33ao")]
+position = Vector2(960, -48)
+
+[node name="Fruit54" parent="Fruits" unique_id=789189518 instance=ExtResource("26_n33ao")]
+position = Vector2(976, -64)
+
+[node name="Fruit10" parent="Fruits" unique_id=950785302 instance=ExtResource("26_n33ao")]
+position = Vector2(1136, -64)
+
+[node name="Fruit11" parent="Fruits" unique_id=40465125 instance=ExtResource("26_n33ao")]
+position = Vector2(1216, -64)
+
+[node name="Fruit12" parent="Fruits" unique_id=500569629 instance=ExtResource("26_n33ao")]
+position = Vector2(1504, -112)
+
+[node name="Fruit13" parent="Fruits" unique_id=316171131 instance=ExtResource("26_n33ao")]
+position = Vector2(1504, -64)
+
+[node name="Fruit14" parent="Fruits" unique_id=1732800567 instance=ExtResource("26_n33ao")]
+position = Vector2(1504, -16)
+
+[node name="Fruit15" parent="Fruits" unique_id=819094010 instance=ExtResource("26_n33ao")]
+position = Vector2(1504, -160)
+
+[node name="Fruit16" parent="Fruits" unique_id=1974972630 instance=ExtResource("26_n33ao")]
+position = Vector2(1920, -160)
+
+[node name="Fruit17" parent="Fruits" unique_id=2015605889 instance=ExtResource("26_n33ao")]
+position = Vector2(1952, -160)
+
+[node name="Fruit18" parent="Fruits" unique_id=824344873 instance=ExtResource("26_n33ao")]
+position = Vector2(1984, -160)
+
+[node name="Fruit19" parent="Fruits" unique_id=196221290 instance=ExtResource("26_n33ao")]
+position = Vector2(2112, -64)
+
+[node name="Fruit20" parent="Fruits" unique_id=1642282969 instance=ExtResource("26_n33ao")]
+position = Vector2(2144, -32)
+
+[node name="Fruit21" parent="Fruits" unique_id=696427655 instance=ExtResource("26_n33ao")]
+position = Vector2(2176, 0)
+
+[node name="Fruit22" parent="Fruits" unique_id=1857626982 instance=ExtResource("26_n33ao")]
+position = Vector2(2560, -224)
+
+[node name="Fruit23" parent="Fruits" unique_id=1022396565 instance=ExtResource("26_n33ao")]
+position = Vector2(2528, -240)
+
+[node name="Fruit24" parent="Fruits" unique_id=1898610172 instance=ExtResource("26_n33ao")]
+position = Vector2(2496, -240)
+
+[node name="Fruit25" parent="Fruits" unique_id=803545819 instance=ExtResource("26_n33ao")]
+position = Vector2(2464, -224)
+
+[node name="Fruit26" parent="Fruits" unique_id=940185379 instance=ExtResource("26_n33ao")]
+position = Vector2(2592, 0)
+
+[node name="Fruit27" parent="Fruits" unique_id=247434295 instance=ExtResource("26_n33ao")]
+position = Vector2(2640, -32)
+
+[node name="Fruit28" parent="Fruits" unique_id=1225734607 instance=ExtResource("26_n33ao")]
+position = Vector2(2688, -32)
+
+[node name="Fruit29" parent="Fruits" unique_id=1371592468 instance=ExtResource("26_n33ao")]
+position = Vector2(2736, 0)
+
+[node name="Fruit30" parent="Fruits" unique_id=2128019356 instance=ExtResource("26_n33ao")]
+position = Vector2(2992, -16)
+
+[node name="Fruit31" parent="Fruits" unique_id=837217313 instance=ExtResource("26_n33ao")]
+position = Vector2(3024, -16)
+
+[node name="Fruit32" parent="Fruits" unique_id=1336054523 instance=ExtResource("26_n33ao")]
+position = Vector2(3104, -64)
+
+[node name="Fruit55" parent="Fruits" unique_id=1947926395 instance=ExtResource("26_n33ao")]
+position = Vector2(3136, -64)
+
+[node name="Fruit33" parent="Fruits" unique_id=2031098365 instance=ExtResource("26_n33ao")]
+position = Vector2(3184, -112)
+
+[node name="Fruit56" parent="Fruits" unique_id=409794424 instance=ExtResource("26_n33ao")]
+position = Vector2(3216, -112)
+
+[node name="Fruit34" parent="Fruits" unique_id=1714333145 instance=ExtResource("26_n33ao")]
+position = Vector2(3360, -160)
+
+[node name="Fruit35" parent="Fruits" unique_id=276372987 instance=ExtResource("26_n33ao")]
+position = Vector2(3392, -160)
+
+[node name="Fruit36" parent="Fruits" unique_id=992474965 instance=ExtResource("26_n33ao")]
+position = Vector2(3424, -160)
+
+[node name="Fruit37" parent="Fruits" unique_id=1863262751 instance=ExtResource("26_n33ao")]
+position = Vector2(3936, -176)
+
+[node name="Fruit38" parent="Fruits" unique_id=710793689 instance=ExtResource("26_n33ao")]
+position = Vector2(3984, -208)
+
+[node name="Fruit39" parent="Fruits" unique_id=312251469 instance=ExtResource("26_n33ao")]
+position = Vector2(4032, -208)
+
+[node name="Fruit40" parent="Fruits" unique_id=605470824 instance=ExtResource("26_n33ao")]
+position = Vector2(4080, -176)
+
+[node name="Fruit41" parent="Fruits" unique_id=340986803 instance=ExtResource("26_n33ao")]
+position = Vector2(4320, -176)
+
+[node name="Fruit42" parent="Fruits" unique_id=1182316349 instance=ExtResource("26_n33ao")]
+position = Vector2(4368, -176)
+
+[node name="Fruit43" parent="Fruits" unique_id=1014093114 instance=ExtResource("26_n33ao")]
+position = Vector2(4640, -144)
+
+[node name="Fruit44" parent="Fruits" unique_id=1919502881 instance=ExtResource("26_n33ao")]
+position = Vector2(4640, -96)
+
+[node name="Fruit45" parent="Fruits" unique_id=458940923 instance=ExtResource("26_n33ao")]
+position = Vector2(4864, -64)
+
+[node name="Fruit46" parent="Fruits" unique_id=1433705066 instance=ExtResource("26_n33ao")]
+position = Vector2(4912, -64)
+
+[node name="Fruit47" parent="Fruits" unique_id=305947790 instance=ExtResource("26_n33ao")]
+position = Vector2(4816, -64)
+
+[node name="Fruit48" parent="Fruits" unique_id=1282160897 instance=ExtResource("26_n33ao")]
+position = Vector2(5104, -160)
+
+[node name="Fruit49" parent="Fruits" unique_id=1966913183 instance=ExtResource("26_n33ao")]
+position = Vector2(5104, -96)
+
+[node name="Fruit50" parent="Fruits" unique_id=503829260 instance=ExtResource("26_n33ao")]
+position = Vector2(5312, -160)
+
+[node name="Fruit51" parent="Fruits" unique_id=1697412256 instance=ExtResource("26_n33ao")]
+position = Vector2(5312, -96)
+
+[node name="Fruit52" parent="Fruits" unique_id=1273069401 instance=ExtResource("26_n33ao")]
+position = Vector2(5552, -192)
+
+[node name="Boxes" type="Node" parent="." unique_id=224291936]
+
+[node name="ItemBox" parent="Boxes" unique_id=348084858 instance=ExtResource("27_7fyyg")]
+position = Vector2(2272, 48)
+item_count = 6
+
+[node name="ItemBox2" parent="Boxes" unique_id=602904774 instance=ExtResource("27_7fyyg")]
+position = Vector2(2292, 48)
+item_count = 3
+
+[node name="ItemBox3" parent="Boxes" unique_id=79093039 instance=ExtResource("27_7fyyg")]
+position = Vector2(2292, 28)
+item_count = 4
+
+[node name="ItemBox4" parent="Boxes" unique_id=1193261668 instance=ExtResource("27_7fyyg")]
+position = Vector2(2792, 48)
+item_count = 6
+
+[node name="ItemBox5" parent="Boxes" unique_id=1375746206 instance=ExtResource("27_7fyyg")]
+position = Vector2(2736, -176)
+item_count = 10
+
+[node name="ItemBox6" parent="Boxes" unique_id=1764333816 instance=ExtResource("27_7fyyg")]
+position = Vector2(5008, -64)
+box_skin = 1
+item_scene = ExtResource("28_0cy58")
+spawn_all_at_once = false
