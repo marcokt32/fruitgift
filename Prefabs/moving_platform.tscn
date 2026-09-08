@@ -43,7 +43,6 @@ region_rect = Rect2(144, 192, 16, 15.916031)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=769949428]
 position = Vector2(32, -8)
 shape = SubResource("RectangleShape2D_o4efa")
-one_way_collision = true
 
 [node name="Timer" type="Timer" parent="." unique_id=2021510365]
 

@@ -12,6 +12,7 @@ script = ExtResource("1_58qys")
 ammo_amount = 10
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=204342418]
+z_index = 1
 texture = ExtResource("1_pqpxm")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1212185395]

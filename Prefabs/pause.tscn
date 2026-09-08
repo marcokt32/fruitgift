@@ -2,8 +2,9 @@
 
 [ext_resource type="Script" uid="uid://desx3hsuwkirr" path="res://scripts/pause.gd" id="1_g6hx7"]
 [ext_resource type="FontFile" uid="uid://bx3o38mv8l3n8" path="res://assets/Menu/Fonts/Bangers-Regular.ttf" id="2_rf2o8"]
-[ext_resource type="Texture2D" uid="uid://dkq0mxpihapov" path="res://assets/Menu/Buttons/ReplayTexture.png" id="3_mhd74"]
-[ext_resource type="Texture2D" uid="uid://cpxhmviwu15il" path="res://assets/Menu/Buttons/BackTexture.png" id="8_0lf8g"]
+[ext_resource type="Texture2D" uid="uid://dr1j8dwip1uwk" path="res://assets/Menu/Buttons/PlayTexture 100x100.png" id="3_2gtaq"]
+[ext_resource type="Texture2D" uid="uid://ffr2uay1a5re" path="res://assets/Menu/Buttons/ReplayTexture.png" id="3_mhd74"]
+[ext_resource type="Texture2D" uid="uid://cwwe06ms2ms11" path="res://assets/Menu/Buttons/BackTexture.png" id="8_0lf8g"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_si6ue"]
 content_margin_left = 5.0
@@ -943,9 +944,6 @@ cache/0/32/3/glyphs/4/texture_idx = 0
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_mhd74"]
 load_path = "res://.godot/imported/GearTexture.png-8524edab76e78962b82e88eb315bbf4b.ctex"
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_tblgc"]
-load_path = "res://.godot/imported/PlayTexture.png-cb4fd028aa06a0033bb40c480c95773c.ctex"
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_5dy71"]
 load_path = "res://.godot/imported/QuitTexture.png-09d501b590262d43bf57225737dd82bf.ctex"
@@ -2558,17 +2556,19 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0, 0, 0, 0.49019608)
+color = Color(0, 0, 0, 0.78431374)
 
 [node name="PanelContainer" type="PanelContainer" parent="." unique_id=1220303503]
-custom_maximum_size = Vector2(470, 230)
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 125.0
-offset_top = 47.0
-offset_right = -125.0
-offset_bottom = -47.0
+custom_maximum_size = Vector2(600, 280)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -109.0
+offset_top = -126.5
+offset_right = 109.0
+offset_bottom = 126.5
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_si6ue")
@@ -2585,10 +2585,11 @@ theme_override_font_sizes/font_size = 32
 text = "pause"
 horizontal_alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/PauseMenu" unique_id=1422759045]
+[node name="HBoxContainer" type="GridContainer" parent="PanelContainer/PauseMenu" unique_id=1484972818]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+columns = 2
 
 [node name="OptionsButton" type="Button" parent="PanelContainer/PauseMenu/HBoxContainer" unique_id=1323288539]
 custom_minimum_size = Vector2(100, 100)
@@ -2612,7 +2613,7 @@ theme_override_constants/outline_size = 3
 theme_override_fonts/font = ExtResource("2_rf2o8")
 theme_override_font_sizes/font_size = 30
 text = "continue"
-icon = SubResource("CompressedTexture2D_tblgc")
+icon = ExtResource("3_2gtaq")
 flat = true
 icon_alignment = 1
 vertical_icon_alignment = 0

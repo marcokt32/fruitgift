@@ -22,10 +22,10 @@ enum MoveTarget { NONE, CAMERA, SPRITE }
 @export var fade_in_duration: float = 1.5
 
 ## Duração do fade "claro -> escuro" no final do beat, em segundos
-@export var fade_out_duration: float = 1.0
+@export var fade_out_duration: float = 1.5
 
 ## Velocidade da digitação, em caracteres por segundo (0 = aparece tudo de uma vez)
-@export var text_speed: float = 15.0
+@export var text_speed: float = 30.0
 
 ## Quanto tempo a cena fica parada, já com o texto completo, antes do fade out
-@export var hold_time: float = 1.5
+@export var hold_time: float = 0.5

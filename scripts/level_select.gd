@@ -4,11 +4,10 @@ extends Control
 @export var level_card_scene: PackedScene
 
 @onready var grid: GridContainer = $MarginContainer/GridContainer
-@onready var back_button: Button = $BackButton
+@onready var back_button: Button = $MarginContainer/BackButton
 
 
 func _ready() -> void:
-	back_button.pressed.connect(_on_back_pressed)
 	_populate_grid()
 
 
@@ -18,6 +17,6 @@ func _populate_grid() -> void:
 		grid.add_child(card)
 		card.setup(levels[i], i)
 
-
-func _on_back_pressed() -> void:
+func _on_back_button_pressed() -> void:
+	print("foi")
 	get_tree().change_scene_to_file("res://scenes/main_menu.tscn")

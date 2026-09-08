@@ -1,11 +1,13 @@
 [gd_scene format=3 uid="uid://cacioa1frps8d"]
 
 [ext_resource type="Script" uid="uid://cvfeijv6kjnqk" path="res://scripts/hud.gd" id="1_g0xie"]
-[ext_resource type="Texture2D" uid="uid://c1pbdbn6ad2wj" path="res://assets/Menu/Icons/heart.png" id="1_s3bvw"]
+[ext_resource type="Texture2D" uid="uid://basnki65xqtmx" path="res://assets/Menu/Icons/heart.png" id="1_s3bvw"]
 [ext_resource type="Script" uid="uid://dyvymh4cb3xaw" path="res://scripts/timer_span.gd" id="3_5kp3n"]
 [ext_resource type="Texture2D" uid="uid://b62tj6i0c0yyy" path="res://assets/Menu/Icons/Apple.png" id="3_pi1dj"]
 [ext_resource type="Texture2D" uid="uid://duaayywdpt7t4" path="res://assets/Items/PowerUps/slingshot.png" id="4_p5qmc"]
 [ext_resource type="FontFile" uid="uid://bx3o38mv8l3n8" path="res://assets/Menu/Fonts/Bangers-Regular.ttf" id="4_un57u"]
+[ext_resource type="Texture2D" uid="uid://cclout4yj4wdw" path="res://assets/Menu/Buttons/play.png" id="6_4df1e"]
+[ext_resource type="Texture2D" uid="uid://ffr2uay1a5re" path="res://assets/Menu/Buttons/ReplayTexture.png" id="7_7w0ef"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_d1bw2"]
 
@@ -13,8 +15,26 @@
 script = ExtResource("1_g0xie")
 
 [node name="MarginContainer" type="MarginContainer" parent="." unique_id=1071842342]
-offset_right = 104.0
-offset_bottom = 33.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="Timer" type="Label" parent="MarginContainer" unique_id=128823588]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 1
+offset_transform_enabled = true
+theme_override_constants/outline_size = 3
+theme_override_fonts/font = ExtResource("4_un57u")
+theme_override_font_sizes/font_size = 20
+text = "00:00"
+script = ExtResource("3_5kp3n")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=1611833749]
 layout_mode = 2
@@ -64,68 +84,67 @@ theme_override_fonts/font = ExtResource("4_un57u")
 theme_override_font_sizes/font_size = 20
 text = "teste"
 
-[node name="GameOverPanel" type="Control" parent="." unique_id=204020999]
+[node name="GameOverPanel" type="Control" parent="MarginContainer" unique_id=204020999]
 process_mode = 3
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+visible = false
+layout_mode = 2
 
-[node name="TextureRect" type="TextureRect" parent="GameOverPanel" unique_id=2123521560]
-modulate = Color(0, 0, 0, 0.22745098)
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/GameOverPanel" unique_id=2123521560]
+modulate = Color(0, 0, 0, 0.78431374)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = -27.0
+offset_top = -21.0
+offset_right = 27.0
+offset_bottom = 21.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("CanvasTexture_d1bw2")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="GameOverPanel" unique_id=1952928791]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/GameOverPanel" unique_id=1952928791]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -46.0
-offset_top = -46.5
-offset_right = 46.0
-offset_bottom = 46.5
+offset_left = -87.0
+offset_top = -64.5
+offset_right = 87.0
+offset_bottom = 64.5
 grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
 
-[node name="Game Over" type="Label" parent="GameOverPanel/VBoxContainer" unique_id=1924667861]
+[node name="Game Over" type="Label" parent="MarginContainer/GameOverPanel/VBoxContainer" unique_id=1924667861]
 layout_mode = 2
+theme_override_constants/outline_size = 3
+theme_override_fonts/font = ExtResource("4_un57u")
+theme_override_font_sizes/font_size = 40
 text = "GAME OVER"
 horizontal_alignment = 1
 
-[node name="ContinueButton" type="Button" parent="GameOverPanel/VBoxContainer" unique_id=149014890]
+[node name="ContinueButton" type="Button" parent="MarginContainer/GameOverPanel/VBoxContainer" unique_id=149014890]
 layout_mode = 2
-text = "CONTINUAR"
-
-[node name="Restart_button" type="Button" parent="GameOverPanel/VBoxContainer" unique_id=21631836]
-layout_mode = 2
-text = "REINICIAR"
-
-[node name="Timer" type="Label" parent="." unique_id=128823588]
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -48.0
-offset_top = 3.0
-offset_right = -6.0
-offset_bottom = 25.0
-grow_horizontal = 0
-offset_transform_enabled = true
 theme_override_constants/outline_size = 3
 theme_override_fonts/font = ExtResource("4_un57u")
-theme_override_font_sizes/font_size = 20
-text = "00:00"
-script = ExtResource("3_5kp3n")
+theme_override_font_sizes/font_size = 30
+text = "CONTINUAR"
+icon = ExtResource("6_4df1e")
+flat = true
+expand_icon = true
 
-[connection signal="pressed" from="GameOverPanel/VBoxContainer/ContinueButton" to="." method="_on_continue_button_pressed"]
-[connection signal="pressed" from="GameOverPanel/VBoxContainer/Restart_button" to="." method="_on_restart_button_pressed"]
+[node name="Restart_button" type="Button" parent="MarginContainer/GameOverPanel/VBoxContainer" unique_id=21631836]
+layout_mode = 2
+theme_override_constants/outline_size = 3
+theme_override_fonts/font = ExtResource("4_un57u")
+theme_override_font_sizes/font_size = 30
+text = "REINICIAR"
+icon = ExtResource("7_7w0ef")
+flat = true
+expand_icon = true
+
+[connection signal="pressed" from="MarginContainer/GameOverPanel/VBoxContainer/ContinueButton" to="." method="_on_continue_button_pressed"]
+[connection signal="pressed" from="MarginContainer/GameOverPanel/VBoxContainer/Restart_button" to="." method="_on_restart_button_pressed"]

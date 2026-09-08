@@ -168,6 +168,7 @@ collision_layer = 0
 shape = SubResource("CircleShape2D_xel53")
 
 [node name="HitBox" type="Area2D" parent="." unique_id=848659867]
+z_index = 1
 position = Vector2(15, 0)
 collision_layer = 4
 

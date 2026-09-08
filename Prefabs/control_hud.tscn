@@ -1,0 +1,84 @@
+[gd_scene format=3 uid="uid://b2u3xiqb2qb48"]
+
+[ext_resource type="Script" uid="uid://dkunymh1130te" path="res://scripts/control_hud.gd" id="1_7clc0"]
+[ext_resource type="Texture2D" uid="uid://dm1s2cp56x2yc" path="res://assets/Menu/Buttons/Left Button 150x150.png" id="2_p15nb"]
+[ext_resource type="Texture2D" uid="uid://3wmieyrjsryx" path="res://assets/Menu/Buttons/Right Button 150x150.png" id="3_a40tv"]
+[ext_resource type="Texture2D" uid="uid://clq2x4pl8dwaf" path="res://assets/Menu/Buttons/shot.png" id="3_cvwaq"]
+[ext_resource type="Texture2D" uid="uid://dsgcf74y0pdli" path="res://assets/Menu/Buttons/Jump Button 150x150.png" id="4_kr77e"]
+[ext_resource type="Texture2D" uid="uid://da51cxmywsndh" path="res://assets/Menu/Buttons/pause.png" id="4_p15nb"]
+
+[node name="ControlHUD" type="CanvasLayer" unique_id=708115110]
+script = ExtResource("1_7clc0")
+metadata/_edit_horizontal_guides_ = [247.0, 307.0, 230.0, 215.0, 138.0]
+metadata/_edit_vertical_guides_ = [50.0, 162.0, 700.0]
+
+[node name="Root" type="Control" parent="." unique_id=1728317423]
+modulate = Color(1, 1, 1, 0.49019608)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="LeftButton" type="Button" parent="Root" unique_id=2062992303]
+layout_mode = 0
+offset_left = 48.0
+offset_top = 245.0
+offset_right = 687.99994
+offset_bottom = 885.0002
+scale = Vector2(0.1, 0.1)
+offset_transform_enabled = true
+icon = ExtResource("2_p15nb")
+flat = true
+icon_alignment = 1
+expand_icon = true
+
+[node name="RightButton" type="Button" parent="Root" unique_id=862154493]
+layout_mode = 0
+offset_left = 160.0
+offset_top = 245.0
+offset_right = 800.0
+offset_bottom = 885.0
+scale = Vector2(0.1, 0.1)
+offset_transform_enabled = true
+icon = ExtResource("3_a40tv")
+flat = true
+icon_alignment = 1
+expand_icon = true
+
+[node name="JumpButton" type="Button" parent="Root" unique_id=1761730337]
+layout_mode = 0
+offset_left = 620.0
+offset_top = 227.0
+offset_right = 1311.667
+offset_bottom = 918.66705
+scale = Vector2(0.12, 0.12)
+icon = ExtResource("4_kr77e")
+flat = true
+icon_alignment = 1
+expand_icon = true
+
+[node name="ShootButton" type="Button" parent="Root" unique_id=99313357]
+layout_mode = 0
+offset_left = 636.00006
+offset_top = 151.0
+offset_right = 1186.0
+offset_bottom = 701.0
+scale = Vector2(0.12, 0.12)
+icon = ExtResource("3_cvwaq")
+flat = true
+icon_alignment = 1
+expand_icon = true
+
+[node name="PauseButton" type="Button" parent="Root" unique_id=1324089827]
+layout_mode = 0
+offset_left = 664.0
+offset_top = 102.0
+offset_right = 1192.5713
+offset_bottom = 630.5713
+scale = Vector2(0.07, 0.07)
+icon = ExtResource("4_p15nb")
+flat = true
+icon_alignment = 1
+expand_icon = true

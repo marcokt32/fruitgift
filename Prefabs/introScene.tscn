@@ -2,91 +2,91 @@
 
 [ext_resource type="Script" uid="uid://comthiqyo3syi" path="res://scripts/intro_scene.gd" id="1_3h63u"]
 [ext_resource type="Script" uid="uid://gtg3pfktqk01" path="res://scripts/introBeat.gd" id="2_aqvyq"]
-[ext_resource type="Texture2D" uid="uid://bkcbwjsquqkw3" path="res://assets/Others/arts/Lore-1.png" id="2_ugwa6"]
-[ext_resource type="Texture2D" uid="uid://574sev2py6l6" path="res://assets/Others/arts/lore-2.png" id="4_aqvyq"]
-[ext_resource type="Texture2D" uid="uid://cr1dn24d1iirk" path="res://assets/Others/arts/lore-4.png" id="5_heh0t"]
+[ext_resource type="Texture2D" uid="uid://c6jalath3qxm2" path="res://assets/Others/arts/lore-2.jpg" id="4_qlx33"]
 [ext_resource type="FontFile" uid="uid://bx3o38mv8l3n8" path="res://assets/Menu/Fonts/Bangers-Regular.ttf" id="5_jed33"]
-[ext_resource type="Texture2D" uid="uid://bsopooi7hhau0" path="res://assets/Others/arts/lore-5.png" id="6_qlx33"]
-[ext_resource type="Texture2D" uid="uid://d2t6kjdqhoaj0" path="res://assets/Others/arts/lore-6.png" id="7_4pk32"]
-[ext_resource type="Texture2D" uid="uid://baiu4dv805nc2" path="res://assets/Others/arts/lore-7.png" id="8_q34qr"]
-[ext_resource type="Texture2D" uid="uid://b1jgph52ga5q1" path="res://assets/Others/arts/lore-8.png" id="9_n6glx"]
-[ext_resource type="Texture2D" uid="uid://dn3hxig36mle5" path="res://assets/Others/arts/lore-9.png" id="10_0756k"]
+[ext_resource type="Texture2D" uid="uid://0d430qlcsd40" path="res://assets/Others/arts/lore-3.jpg" id="5_kdgdy"]
+[ext_resource type="Texture2D" uid="uid://bkwyt6aliom6g" path="res://assets/Others/arts/lore-4.jpg" id="6_lmrb3"]
+[ext_resource type="Texture2D" uid="uid://28b5cnmo7dyf" path="res://assets/Others/arts/lore-1.jpg" id="7_kdgdy"]
+[ext_resource type="Texture2D" uid="uid://cnvci8yck7rkt" path="res://assets/Others/arts/lore-5.jpg" id="7_lmrb3"]
+[ext_resource type="Texture2D" uid="uid://dloiv2jyl2tyo" path="res://assets/Others/arts/lore-6.jpg" id="8_x3k0h"]
 
 [sub_resource type="Resource" id="Resource_3h63u"]
 script = ExtResource("2_aqvyq")
-text = "Havia um mundo dominado por duas espécies diferentes ...
-Que estavam sempre em conflito por poder ..."
-texture = ExtResource("2_ugwa6")
+text = "Humanos e Monstros, não são extamente melhores amigos ...
+... Eles brigam por eras."
+texture = ExtResource("7_kdgdy")
 move_target = 1
 direction = Vector2(0, 1)
-move_distance = 50.0
-fade_out_duration = 1.5
+move_distance = 250.0
 metadata/_custom_type_script = "uid://gtg3pfktqk01"
 
 [sub_resource type="Resource" id="Resource_ugwa6"]
 script = ExtResource("2_aqvyq")
-text = "Humanos e Monstros. Guerras duraram eras e toda essa perturbação despertou um terrível mal ancestral ..."
-texture = ExtResource("4_aqvyq")
+text = "Mas com o passar dos anos, cada um foi para seu canto,
+e viveu cada um a sua maneira.
+criando então um período de paz ..."
+texture = ExtResource("4_qlx33")
 move_target = 2
-direction = Vector2(0, -1)
-move_distance = 50.0
+direction = Vector2(0, 1)
+move_distance = 250.0
 metadata/_custom_type_script = "uid://gtg3pfktqk01"
 
 [sub_resource type="Resource" id="Resource_jed33"]
 script = ExtResource("2_aqvyq")
-text = "tão terrível que tiveram que fazer um acordo para que a paz voltasse.
-e os conflitos se encerraram ..."
-texture = ExtResource("5_heh0t")
+text = "Com o fim do conflito os humanos prosperaram e festejavam as suas colheitas de frutas ..."
+texture = ExtResource("5_kdgdy")
+move_target = 2
+direction = Vector2(0, -1)
+move_distance = 150.0
+metadata/_custom_type_script = "uid://gtg3pfktqk01"
+
+[sub_resource type="Resource" id="Resource_qlx33"]
+script = ExtResource("2_aqvyq")
+text = "Mas os monstros sentiram inveja dos humanos novamente e planejaram roubar suas frutas no dia da sua grande festa."
+texture = ExtResource("6_lmrb3")
+move_target = 2
+direction = Vector2(0, -1)
+move_distance = 150.0
+metadata/_custom_type_script = "uid://gtg3pfktqk01"
+
+[sub_resource type="Resource" id="Resource_4pk32"]
+script = ExtResource("2_aqvyq")
+text = "Neste dia, eles partiram com tudo o que tinham, para roubar aquilo que os humanos mais veneravam."
+texture = ExtResource("7_lmrb3")
 move_target = 1
 direction = Vector2(0, -1)
-move_distance = 20.0
+move_distance = 300.0
 metadata/_custom_type_script = "uid://gtg3pfktqk01"
 
-[sub_resource type="Resource" id="Resource_7fyyg"]
+[sub_resource type="Resource" id="Resource_q34qr"]
 script = ExtResource("2_aqvyq")
-text = "Todos os anos as raças entregam os presentes do seu acordo, 
-humanos tem mantido sua parte, mas os monstros ..."
-texture = ExtResource("6_qlx33")
+text = "Roubaram todas as frutas, quem vai nos salvar dos monstros?"
+texture = ExtResource("8_x3k0h")
 move_target = 1
-direction = Vector2(0, -1)
-move_distance = 50.0
+direction = Vector2(0, 1)
+move_distance = 300.0
 metadata/_custom_type_script = "uid://gtg3pfktqk01"
 
-[sub_resource type="Resource" id="Resource_6fa4h"]
-script = ExtResource("2_aqvyq")
-text = "... Estes tem fracassado ..."
-texture = ExtResource("7_4pk32")
-metadata/_custom_type_script = "uid://gtg3pfktqk01"
-
-[sub_resource type="Resource" id="Resource_hvsli"]
-script = ExtResource("2_aqvyq")
-text = "Então esles fizeram um plano para sabotar os humanos e roubar a sua parte ..."
-texture = ExtResource("8_q34qr")
-metadata/_custom_type_script = "uid://gtg3pfktqk01"
-
-[sub_resource type="Resource" id="Resource_k5gwo"]
-script = ExtResource("2_aqvyq")
-text = "Atacaram com tudo o que tinham ..."
-texture = ExtResource("9_n6glx")
-metadata/_custom_type_script = "uid://gtg3pfktqk01"
-
-[sub_resource type="Resource" id="Resource_qihf0"]
-script = ExtResource("2_aqvyq")
-text = "E assim começa a jornada do nosso herói"
-texture = ExtResource("10_0756k")
-metadata/_custom_type_script = "uid://gtg3pfktqk01"
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q34qr"]
+content_margin_left = 5.0
+content_margin_top = 5.0
+content_margin_right = 5.0
+content_margin_bottom = 5.0
+draw_center = false
 
 [node name="IntroScene" type="Node2D" unique_id=510397021]
+position = Vector2(23, 0)
 script = ExtResource("1_3h63u")
-beats = Array[ExtResource("2_aqvyq")]([SubResource("Resource_3h63u"), SubResource("Resource_ugwa6"), SubResource("Resource_jed33"), SubResource("Resource_7fyyg"), SubResource("Resource_6fa4h"), SubResource("Resource_hvsli"), SubResource("Resource_k5gwo"), SubResource("Resource_qihf0")])
+beats = Array[ExtResource("2_aqvyq")]([SubResource("Resource_3h63u"), SubResource("Resource_ugwa6"), SubResource("Resource_jed33"), SubResource("Resource_qlx33"), SubResource("Resource_4pk32"), SubResource("Resource_q34qr")])
+next_scene_path = "uid://drpua1k01kvwn"
 
 [node name="ArtSprite" type="Sprite2D" parent="." unique_id=729548264]
-position = Vector2(358, 272.5)
-scale = Vector2(0.5441988, 0.52946585)
-texture = ExtResource("2_ugwa6")
+position = Vector2(334, 360.00003)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("8_x3k0h")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=347483235]
-position = Vector2(352, 160)
+position = Vector2(337, 162)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=2034916560]
 
@@ -127,6 +127,7 @@ theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 3
 theme_override_fonts/normal_font = ExtResource("5_jed33")
 theme_override_font_sizes/normal_font_size = 24
+theme_override_styles/normal = SubResource("StyleBoxFlat_q34qr")
 
 [node name="SkipButton" type="Button" parent="CanvasLayer" unique_id=829295215]
 offset_left = 624.0

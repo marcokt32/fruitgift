@@ -150,6 +150,7 @@ region_enabled = true
 region_rect = Rect2(128, 144, 32, 32)
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1497779137]
+z_index = 3
 position = Vector2(-160, 0)
 texture = SubResource("CompressedTexture2D_wq2yn")
 offset = Vector2(8, 0)
@@ -157,6 +158,7 @@ region_enabled = true
 region_rect = Rect2(80, 144, 16, 32)
 
 [node name="TextureRect" type="TextureRect" parent="." unique_id=1569933269]
+z_index = 2
 offset_left = -144.0
 offset_top = -16.0
 offset_right = -16.0
@@ -165,6 +167,7 @@ texture = SubResource("AtlasTexture_si6ue")
 stretch_mode = 1
 
 [node name="Sprite2D5" type="Sprite2D" parent="." unique_id=1374950364]
+z_index = 3
 position = Vector2(-16, 0)
 texture = ExtResource("2_dtnh3")
 offset = Vector2(8, 0)

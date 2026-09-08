@@ -1418,18 +1418,22 @@ animations = [{
 radius = 20.024984
 
 [node name="Fruit" type="Area2D" unique_id=1822754849]
+z_index = 1
 collision_layer = 0
 script = ExtResource("1_1i6o1")
 fruit_sprite_frames = Array[SpriteFrames]([SubResource("SpriteFrames_gsfce"), SubResource("SpriteFrames_1uj74"), SubResource("SpriteFrames_8jd6h"), SubResource("SpriteFrames_ure8m"), SubResource("SpriteFrames_hv7j8"), SubResource("SpriteFrames_h87q5"), SubResource("SpriteFrames_ujmqt"), SubResource("SpriteFrames_karm7")])
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1799757912]
+position = Vector2(0, -4)
 shape = SubResource("CircleShape2D_hld54")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=563636113]
+position = Vector2(0, -4)
 sprite_frames = SubResource("SpriteFrames_vd2rh")
 animation = &"idle"
 
 [node name="WorldColisor" type="Area2D" parent="." unique_id=1642250332]
+position = Vector2(0, -4)
 collision_layer = 0
 collision_mask = 2
 
@@ -1437,5 +1441,6 @@ collision_mask = 2
 shape = SubResource("CircleShape2D_si6ue")
 
 [node name="GroundRay" type="RayCast2D" parent="." unique_id=855730288]
+position = Vector2(0, -4)
 target_position = Vector2(0, 20)
 collision_mask = 2

@@ -101,6 +101,7 @@ animations = [{
 points = PackedVector2Array(-20, 2, 0, -12, 20, 2, 0, 12)
 
 [node name="Ptero" type="CharacterBody2D" unique_id=1968208331 groups=["enemy"]]
+z_index = 1
 collision_layer = 4
 collision_mask = 2
 script = ExtResource("1_vitff")

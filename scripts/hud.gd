@@ -1,4 +1,5 @@
 extends CanvasLayer
+#SCRIPT DO HUD
 
 @export var full_heart: Texture2D
 @export var empty_heart: Texture2D
@@ -9,10 +10,11 @@ extends CanvasLayer
 	$MarginContainer/VBoxContainer/HBoxContainer/TextureRect2,
 	$MarginContainer/VBoxContainer/HBoxContainer/TextureRect3,
 ]
+@onready var control_hud:= $"../ControlHUD"
 @onready var ammo_container: HBoxContainer = $MarginContainer/VBoxContainer/HBoxContainer3
 @onready var ammo_label: Label = $MarginContainer/VBoxContainer/HBoxContainer3/Label
-@onready var game_over_panel: Control = $GameOverPanel
-@onready var continue_button: Control = $GameOverPanel/VBoxContainer/ContinueButton
+@onready var game_over_panel: Control = $MarginContainer/GameOverPanel
+@onready var continue_button: Control = $MarginContainer/GameOverPanel/VBoxContainer/ContinueButton
 @onready var player = $"../Player"
 
 func _ready() -> void:
@@ -41,9 +43,11 @@ func _on_player_died() -> void:
 	if GameEvents.life_count <= 0:
 		continue_button.set_deferred("disabled",true)
 	game_over_panel.visible = true
+	control_hud.set_deferred("visible",false)
 	get_tree().paused = true
 
 func _on_restart_button_pressed() -> void:
+	control_hud.set_deferred("visible",true)
 	get_tree().paused = false
 	GameEvents.life_count = 3
 	get_tree().reload_current_scene()
@@ -56,6 +60,7 @@ func _on_ammo_changed(current_ammo: int) -> void:
 	ammo_label.text = "x " + str(current_ammo)
 
 func _on_continue_button_pressed() -> void:
+	control_hud.set_deferred("visible",true)
 	GameEvents.player_respawned.emit()
 	player._reset_status()
 	player.global_position = GameEvents.check_position

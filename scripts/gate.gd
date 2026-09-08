@@ -3,6 +3,7 @@ extends Node2D
 @export var trigger_area_path: NodePath
 @export var move_speed = 1
 @export var gear_visible = true
+@export var begins_open: bool = false
 
 @export_enum("Padrão:0", "Block:1") var gate_skin: int = 0
 
@@ -14,6 +15,9 @@ extends Node2D
 var trigger_area: Area2D
 
 func _ready() -> void:
+	if begins_open:
+		open()
+	
 	if gate_skin == 0:
 		default_skin.set_deferred("visible",true)
 		block_skin.set_deferred("visible",false)
@@ -28,7 +32,6 @@ func _ready() -> void:
 
 	trigger_area = get_node_or_null(trigger_area_path)
 	if trigger_area == null:
-		push_error("Trigger Area Path não configurado no Inspector!")
 		return
 
 	trigger_area.body_entered.connect(_on_trigger_area_body_entered)
@@ -50,9 +53,7 @@ func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 # NOVO: adiciona so isso aqui embaixo
 func open() -> void:
 	animation.speed_scale = move_speed
-	if animation.assigned_animation == "up":
-		animation.play("set_down")
-	elif animation.assigned_animation == "down":
+	if animation.assigned_animation == "down":
 		animation.play("set_up")
 
 
@@ -60,5 +61,3 @@ func close() -> void:
 	animation.speed_scale = move_speed
 	if animation.assigned_animation == "up":
 		animation.play("set_down")
-	elif animation.assigned_animation == "down":
-		animation.play("set_up")

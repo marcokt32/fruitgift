@@ -102,6 +102,7 @@ max_speed = 500.0
 acceleration = 100.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1244125914]
+z_index = 1
 sprite_frames = SubResource("SpriteFrames_qx6oe")
 animation = &"idle"
 

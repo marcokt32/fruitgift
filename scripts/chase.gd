@@ -35,9 +35,6 @@ var retreat_direction: Vector2 = Vector2.ZERO
 func _ready() -> void:
 	start_position = global_position
 
-	detection_area.body_entered.connect(_on_detection_area_body_entered)
-	detection_area.body_exited.connect(_on_detection_area_body_exited)
-
 	if patrol_enabled:
 		var node_a := get_node_or_null(patrol_point_a_path)
 		var node_b := get_node_or_null(patrol_point_b_path)

@@ -47,9 +47,9 @@ func _play_intro() -> void:
 
 
 func _go_to_next_scene() -> void:
+	ProgressManager.mark_intro_seen()
 	if next_scene_path != "":
 		get_tree().change_scene_to_file(next_scene_path)
-
 
 func _play_beat(beat: IntroBeat) -> void:
 	if beat.texture:

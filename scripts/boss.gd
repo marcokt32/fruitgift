@@ -22,9 +22,11 @@ enum BossState { IDLE, CHASE, BRAKING, TAUNT, STUNNED, HIT, DEAD }
 @export var player_path: NodePath          # opcional: se nao setar, procura no grupo "player"
 @export var trigger_area_path: NodePath    # Area2D que ativa o boss quando o player entra; vazio = comeca ativo
 @export var brake_deceleration := 150.0    # quanto a velocidade cai por segundo ao frear
+@export var chase_acceleration := 300.0    # quanto a velocidade sobe por segundo ao iniciar a perseguicao
 @export var stun_duration := 3.0           # segundos atordoado apos bater na parede em alta velocidade
 @export var knockback_force := 350.0       # forca do empurrao no player no 3o stomp do stun
 @export var door_paths: Array[NodePath] = []  # portas que fecham ao ativar e abrem ao morrer/resetar
+@export var speed_curve: Curve             # eixo x = 0 (vida cheia) -> 1 (vida zero); eixo y = multiplicador de velocidade
 
 const MAX_STUN_HITS := 3
 
@@ -39,7 +41,7 @@ var player: Node2D = null
 var spawn_position: Vector2
 var trigger_area: Area2D = null
 
-@onready var angry_speed = speed * 2.5
+@onready var angry_speed = speed * 1.6
 @onready var half_life = health / 2
 @onready var max_health = health
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
@@ -94,7 +96,6 @@ func _activate() -> void:
 
 
 func _physics_process(delta: float) -> void:
-	_set_animation()
 
 	if state == BossState.DEAD:
 		if not is_on_floor():
@@ -126,7 +127,7 @@ func _physics_process(delta: float) -> void:
 
 	sprite.flip_h = direction > 0
 	move_and_slide()
-
+	_set_animation()
 
 func _set_doors_open(open: bool) -> void:
 	for path in door_paths:
@@ -152,7 +153,6 @@ func reset_boss() -> void:
 	velocity = Vector2.ZERO
 	global_position = spawn_position
 	hit_box.monitoring = false
-	visible = false
 	_set_doors_open(true)
 	_reset_trigger()
 	boss_reset.emit()
@@ -170,6 +170,15 @@ func _find_player() -> void:
 		player = get_node_or_null(player_path)
 	else:
 		player = get_tree().get_first_node_in_group("player")
+
+
+func _get_current_speed() -> float:
+	if speed_curve == null:
+		return angry_speed if angry else reset_speed
+	var health_ratio: float = clamp(health / max_health, 0.0, 1.0)
+	var t: float = 1.0 - health_ratio  # 0 = vida cheia, 1 = vida zero
+	var multiplier: float = speed_curve.sample(t)
+	return reset_speed * multiplier
 
 
 func _process_chase(delta: float) -> void:
@@ -190,8 +199,8 @@ func _process_chase(delta: float) -> void:
 		_start_stun()
 		return
 
-	var target_speed = angry_speed if angry else reset_speed
-	velocity.x = direction * target_speed
+	var target_speed = _get_current_speed()
+	velocity.x = move_toward(velocity.x, direction * target_speed, chase_acceleration * delta)
 
 
 func _process_braking(delta: float) -> void:
@@ -284,18 +293,20 @@ func _on_animated_sprite_2d_animation_finished() -> void:
 				sprite.play("stun")
 		"taunt":
 			state = BossState.CHASE
-			var target_speed = angry_speed if angry else reset_speed
-			velocity.x = direction * target_speed
+			velocity.x = 0  # deixa o _process_chase acelerar suavemente a partir do zero
 		# "stun" nao precisa de callback aqui: quem controla é o timer em _start_stun()
 
 
 func _on_hit_box_area_entered(area: Area2D) -> void:
+	print("Boss HitBox detectou: ", area.name, " (owner: ", area.get_parent().name, ")")
 	if state == BossState.DEAD:
 		return
 	if area.name == "HurtBox":
 		var p := area.get_parent()
 		if p.velocity.y >= 0 and p.global_position.y < global_position.y:
 			_hit(p)
+		else:
+			print("Boss: HurtBox entrou mas condicao de velocidade/posicao falhou. velocity.y=", p.velocity.y, " player.y=", p.global_position.y, " boss.y=", global_position.y)
 
 
 func _hit(hitter) -> void:
@@ -350,3 +361,9 @@ func take_projectile_hit() -> void:
 		state = BossState.DEAD
 		defeated.emit()
 		_set_doors_open(true)
+
+func is_stunned() -> bool:
+	return state == BossState.STUNNED
+
+func is_hitted() -> bool:
+	return state == BossState.HIT

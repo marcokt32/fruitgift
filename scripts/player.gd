@@ -149,6 +149,11 @@ func _set_animation() -> void:
 
 
 func _on_hurt_box_body_entered(body: Node2D) -> void:
+	if body.has_method("is_stunned") and body.is_stunned():
+		return
+	if body.has_method("is_hitted") and body.is_hitted():
+		return
+	
 	if is_invincible or is_dead:
 		return
 	
