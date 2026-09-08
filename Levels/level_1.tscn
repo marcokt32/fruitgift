@@ -24,7 +24,7 @@
 [ext_resource type="PackedScene" uid="uid://c07s7oyxpi7eb" path="res://Prefabs/pause.tscn" id="18_77l7m"]
 [ext_resource type="PackedScene" uid="uid://c24t6m45podoq" path="res://Prefabs/check_point.tscn" id="19_1rr3k"]
 [ext_resource type="PackedScene" uid="uid://b2u3xiqb2qb48" path="res://Prefabs/control_hud.tscn" id="20_hsj5a"]
-[ext_resource type="Script" uid="uid://ciu8cnfhwxba0" path="res://scripts/levelData.gd" id="22_fxl23"]
+[ext_resource type="Resource" uid="uid://6f2u01ld4rjm" path="res://Data/Levels/level_1.tres" id="22_fxl23"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_xg5g8"]
 texture = ExtResource("10_8x6gh")
@@ -755,13 +755,6 @@ animations = [{
 "speed": 8.0
 }]
 
-[sub_resource type="Resource" id="Resource_fxl23"]
-script = ExtResource("22_fxl23")
-total_fruits = 31
-total_monsters = 12
-total_crates = 10
-metadata/_custom_type_script = "uid://ciu8cnfhwxba0"
-
 [node name="Level_1" type="Node2D" unique_id=621254797]
 metadata/_edit_horizontal_guides_ = [-176.0, 128.0]
 metadata/_edit_vertical_guides_ = [320.0, 3328.0, -288.0]
@@ -992,7 +985,7 @@ position = Vector2(2256, -144)
 
 [node name="FinalFlag" parent="Traps" unique_id=1298458719 instance=ExtResource("17_hjqri")]
 position = Vector2(4944, 0)
-level_data = SubResource("Resource_fxl23")
+level_data = ExtResource("22_fxl23")
 
 [node name="CheckPoint" parent="Traps" unique_id=591160321 instance=ExtResource("19_1rr3k")]
 position = Vector2(1344, -128)

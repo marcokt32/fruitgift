@@ -22,6 +22,7 @@
 [ext_resource type="PackedScene" uid="uid://c07s7oyxpi7eb" path="res://Prefabs/pause.tscn" id="20_16yl7"]
 [ext_resource type="PackedScene" uid="uid://c24t6m45podoq" path="res://Prefabs/check_point.tscn" id="21_3slvs"]
 [ext_resource type="PackedScene" uid="uid://b2u3xiqb2qb48" path="res://Prefabs/control_hud.tscn" id="22_cnrwi"]
+[ext_resource type="Resource" uid="uid://cjhh74i8gg60n" path="res://Data/Levels/level_2.tres" id="22_knkse"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_qq03i"]
 texture = ExtResource("6_cnrwi")
@@ -782,6 +783,7 @@ position = Vector2(1728, 0)
 [node name="FinalFlag" parent="Traps" unique_id=1298458719 instance=ExtResource("17_e3qtj")]
 position = Vector2(5840, 32)
 level_index = 1
+level_data = ExtResource("22_knkse")
 
 [node name="CheckPoint" parent="Traps" unique_id=591160321 instance=ExtResource("21_3slvs")]
 position = Vector2(688, -32)

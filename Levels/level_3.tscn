@@ -21,6 +21,7 @@
 [ext_resource type="PackedScene" uid="uid://ldbapyw3nrbu" path="res://scenes/hog.tscn" id="19_wnsmg"]
 [ext_resource type="PackedScene" uid="uid://dce88mhps4v1t" path="res://scenes/miniSkull.tscn" id="20_1jtbt"]
 [ext_resource type="PackedScene" uid="uid://cpcqgdm6p64yl" path="res://Prefabs/final_flag.tscn" id="20_g7xwt"]
+[ext_resource type="Resource" uid="uid://c7d0i8ndel34f" path="res://Data/Levels/level_3.tres" id="21_dg4kv"]
 [ext_resource type="PackedScene" uid="uid://bkpjhbtfjn21x" path="res://scenes/cannon.tscn" id="21_eq1l6"]
 [ext_resource type="PackedScene" uid="uid://mbdv2qxo2hv8" path="res://scenes/ptero.tscn" id="22_qy0u1"]
 [ext_resource type="PackedScene" uid="uid://c24t6m45podoq" path="res://Prefabs/check_point.tscn" id="25_eq1l6"]
@@ -668,6 +669,7 @@ gate_skin = 1
 [node name="FinalFlag" parent="Traps" unique_id=1298458719 instance=ExtResource("20_g7xwt")]
 position = Vector2(6896, 0)
 level_index = 2
+level_data = ExtResource("21_dg4kv")
 
 [node name="Fruits" type="Node" parent="." unique_id=210862342]
 
