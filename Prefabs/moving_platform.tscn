@@ -1,10 +1,14 @@
 [gd_scene format=3 uid="uid://bcqytk4apgbpa"]
 
 [ext_resource type="Script" uid="uid://defxeok485lps" path="res://scripts/moving_platform.gd" id="1_b1ec0"]
-[ext_resource type="Texture2D" uid="uid://cynpc1w2bin5o" path="res://assets/TileMap/TerrainMarcov6.png" id="2_o4efa"]
+[ext_resource type="Texture2D" uid="uid://vbij3bd37ner" path="res://assets/TileMap/TileMap.png" id="2_o4efa"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_o4efa"]
 size = Vector2(64, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_si6ue"]
+atlas = ExtResource("2_o4efa")
+region = Rect2(32, 128, 16, 16)
 
 [node name="MovingPlatform" type="AnimatableBody2D" unique_id=1838234702 groups=["crusher"]]
 collision_layer = 8
@@ -12,38 +16,16 @@ collision_mask = 0
 script = ExtResource("1_b1ec0")
 wait_time = 1.5
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=363843933]
-position = Vector2(0, -16)
-texture = ExtResource("2_o4efa")
-centered = false
-region_enabled = true
-region_rect = Rect2(144, 192, 16, 15.916031)
-
-[node name="Sprite2D2" type="Sprite2D" parent="." unique_id=645805695]
-position = Vector2(16, -16)
-texture = ExtResource("2_o4efa")
-centered = false
-region_enabled = true
-region_rect = Rect2(144, 192, 16, 15.916031)
-
-[node name="Sprite2D3" type="Sprite2D" parent="." unique_id=2059930328]
-position = Vector2(32, -16)
-texture = ExtResource("2_o4efa")
-centered = false
-region_enabled = true
-region_rect = Rect2(144, 192, 16, 15.916031)
-
-[node name="Sprite2D4" type="Sprite2D" parent="." unique_id=220595939]
-position = Vector2(48, -16)
-texture = ExtResource("2_o4efa")
-centered = false
-region_enabled = true
-region_rect = Rect2(144, 192, 16, 15.916031)
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=769949428]
 position = Vector2(32, -8)
 shape = SubResource("RectangleShape2D_o4efa")
 
 [node name="Timer" type="Timer" parent="." unique_id=2021510365]
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=201603818]
+offset_top = -16.0
+offset_right = 64.0
+texture = SubResource("AtlasTexture_si6ue")
+stretch_mode = 1
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

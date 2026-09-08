@@ -2877,6 +2877,10 @@ corner_radius_bottom_left = 3
 
 [node name="Pause" type="CanvasLayer" unique_id=1526679350]
 script = ExtResource("1_g6hx7")
+level_select_path = null
+start_on_options = null
+show_progress_button = null
+pause_action_enabled = null
 
 [node name="PanelContainer" type="PanelContainer" parent="." unique_id=1220303503]
 self_modulate = Color(1, 1, 1, 0)
@@ -2901,7 +2905,6 @@ stretch_mode = 1
 [node name="PauseMenu" type="VBoxContainer" parent="PanelContainer" unique_id=94022811]
 layout_mode = 2
 size_flags_vertical = 4
-theme_override_constants/separation = 10
 
 [node name="Label" type="Label" parent="PanelContainer/PauseMenu" unique_id=806108211]
 layout_mode = 2
@@ -2915,12 +2918,12 @@ horizontal_alignment = 1
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-theme_override_constants/h_separation = 10
-theme_override_constants/v_separation = 10
-columns = 4
+theme_override_constants/h_separation = 16
+theme_override_constants/v_separation = 16
+columns = 2
 
 [node name="OptionsButton" type="Button" parent="PanelContainer/PauseMenu/HBoxContainer" unique_id=1323288539]
-custom_minimum_size = Vector2(130, 100)
+custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 3
@@ -2937,7 +2940,7 @@ vertical_icon_alignment = 0
 expand_icon = true
 
 [node name="ContinueButton" type="Button" parent="PanelContainer/PauseMenu/HBoxContainer" unique_id=948480949]
-custom_minimum_size = Vector2(130, 100)
+custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 3
@@ -2954,7 +2957,7 @@ vertical_icon_alignment = 0
 expand_icon = true
 
 [node name="ReplayButton" type="Button" parent="PanelContainer/PauseMenu/HBoxContainer" unique_id=815215792]
-custom_minimum_size = Vector2(130, 100)
+custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 3
@@ -2971,7 +2974,7 @@ vertical_icon_alignment = 0
 expand_icon = true
 
 [node name="QuitButton" type="Button" parent="PanelContainer/PauseMenu/HBoxContainer" unique_id=1397886525]
-custom_minimum_size = Vector2(130, 100)
+custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 3

@@ -1,0 +1,66 @@
+[gd_scene format=3 uid="uid://drpua1k01kvwn"]
+
+[ext_resource type="Script" uid="uid://b14snwfiq3tvn" path="res://scripts/level_select.gd" id="1_oofqj"]
+[ext_resource type="Texture2D" uid="uid://b8jtt46lhv1tw" path="res://assets/Menu/ConceptArt.png" id="2_5pkmi"]
+[ext_resource type="Script" uid="uid://ciu8cnfhwxba0" path="res://scripts/levelData.gd" id="2_cud1i"]
+[ext_resource type="Resource" uid="uid://6f2u01ld4rjm" path="res://Data/Levels/level_1.tres" id="3_0n45v"]
+[ext_resource type="Texture2D" uid="uid://d301nwifpgnam" path="res://assets/Menu/Buttons/sair.png" id="3_ewree"]
+[ext_resource type="PackedScene" uid="uid://c6x17ca2u2a4j" path="res://Prefabs/level_card.tscn" id="4_0n45v"]
+[ext_resource type="Resource" uid="uid://cjhh74i8gg60n" path="res://Data/Levels/level_2.tres" id="4_8onkx"]
+[ext_resource type="Resource" uid="uid://c7d0i8ndel34f" path="res://Data/Levels/level_3.tres" id="5_flyts"]
+
+[node name="LevelSelect" type="Control" unique_id=2110725540]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_oofqj")
+levels = Array[ExtResource("2_cud1i")]([ExtResource("3_0n45v"), ExtResource("4_8onkx"), ExtResource("5_flyts")])
+level_card_scene = ExtResource("4_0n45v")
+
+[node name="Background" type="TextureRect" parent="." unique_id=36272669]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_5pkmi")
+expand_mode = 1
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1984948371]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.49019608)
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=528603460]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="BackButton" type="Button" parent="MarginContainer" unique_id=1522604769]
+layout_mode = 2
+size_flags_horizontal = 8
+icon = ExtResource("3_ewree")
+flat = true
+vertical_icon_alignment = 0
+
+[node name="GridContainer" type="GridContainer" parent="MarginContainer" unique_id=576807737]
+layout_mode = 2
+size_flags_horizontal = 0
+columns = 3
+
+[connection signal="pressed" from="MarginContainer/BackButton" to="." method="_on_back_button_pressed"]

@@ -96,7 +96,7 @@ z_index = 1
 collision_layer = 4
 collision_mask = 2
 script = ExtResource("1_51xoc")
-wall_ray_offset_x = 30.0
+wall_ray_offset_x = 15.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1474505290]
 position = Vector2(0, 8)

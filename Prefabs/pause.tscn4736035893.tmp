@@ -2879,7 +2879,6 @@ corner_radius_bottom_left = 3
 script = ExtResource("1_g6hx7")
 
 [node name="PanelContainer" type="PanelContainer" parent="." unique_id=1220303503]
-self_modulate = Color(1, 1, 1, 0)
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -2901,7 +2900,6 @@ stretch_mode = 1
 [node name="PauseMenu" type="VBoxContainer" parent="PanelContainer" unique_id=94022811]
 layout_mode = 2
 size_flags_vertical = 4
-theme_override_constants/separation = 10
 
 [node name="Label" type="Label" parent="PanelContainer/PauseMenu" unique_id=806108211]
 layout_mode = 2
@@ -2917,10 +2915,10 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_constants/h_separation = 10
 theme_override_constants/v_separation = 10
-columns = 4
+columns = 2
 
 [node name="OptionsButton" type="Button" parent="PanelContainer/PauseMenu/HBoxContainer" unique_id=1323288539]
-custom_minimum_size = Vector2(130, 100)
+custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 3
@@ -2937,7 +2935,7 @@ vertical_icon_alignment = 0
 expand_icon = true
 
 [node name="ContinueButton" type="Button" parent="PanelContainer/PauseMenu/HBoxContainer" unique_id=948480949]
-custom_minimum_size = Vector2(130, 100)
+custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 3
@@ -2954,7 +2952,7 @@ vertical_icon_alignment = 0
 expand_icon = true
 
 [node name="ReplayButton" type="Button" parent="PanelContainer/PauseMenu/HBoxContainer" unique_id=815215792]
-custom_minimum_size = Vector2(130, 100)
+custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 3
@@ -2971,7 +2969,7 @@ vertical_icon_alignment = 0
 expand_icon = true
 
 [node name="QuitButton" type="Button" parent="PanelContainer/PauseMenu/HBoxContainer" unique_id=1397886525]
-custom_minimum_size = Vector2(130, 100)
+custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 3

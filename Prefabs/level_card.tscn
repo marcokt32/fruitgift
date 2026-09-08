@@ -1,7 +1,25 @@
 [gd_scene format=3 uid="uid://c6x17ca2u2a4j"]
 
-[ext_resource type="Texture2D" uid="uid://cl865snlt8dqw" path="res://assets/Menu/Buttons/Level Button 96x160.png" id="1_jmqxb"]
+[ext_resource type="Texture2D" uid="uid://bv4hq4yk3mdei" path="res://assets/Menu/Buttons/Level Button 96x160.png" id="1_jmqxb"]
 [ext_resource type="Script" uid="uid://cplgod1mgt5jr" path="res://scripts/level_card.gd" id="1_yi5tt"]
+[ext_resource type="Texture2D" uid="uid://7acc8cxh4pso" path="res://assets/Menu/Icons/star.png" id="3_ok5p3"]
+[ext_resource type="FontFile" uid="uid://bx3o38mv8l3n8" path="res://assets/Menu/Fonts/Bangers-Regular.ttf" id="3_xxp4r"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_si6ue"]
+content_margin_left = 16.0
+content_margin_top = 16.0
+content_margin_right = 16.0
+content_margin_bottom = 16.0
+bg_color = Color(0.32156864, 0.44313726, 1, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.003921569, 0.07058824, 0.16078432, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
 
 [node name="LevelCard" type="Button" unique_id=1036470898]
 custom_minimum_size = Vector2(64, 96)
@@ -12,18 +30,77 @@ flat = true
 icon_alignment = 1
 script = ExtResource("1_yi5tt")
 
-[node name="Thumbnail" type="TextureRect" parent="." unique_id=165065768]
+[node name="Panel" type="Panel" parent="." unique_id=133593427]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_si6ue")
 
-[node name="NameLabel" type="Label" parent="." unique_id=839521580]
-layout_mode = 0
-offset_right = 64.0
-offset_bottom = 23.0
+[node name="MarginContainer" type="MarginContainer" parent="Panel" unique_id=890802549]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/MarginContainer" unique_id=11323092]
+layout_mode = 2
+
+[node name="NameLabel" type="Label" parent="Panel/MarginContainer/VBoxContainer" unique_id=839521580]
+layout_mode = 2
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("3_xxp4r")
+theme_override_font_sizes/font_size = 20
+horizontal_alignment = 1
+
+[node name="FruitsLabel" type="Label" parent="Panel/MarginContainer/VBoxContainer" unique_id=1429667481]
+layout_mode = 2
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("3_xxp4r")
+theme_override_font_sizes/font_size = 20
+horizontal_alignment = 1
+
+[node name="MonstersLabel" type="Label" parent="Panel/MarginContainer/VBoxContainer" unique_id=1863610798]
+layout_mode = 2
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("3_xxp4r")
+theme_override_font_sizes/font_size = 20
+horizontal_alignment = 1
+
+[node name="CratesLabel" type="Label" parent="Panel/MarginContainer/VBoxContainer" unique_id=1601190344]
+layout_mode = 2
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("3_xxp4r")
+theme_override_font_sizes/font_size = 20
+horizontal_alignment = 1
+
+[node name="StarsContainer" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer" unique_id=384641816]
+layout_mode = 2
+theme_override_constants/separation = -4
+
+[node name="TextureRect" type="TextureRect" parent="Panel/MarginContainer/VBoxContainer/StarsContainer" unique_id=1578707912]
+custom_maximum_size = Vector2(30, 30)
+layout_mode = 2
+texture = ExtResource("3_ok5p3")
+
+[node name="TextureRect2" type="TextureRect" parent="Panel/MarginContainer/VBoxContainer/StarsContainer" unique_id=891772548]
+custom_maximum_size = Vector2(30, 30)
+layout_mode = 2
+texture = ExtResource("3_ok5p3")
+
+[node name="TextureRect3" type="TextureRect" parent="Panel/MarginContainer/VBoxContainer/StarsContainer" unique_id=1953850926]
+custom_maximum_size = Vector2(30, 30)
+layout_mode = 2
+texture = ExtResource("3_ok5p3")
 
 [node name="LockIcon" type="TextureRect" parent="." unique_id=1309835049]
 layout_mode = 1
@@ -32,3 +109,5 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[connection signal="pressed" from="." to="." method="_on_pressed"]

@@ -1,6 +1,7 @@
 extends CharacterBody2D
 
 signal health_changed(current_health: int, max_health: int)
+signal lifes_changed(current_life: int)
 signal ammo_changed(current_ammo: int)
 signal died
 
@@ -29,6 +30,7 @@ signal died
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var shoot_point: Marker2D = $AnimatedSprite2D/ShootPoint
 @onready var initial_position = position
+@onready var camera := $Camera2D
 
 var is_shooting :bool = false
 var level_complete: bool = false
@@ -41,15 +43,20 @@ var is_hurt := false
 var hurt_timer := 0.0
 var is_dead := false
 var has_slingshot: bool = false
-var ammo: int = 0
 var can_shoot: bool = true
 
 
 func _ready() -> void:
+	# VERIFICA SE TEM MUNIÇÃO, SE SIM, DA AO PLAYER O SLINGSHOOT
+	if GameEvents.ammo > 0:
+		equip_slingshot()
 	run_speed = walk_speed * run_speed_multiplier
 	current_max_speed = walk_speed
 	health_changed.emit(health, max_health)
 	GameEvents.check_position = initial_position
+	if camera != null:
+		var saved_zoom := ProgressManager.get_camera_zoom()
+		camera.zoom = Vector2(saved_zoom, saved_zoom)
 
 
 func _physics_process(delta: float) -> void:
@@ -190,6 +197,7 @@ func _knockback(source_position: Vector2) -> void:
 
 func _die() -> void:
 	GameEvents.life_count -= 1
+	emit_signal("lifes_changed",GameEvents.life_count)
 	is_dead = true
 	velocity = Vector2.ZERO
 	is_invincible = true
@@ -210,20 +218,20 @@ func blink() -> void:
 	is_invincible = false
 
 
-func equip_slingshot(ammo_amount: int) -> void:
+func equip_slingshot(ammo_amount: int = 0) -> void:
 	has_slingshot = true
-	ammo += ammo_amount
-	ammo_changed.emit(ammo)
+	GameEvents.ammo += ammo_amount
+	ammo_changed.emit(GameEvents.ammo)
 
 
 func _fire_slingshot() -> void:
-	if ammo <= 0 or slingshot_projectile_scene == null:
+	if GameEvents.ammo <= 0 or slingshot_projectile_scene == null:
 		print("ammo<=0 ou a cena do projeto é nula")
 		return
 
 	can_shoot = false
-	ammo -= 1
-	ammo_changed.emit(ammo)
+	GameEvents.ammo -= 1
+	ammo_changed.emit(GameEvents.ammo)
 	
 	is_shooting = true
 	sprite.play("shoot")
@@ -235,7 +243,7 @@ func _fire_slingshot() -> void:
 	if projectile.has_method("launch"):
 		projectile.launch(Vector2(direction, 0))
 
-	if ammo <= 0:
+	if GameEvents.ammo <= 0:
 		has_slingshot = false
 
 	_start_shoot_cooldown()

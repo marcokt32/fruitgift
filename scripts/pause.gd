@@ -17,13 +17,17 @@ extends CanvasLayer
 @onready var camera_back_button: Button = $PanelContainer/CameraMenu/HBoxContainer/BackButton
 @onready var zoom_slider: HSlider = $PanelContainer/CameraMenu/HBoxContainer/HBoxContainer/HSlider
 
+# NOVO: referência ao(s) nó(s) de fundo (ajuste os caminhos pros seus nós reais)
+@onready var background_scroll: Control = $PanelContainer/BackgroundScroll
+@onready var background_rect: Control = $PanelContainer/TextureRect
+
 @export var level_select_path: String = "res://Prefabs/level_select.tscn"
 @export var start_on_options: bool = false
 @export var show_progress_button: bool = true
 @export var pause_action_enabled: bool = true
 
 var is_paused: bool = false
-
+var _bg_tween: Tween
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
@@ -39,6 +43,7 @@ func _ready() -> void:
 	zoom_slider.min_value = 1.0
 	zoom_slider.max_value = 1.3
 	zoom_slider.step = 0.01
+	zoom_slider.value = ProgressManager.get_camera_zoom()  # NOVO: restaura o zoom salvo
 
 	options_button.pressed.connect(_on_options_pressed)
 	continue_button.pressed.connect(_on_continue_pressed)
@@ -51,6 +56,9 @@ func _ready() -> void:
 
 	camera_back_button.pressed.connect(_on_camera_back_pressed)
 	zoom_slider.value_changed.connect(_on_zoom_changed)
+
+	zoom_slider.drag_started.connect(_on_zoom_drag_started)
+	zoom_slider.drag_ended.connect(_on_zoom_drag_ended)
 
 	confirm_dialog.confirmed.connect(_on_progress_reset_confirmed)
 
@@ -72,7 +80,7 @@ func _open_pause() -> void:
 
 func open_menu() -> void:
 	is_paused = true
-	get_tree().paused = true  # sem efeito real no MainMenu (nada pra pausar), mas inofensivo
+	get_tree().paused = true
 
 	visible = true
 
@@ -131,6 +139,8 @@ func _on_progress_reset_confirmed() -> void:
 
 
 func _on_zoom_changed(value: float) -> void:
+	ProgressManager.set_camera_zoom(value)  # NOVO: persiste o valor
+
 	var player := get_tree().get_first_node_in_group("player")
 	if player == null:
 		return
@@ -139,6 +149,32 @@ func _on_zoom_changed(value: float) -> void:
 	if camera != null:
 		camera.zoom = Vector2(value, value)
 
+
 func _on_replay_pressed() -> void:
 	get_tree().paused = false
 	get_tree().reload_current_scene()
+
+
+# NOVO: some com o fundo enquanto arrasta o slider de zoom
+func _on_zoom_drag_started() -> void:
+	_fade_background(0.0)
+
+
+func _on_zoom_drag_ended(_value_changed: bool) -> void:
+	_fade_background(1.0)
+
+
+func _fade_background(target_alpha: float) -> void:
+	if background_rect == null and background_scroll == null:
+		return
+
+	if _bg_tween != null and _bg_tween.is_valid():
+		_bg_tween.kill()
+
+	_bg_tween = create_tween()
+	_bg_tween.set_parallel(true)
+
+	if background_rect != null:
+		_bg_tween.tween_property(background_rect, "modulate:a", target_alpha, 0.15)
+	if background_scroll != null:
+		_bg_tween.tween_property(background_scroll, "modulate:a", target_alpha, 0.15)

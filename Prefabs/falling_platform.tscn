@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://bmtu5cdlo7um5"]
 
 [ext_resource type="Script" uid="uid://dgff0xh4d6nb1" path="res://scripts/falling_platform.gd" id="1_r7qie"]
-[ext_resource type="Texture2D" uid="uid://cynpc1w2bin5o" path="res://assets/TileMap/TerrainMarcov6.png" id="2_imq24"]
+[ext_resource type="Texture2D" uid="uid://vbij3bd37ner" path="res://assets/TileMap/TileMap.png" id="2_imq24"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_imq24"]
 size = Vector2(48, 16)

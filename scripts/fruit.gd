@@ -81,6 +81,7 @@ func _on_body_entered(body: Node2D) -> void:
 func _collect() -> void:
 	if collected_flag:
 		return
+	ProgressManager._on_fruit_collected()
 
 	collected_flag = true
 	is_popping = false

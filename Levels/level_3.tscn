@@ -921,29 +921,29 @@ door_paths = Array[NodePath]([NodePath("../../Traps/Gate4"), NodePath("../../Tra
 [node name="TriggerArea2" parent="Boss" unique_id=157196446 instance=ExtResource("26_qy0u1")]
 position = Vector2(6256, -48)
 
-[node name="Boxes" type="Node" parent="." unique_id=224291936]
+[node name="Crates" type="Node" parent="." unique_id=224291936]
 
-[node name="ItemBox" parent="Boxes" unique_id=348084858 instance=ExtResource("27_7fyyg")]
+[node name="ItemBox" parent="Crates" unique_id=348084858 instance=ExtResource("27_7fyyg")]
 position = Vector2(2272, 48)
 item_count = 6
 
-[node name="ItemBox2" parent="Boxes" unique_id=602904774 instance=ExtResource("27_7fyyg")]
+[node name="ItemBox2" parent="Crates" unique_id=602904774 instance=ExtResource("27_7fyyg")]
 position = Vector2(2292, 48)
 item_count = 3
 
-[node name="ItemBox3" parent="Boxes" unique_id=79093039 instance=ExtResource("27_7fyyg")]
+[node name="ItemBox3" parent="Crates" unique_id=79093039 instance=ExtResource("27_7fyyg")]
 position = Vector2(2292, 28)
 item_count = 4
 
-[node name="ItemBox4" parent="Boxes" unique_id=1193261668 instance=ExtResource("27_7fyyg")]
+[node name="ItemBox4" parent="Crates" unique_id=1193261668 instance=ExtResource("27_7fyyg")]
 position = Vector2(2792, 48)
 item_count = 6
 
-[node name="ItemBox5" parent="Boxes" unique_id=1375746206 instance=ExtResource("27_7fyyg")]
+[node name="ItemBox5" parent="Crates" unique_id=1375746206 instance=ExtResource("27_7fyyg")]
 position = Vector2(2736, -176)
 item_count = 10
 
-[node name="ItemBox6" parent="Boxes" unique_id=1764333816 instance=ExtResource("27_7fyyg")]
+[node name="ItemBox6" parent="Crates" unique_id=1764333816 instance=ExtResource("27_7fyyg")]
 position = Vector2(5008, -64)
 box_skin = 1
 item_scene = ExtResource("28_0cy58")

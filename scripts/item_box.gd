@@ -108,6 +108,7 @@ func _finish() -> void:
 	bump_area_up.set_deferred("monitoring", false)
 	bump_area_down.set_deferred("monitoring", false)
 	_spawn_burst_particles()
+	GameEvents.register_crate_collected()
 	queue_free()
 
 

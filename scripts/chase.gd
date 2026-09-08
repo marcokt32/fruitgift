@@ -212,6 +212,7 @@ func _on_animated_sprite_2d_animation_finished() -> void:
 	var anim = sprite.animation
 	if anim == "hit":
 		if health <= 0:
+			GameEvents.register_monster_defeated()
 			queue_free()
 		else:
 			hitted = false

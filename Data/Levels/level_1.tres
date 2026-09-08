@@ -6,4 +6,7 @@
 script = ExtResource("1_rdqbj")
 level_name = "Level 1"
 scene_path = "res://Levels/level_1.tscn"
+total_fruits = 31
+total_monsters = 12
+total_crates = 10
 metadata/_custom_type_script = "uid://ciu8cnfhwxba0"

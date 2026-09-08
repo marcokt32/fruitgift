@@ -83,6 +83,7 @@ func _on_animation_finished() -> void:
 
 	elif anim == "hit":
 		if dead:
+			GameEvents.register_monster_defeated()
 			queue_free()
 		else:
 			hitted = false

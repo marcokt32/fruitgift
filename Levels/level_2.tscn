@@ -680,71 +680,71 @@ position = Vector2(4944, -128)
 [node name="Fruit53" parent="Fruits" unique_id=67426530 instance=ExtResource("14_3slvs")]
 position = Vector2(4976, -128)
 
-[node name="Enemys" type="Node" parent="." unique_id=2111641374]
+[node name="Enemies" type="Node" parent="." unique_id=2111641374]
 
-[node name="MiniSkull" parent="Enemys" unique_id=1652452559 instance=ExtResource("10_qy541")]
+[node name="MiniSkull" parent="Enemies" unique_id=1652452559 instance=ExtResource("10_qy541")]
 position = Vector2(736, -16)
 
-[node name="MiniSkull2" parent="Enemys" unique_id=79789618 instance=ExtResource("10_qy541")]
+[node name="MiniSkull2" parent="Enemies" unique_id=79789618 instance=ExtResource("10_qy541")]
 position = Vector2(448, -80)
 
-[node name="MiniSkull3" parent="Enemys" unique_id=1244347619 instance=ExtResource("10_qy541")]
+[node name="MiniSkull3" parent="Enemies" unique_id=1244347619 instance=ExtResource("10_qy541")]
 position = Vector2(2736, -224)
 
-[node name="MiniSkull4" parent="Enemys" unique_id=563925329 instance=ExtResource("10_qy541")]
+[node name="MiniSkull4" parent="Enemies" unique_id=563925329 instance=ExtResource("10_qy541")]
 position = Vector2(3888, -128)
 
-[node name="Cannon" parent="Enemys" unique_id=713631733 instance=ExtResource("11_lmqi1")]
+[node name="Cannon" parent="Enemies" unique_id=713631733 instance=ExtResource("11_lmqi1")]
 position = Vector2(1776, -272)
 health = 2
 
-[node name="Cannon2" parent="Enemys" unique_id=1292850397 instance=ExtResource("11_lmqi1")]
+[node name="Cannon2" parent="Enemies" unique_id=1292850397 instance=ExtResource("11_lmqi1")]
 position = Vector2(2784, -64)
 health = 2
 
-[node name="Cannon3" parent="Enemys" unique_id=1608958868 instance=ExtResource("11_lmqi1")]
+[node name="Cannon3" parent="Enemies" unique_id=1608958868 instance=ExtResource("11_lmqi1")]
 position = Vector2(5520, 32)
 health = 2
 
-[node name="Cannon4" parent="Enemys" unique_id=1503436068 instance=ExtResource("11_lmqi1")]
+[node name="Cannon4" parent="Enemies" unique_id=1503436068 instance=ExtResource("11_lmqi1")]
 position = Vector2(4704, -80)
 health = 2
 
-[node name="Hog" parent="Enemys" unique_id=561766846 instance=ExtResource("12_v3vm6")]
+[node name="Hog" parent="Enemies" unique_id=561766846 instance=ExtResource("12_v3vm6")]
 position = Vector2(3328, -240)
 health = 2.0
 irritable = true
 
-[node name="Hog2" parent="Enemys" unique_id=1428342028 instance=ExtResource("12_v3vm6")]
+[node name="Hog2" parent="Enemies" unique_id=1428342028 instance=ExtResource("12_v3vm6")]
 position = Vector2(4224, -96)
 health = 2.0
 irritable = true
 
-[node name="Ptero" parent="Enemys" unique_id=1968208331 instance=ExtResource("13_16yl7")]
+[node name="Ptero" parent="Enemies" unique_id=1968208331 instance=ExtResource("13_16yl7")]
 position = Vector2(3840, -272)
 
-[node name="Ptero2" parent="Enemys" unique_id=1691524760 instance=ExtResource("13_16yl7")]
+[node name="Ptero2" parent="Enemies" unique_id=1691524760 instance=ExtResource("13_16yl7")]
 position = Vector2(4384, -64)
 
-[node name="Boxes" type="Node" parent="." unique_id=1309136792]
+[node name="Crates" type="Node" parent="." unique_id=1309136792]
 
-[node name="ItemBox" parent="Boxes" unique_id=348084858 instance=ExtResource("15_cnrwi")]
+[node name="ItemBox" parent="Crates" unique_id=348084858 instance=ExtResource("15_cnrwi")]
 position = Vector2(240, -80)
 item_count = 4
 
-[node name="ItemBox2" parent="Boxes" unique_id=354141611 instance=ExtResource("15_cnrwi")]
+[node name="ItemBox2" parent="Crates" unique_id=354141611 instance=ExtResource("15_cnrwi")]
 position = Vector2(1664, -64)
 item_count = 8
 
-[node name="ItemBox4" parent="Boxes" unique_id=642616643 instance=ExtResource("15_cnrwi")]
+[node name="ItemBox4" parent="Crates" unique_id=642616643 instance=ExtResource("15_cnrwi")]
 position = Vector2(2544, -128)
 item_count = 5
 
-[node name="ItemBox5" parent="Boxes" unique_id=326487105 instance=ExtResource("15_cnrwi")]
+[node name="ItemBox5" parent="Crates" unique_id=326487105 instance=ExtResource("15_cnrwi")]
 position = Vector2(3856, -432)
 item_count = 20
 
-[node name="ItemBox3" parent="Boxes" unique_id=1610734122 instance=ExtResource("15_cnrwi")]
+[node name="ItemBox3" parent="Crates" unique_id=1610734122 instance=ExtResource("15_cnrwi")]
 position = Vector2(1552, -336)
 box_skin = 1
 item_scene = ExtResource("16_knkse")

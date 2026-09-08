@@ -171,7 +171,7 @@ z_index = 1
 collision_layer = 4
 collision_mask = 2
 script = ExtResource("1_ber0q")
-wall_ray_offset_x = 30.0
+wall_ray_offset_x = 15.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1823572895]
 position = Vector2(0, 3)
@@ -193,7 +193,7 @@ collision_mask = 2
 
 [node name="WallRay" type="RayCast2D" parent="." unique_id=286927960]
 position = Vector2(-8, 0)
-target_position = Vector2(-25, 0)
+target_position = Vector2(-15, 0)
 collision_mask = 2
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
