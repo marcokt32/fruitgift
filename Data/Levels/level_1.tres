@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource("1_rdqbj")
-level_name = "Level 1"
+level_name = "Vila da Fruta"
 scene_path = "res://Levels/level_1.tscn"
 total_fruits = 31
 total_monsters = 12

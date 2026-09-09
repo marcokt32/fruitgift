@@ -7,12 +7,17 @@
 radius = 5.0990195
 
 [node name="PlayerProjectile" type="Area2D" unique_id=414662619]
+modulate = Color(1, 1, 0, 1)
+z_index = 2
+position = Vector2(27, 20)
 collision_layer = 0
 collision_mask = 6
 script = ExtResource("1_2hugy")
+blink_interval = 0.08
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1104688300]
 texture = ExtResource("2_pw4il")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1396530819]
+visible = false
 shape = SubResource("CircleShape2D_si6ue")

@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource("1_xgs65")
-level_name = "Level 2"
+level_name = "Vila da Fruta 2"
 scene_path = "res://Levels/level_2.tscn"
 total_fruits = 56
 total_monsters = 12

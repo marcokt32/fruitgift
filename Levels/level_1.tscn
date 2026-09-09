@@ -1,9 +1,5 @@
 [gd_scene format=4 uid="uid://b5k2v1wpppefm"]
 
-[ext_resource type="Texture2D" uid="uid://djhry2ki3ic11" path="res://assets/TileMap/Background parts/5 - Sky_color(720 x 208).png" id="1_1s4pk"]
-[ext_resource type="Texture2D" uid="uid://bpdtxm0v3mxg" path="res://assets/TileMap/Background parts/BackGround.png" id="2_x2xxo"]
-[ext_resource type="Texture2D" uid="uid://bjhcur2osrk0k" path="res://assets/TileMap/Background parts/camada 2 hills.png" id="3_2cbcq"]
-[ext_resource type="Texture2D" uid="uid://darynpokq1qcd" path="res://assets/TileMap/Background parts/camada 1 forest.png" id="4_isj1j"]
 [ext_resource type="PackedScene" uid="uid://cacioa1frps8d" path="res://Prefabs/hud.tscn" id="5_so66j"]
 [ext_resource type="Texture2D" uid="uid://vbij3bd37ner" path="res://assets/TileMap/TileMap.png" id="6_tr1x6"]
 [ext_resource type="Texture2D" uid="uid://b6mlmsku88cu5" path="res://assets/TileMap/TileProps.png" id="7_d5akn"]
@@ -15,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://ldbapyw3nrbu" path="res://scenes/hog.tscn" id="11_mmfjm"]
 [ext_resource type="Texture2D" uid="uid://83ourfmm2j7h" path="res://assets/TileMap/sprites village/moinho.png" id="12_fxl23"]
 [ext_resource type="PackedScene" uid="uid://mbdv2qxo2hv8" path="res://scenes/ptero.tscn" id="12_k8ld0"]
+[ext_resource type="PackedScene" uid="uid://moy1trg0pcvh" path="res://Prefabs/background.tscn" id="12_uclwg"]
 [ext_resource type="PackedScene" uid="uid://dehce5ru8mitw" path="res://Prefabs/fruit.tscn" id="13_mbb35"]
 [ext_resource type="PackedScene" uid="uid://d2icjiafoy584" path="res://Prefabs/item_box.tscn" id="14_iw4em"]
 [ext_resource type="Texture2D" uid="uid://brq3gtcnrcdr3" path="res://assets/TileMap/sprites village/moinhohill.png" id="15_442u8"]
@@ -25,6 +22,7 @@
 [ext_resource type="PackedScene" uid="uid://c24t6m45podoq" path="res://Prefabs/check_point.tscn" id="19_1rr3k"]
 [ext_resource type="PackedScene" uid="uid://b2u3xiqb2qb48" path="res://Prefabs/control_hud.tscn" id="20_hsj5a"]
 [ext_resource type="Resource" uid="uid://6f2u01ld4rjm" path="res://Data/Levels/level_1.tres" id="22_fxl23"]
+[ext_resource type="PackedScene" uid="uid://6wb4c6ewmn5b" path="res://Prefabs/level_intro.tscn" id="23_8x6gh"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_xg5g8"]
 texture = ExtResource("10_8x6gh")
@@ -768,41 +766,6 @@ metadata/_edit_vertical_guides_ = [320.0, 3328.0, -288.0]
 [node name="Pause" parent="Root" unique_id=745931159 instance=ExtResource("18_77l7m")]
 show_progress_button = false
 
-[node name="Sky" type="Parallax2D" parent="Root" unique_id=967971259]
-z_index = -2
-repeat_size = Vector2(720, 324)
-repeat_times = 5
-
-[node name="Sprite2D" type="Sprite2D" parent="Root/Sky" unique_id=1628773100]
-texture = ExtResource("1_1s4pk")
-
-[node name="Mountains" type="Parallax2D" parent="Root" unique_id=1601725629]
-z_index = -2
-scroll_scale = Vector2(0.5, 0.5)
-repeat_size = Vector2(720, 0)
-repeat_times = 5
-
-[node name="Sprite2D" type="Sprite2D" parent="Root/Mountains" unique_id=1512857458]
-texture = ExtResource("2_x2xxo")
-
-[node name="Hills" type="Parallax2D" parent="Root" unique_id=1967770703]
-z_index = -2
-scroll_scale = Vector2(0.8, 0.8)
-repeat_size = Vector2(720, 0)
-repeat_times = 5
-
-[node name="Sprite2D" type="Sprite2D" parent="Root/Hills" unique_id=2036124210]
-texture = ExtResource("3_2cbcq")
-
-[node name="Forest" type="Parallax2D" parent="Root" unique_id=1090432235]
-z_index = -2
-scroll_scale = Vector2(0.9, 0.9)
-repeat_size = Vector2(720, 0)
-repeat_times = 5
-
-[node name="Sprite2D" type="Sprite2D" parent="Root/Forest" unique_id=494240112]
-texture = ExtResource("4_isj1j")
-
 [node name="Village" type="TileMapLayer" parent="Root" unique_id=233533401]
 tile_map_data = PackedByteArray("AAALAfj/AgABAAEAAAALAfn/AgABAAIAAAALAfr/AgABAAMAAAALAfv/AgABAAQAAAALAfz/AgABAAUAAAALAf3/AgABAAYAAAALAf7/AgABAAcAAAALAf//AgABAAgAAAALAQAAAgABAAkAAAALAQEAAgABAAoAAAAMAfj/AgACAAEAAAAMAfn/AgACAAIAAAAMAfr/AgACAAMAAAAMAfv/AgACAAQAAAAMAfz/AgACAAUAAAAMAf3/AgACAAYAAAAMAf7/AgACAAcAAAAMAf//AgACAAgAAAAMAQAAAgACAAkAAAAMAQEAAgACAAoAAAANAfj/AgADAAEAAAANAfn/AgADAAIAAAANAfr/AgADAAMAAAANAfv/AgADAAQAAAANAfz/AgADAAUAAAANAf3/AgADAAYAAAANAf7/AgADAAcAAAANAf//AgADAAgAAAANAQAAAgADAAkAAAANAQEAAgADAAoAAAAOAfj/AgAEAAEAAAAOAfn/AgAEAAIAAAAOAfr/AgAEAAMAAAAOAfv/AgAEAAQAAAAOAfz/AgAEAAUAAAAOAf3/AgAEAAYAAAAOAf7/AgAEAAcAAAAOAf//AgAEAAgAAAAOAQAAAgAEAAkAAAAOAQEAAgAEAAoAAAAPAfj/AgAFAAEAAAAPAfn/AgAFAAIAAAAPAfr/AgAFAAMAAAAPAfv/AgAFAAQAAAAPAfz/AgAFAAUAAAAPAf3/AgAFAAYAAAAPAf7/AgAFAAcAAAAPAf//AgAFAAgAAAAPAQAAAgAFAAkAAAAPAQEAAgAFAAoAAADv//v/AAAAAAEAAADv//r/AAAAAAAAAADv//z/AAAAAAIAAADv//3/AAAAAAMAAADv//7/AAAAAAQAAADv////AAAAAAUAAADw//r/AAABAAAAAADw//v/AAABAAEAAADw//z/AAABAAIAAADw//3/AAABAAMAAADw//7/AAABAAQAAADw////AAABAAUAAADx//r/AAACAAAAAADx//v/AAACAAEAAADx//z/AAACAAIAAADx//3/AAACAAMAAADx//7/AAACAAQAAADx////AAACAAUAAADy//r/AAADAAAAAADy//v/AAADAAEAAADy//z/AAADAAIAAADy//3/AAADAAMAAADy//7/AAADAAQAAADy////AAADAAUAAADz//r/AAAEAAAAAADz//v/AAAEAAEAAADz//z/AAAEAAIAAADz//3/AAAEAAMAAADz//7/AAAEAAQAAADz////AAAEAAUAAAD0//r/AAAFAAAAAAD0//v/AAAFAAEAAAD0//z/AAAFAAIAAAD0//3/AAAFAAMAAAD0//7/AAAFAAQAAAD0////AAAFAAUAAAD1//r/AAAGAAAAAAD1//v/AAAGAAEAAAD1//z/AAAGAAIAAAD1//3/AAAGAAMAAAD1//7/AAAGAAQAAAD1////AAAGAAUAAAD2//r/AAAHAAAAAAD2//v/AAAHAAEAAAD2//z/AAAHAAIAAAD2//3/AAAHAAMAAAD2//7/AAAHAAQAAAD2////AAAHAAUAAAAKAff/AgAAAAAAAAAKAfj/AgAAAAEAAAAKAfn/AgAAAAIAAAAKAfr/AgAAAAMAAAAKAfv/AgAAAAQAAAAKAfz/AgAAAAUAAAAKAf3/AgAAAAYAAAAKAf7/AgAAAAcAAAAKAf//AgAAAAgAAAAKAQAAAgAAAAkAAAAKAQEAAgAAAAoAAAALAff/AgABAAAAAAAMAff/AgACAAAAAAANAff/AgADAAAAAAAOAff/AgAEAAAAAAAPAff/AgAFAAAAAAA=")
 tile_set = SubResource("TileSet_hld54")
@@ -834,6 +797,8 @@ scale = Vector2(1.8, 1.8)
 sprite_frames = SubResource("SpriteFrames_si6ue")
 autoplay = "default"
 frame_progress = 0.20409526
+
+[node name="Background" parent="Root" unique_id=1522782584 instance=ExtResource("12_uclwg")]
 
 [node name="Fruits" type="Node" parent="." unique_id=891662872]
 
@@ -1035,3 +1000,6 @@ position = Vector2(462, 0)
 box_skin = 1
 item_scene = ExtResource("15_hnsmf")
 spawn_all_at_once = false
+
+[node name="LevelIntro" parent="." unique_id=713720273 instance=ExtResource("23_8x6gh")]
+level_data = ExtResource("22_fxl23")

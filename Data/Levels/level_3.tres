@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource("1_bor75")
-level_name = "Level 3"
+level_name = "Vila da Fruta 3"
 scene_path = "res://Levels/level_3.tscn"
 total_fruits = 56
 total_monsters = 13

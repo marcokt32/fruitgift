@@ -1,0 +1,53 @@
+[gd_scene format=3 uid="uid://moy1trg0pcvh"]
+
+[ext_resource type="Texture2D" uid="uid://bpdtxm0v3mxg" path="res://assets/TileMap/Background parts/BackGround.png" id="1_n0flw"]
+[ext_resource type="Texture2D" uid="uid://bjhcur2osrk0k" path="res://assets/TileMap/Background parts/camada 2 hills.png" id="2_y80ol"]
+[ext_resource type="Texture2D" uid="uid://darynpokq1qcd" path="res://assets/TileMap/Background parts/camada 1 forest.png" id="3_as8u8"]
+
+[sub_resource type="Gradient" id="Gradient_442u8"]
+offsets = PackedFloat32Array(0, 0.7264151)
+colors = PackedColorArray(0.4334081, 0.680805, 1, 1, 0.979677, 0.93972313, 0.87628675, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_h03d7"]
+gradient = SubResource("Gradient_442u8")
+fill_from = Vector2(0, 1)
+fill_to = Vector2(0, 0)
+
+[node name="Background" type="Node2D" unique_id=1522782584]
+
+[node name="Sky" type="Parallax2D" parent="." unique_id=964974934]
+z_index = -2
+repeat_size = Vector2(720, 720)
+repeat_times = 5
+
+[node name="TextureRect" type="TextureRect" parent="Sky" unique_id=94743659]
+offset_right = 720.0
+offset_bottom = 720.0
+texture = SubResource("GradientTexture2D_h03d7")
+
+[node name="Mountains" type="Parallax2D" parent="." unique_id=170518177]
+z_index = -2
+scroll_scale = Vector2(0.5, 0.5)
+repeat_size = Vector2(720, 0)
+repeat_times = 5
+
+[node name="Sprite2D" type="Sprite2D" parent="Mountains" unique_id=1609269958]
+texture = ExtResource("1_n0flw")
+
+[node name="Hills" type="Parallax2D" parent="." unique_id=996766233]
+z_index = -2
+scroll_scale = Vector2(0.8, 0.8)
+repeat_size = Vector2(720, 0)
+repeat_times = 5
+
+[node name="Sprite2D" type="Sprite2D" parent="Hills" unique_id=1248115790]
+texture = ExtResource("2_y80ol")
+
+[node name="Forest" type="Parallax2D" parent="." unique_id=75027800]
+z_index = -2
+scroll_scale = Vector2(0.9, 0.9)
+repeat_size = Vector2(720, 0)
+repeat_times = 5
+
+[node name="Sprite2D" type="Sprite2D" parent="Forest" unique_id=575809543]
+texture = ExtResource("3_as8u8")

@@ -1,13 +1,10 @@
 [gd_scene format=4 uid="uid://d1xbml7o4ppiq"]
 
-[ext_resource type="Texture2D" uid="uid://djhry2ki3ic11" path="res://assets/TileMap/Background parts/5 - Sky_color(720 x 208).png" id="1_jcvcn"]
-[ext_resource type="Texture2D" uid="uid://bpdtxm0v3mxg" path="res://assets/TileMap/Background parts/BackGround.png" id="2_0ttnk"]
-[ext_resource type="Texture2D" uid="uid://bjhcur2osrk0k" path="res://assets/TileMap/Background parts/camada 2 hills.png" id="3_v3vm6"]
-[ext_resource type="Texture2D" uid="uid://darynpokq1qcd" path="res://assets/TileMap/Background parts/camada 1 forest.png" id="4_16yl7"]
 [ext_resource type="PackedScene" uid="uid://cacioa1frps8d" path="res://Prefabs/hud.tscn" id="5_3slvs"]
 [ext_resource type="Texture2D" uid="uid://vbij3bd37ner" path="res://assets/TileMap/TileMap.png" id="6_cnrwi"]
 [ext_resource type="Texture2D" uid="uid://b6mlmsku88cu5" path="res://assets/TileMap/TileProps.png" id="7_knkse"]
 [ext_resource type="PackedScene" uid="uid://b2l2elydpjbwb" path="res://Prefabs/dead_zone.tscn" id="8_7g2g1"]
+[ext_resource type="PackedScene" uid="uid://moy1trg0pcvh" path="res://Prefabs/background.tscn" id="8_16yl7"]
 [ext_resource type="PackedScene" uid="uid://d1f8ds10k0egw" path="res://scenes/player.tscn" id="9_fll1h"]
 [ext_resource type="PackedScene" uid="uid://bcqytk4apgbpa" path="res://Prefabs/moving_platform.tscn" id="10_qeqk5"]
 [ext_resource type="PackedScene" uid="uid://dce88mhps4v1t" path="res://scenes/miniSkull.tscn" id="10_qy541"]
@@ -21,6 +18,7 @@
 [ext_resource type="PackedScene" uid="uid://cpcqgdm6p64yl" path="res://Prefabs/final_flag.tscn" id="17_e3qtj"]
 [ext_resource type="PackedScene" uid="uid://c07s7oyxpi7eb" path="res://Prefabs/pause.tscn" id="20_16yl7"]
 [ext_resource type="PackedScene" uid="uid://c24t6m45podoq" path="res://Prefabs/check_point.tscn" id="21_3slvs"]
+[ext_resource type="PackedScene" uid="uid://6wb4c6ewmn5b" path="res://Prefabs/level_intro.tscn" id="21_cnrwi"]
 [ext_resource type="PackedScene" uid="uid://b2u3xiqb2qb48" path="res://Prefabs/control_hud.tscn" id="22_cnrwi"]
 [ext_resource type="Resource" uid="uid://cjhh74i8gg60n" path="res://Data/Levels/level_2.tres" id="22_knkse"]
 
@@ -453,42 +451,10 @@ metadata/_edit_vertical_guides_ = [320.0, 3328.0, -288.0]
 [node name="ControlHUD" parent="Root" unique_id=708115110 instance=ExtResource("22_cnrwi")]
 
 [node name="Pause" parent="Root" unique_id=1526679350 instance=ExtResource("20_16yl7")]
+level_select_path = "res://Prefabs/level_select.tscn"
+start_on_options = false
 show_progress_button = false
-
-[node name="Sky" type="Parallax2D" parent="Root" unique_id=967971259]
-z_index = -2
-repeat_size = Vector2(720, 324)
-repeat_times = 5
-
-[node name="Sprite2D" type="Sprite2D" parent="Root/Sky" unique_id=1628773100]
-texture = ExtResource("1_jcvcn")
-
-[node name="Mountains" type="Parallax2D" parent="Root" unique_id=1601725629]
-z_index = -2
-scroll_scale = Vector2(0.5, 0.5)
-repeat_size = Vector2(720, 0)
-repeat_times = 5
-
-[node name="Sprite2D" type="Sprite2D" parent="Root/Mountains" unique_id=1512857458]
-texture = ExtResource("2_0ttnk")
-
-[node name="Hills" type="Parallax2D" parent="Root" unique_id=1967770703]
-z_index = -2
-scroll_scale = Vector2(0.8, 0.8)
-repeat_size = Vector2(720, 0)
-repeat_times = 5
-
-[node name="Sprite2D" type="Sprite2D" parent="Root/Hills" unique_id=2036124210]
-texture = ExtResource("3_v3vm6")
-
-[node name="Forest" type="Parallax2D" parent="Root" unique_id=1090432235]
-z_index = -2
-scroll_scale = Vector2(0.9, 0.9)
-repeat_size = Vector2(720, 0)
-repeat_times = 5
-
-[node name="Sprite2D" type="Sprite2D" parent="Root/Forest" unique_id=494240112]
-texture = ExtResource("4_16yl7")
+pause_action_enabled = true
 
 [node name="TileMap" type="TileMapLayer" parent="Root" unique_id=446117268]
 use_parent_material = true
@@ -510,6 +476,8 @@ shape = SubResource("RectangleShape2D_hld54")
 
 [node name="Player" parent="Root" unique_id=230714219 instance=ExtResource("9_fll1h")]
 position = Vector2(144, -32)
+
+[node name="Background" parent="Root" unique_id=1522782584 instance=ExtResource("8_16yl7")]
 
 [node name="Fruits" type="Node" parent="." unique_id=891662872]
 
@@ -661,7 +629,7 @@ position = Vector2(4000, -112)
 position = Vector2(4032, -112)
 
 [node name="Fruit50" parent="Fruits" unique_id=673802857 instance=ExtResource("14_3slvs")]
-position = Vector2(4880, -128)
+position = Vector2(4880, -96)
 
 [node name="Fruit54" parent="Fruits" unique_id=574960983 instance=ExtResource("14_3slvs")]
 position = Vector2(4560, -96)
@@ -673,13 +641,13 @@ position = Vector2(4592, -96)
 position = Vector2(4624, -96)
 
 [node name="Fruit51" parent="Fruits" unique_id=1731271206 instance=ExtResource("14_3slvs")]
-position = Vector2(4912, -128)
+position = Vector2(4912, -96)
 
 [node name="Fruit52" parent="Fruits" unique_id=630794359 instance=ExtResource("14_3slvs")]
-position = Vector2(4944, -128)
+position = Vector2(4944, -96)
 
 [node name="Fruit53" parent="Fruits" unique_id=67426530 instance=ExtResource("14_3slvs")]
-position = Vector2(4976, -128)
+position = Vector2(4976, -96)
 
 [node name="Enemies" type="Node" parent="." unique_id=2111641374]
 
@@ -799,3 +767,6 @@ position = Vector2(3104, -272)
 
 [node name="CheckPoint5" parent="Traps" unique_id=1877763866 instance=ExtResource("21_3slvs")]
 position = Vector2(3856, -336)
+
+[node name="LevelIntro" parent="." unique_id=713720273 instance=ExtResource("21_cnrwi")]
+level_data = ExtResource("22_knkse")

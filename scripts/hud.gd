@@ -3,6 +3,7 @@ extends CanvasLayer
 
 @export var full_heart: Texture2D
 @export var empty_heart: Texture2D
+@export var panel_anim_duration := 0.25  # NOVO
 
 @onready var fruit_label: Label = $MarginContainer/LeftContainer/VBoxContainer/LevelFruitsCounter/FruitLabel
 @onready var points_label: Label = $MarginContainer/RightContainer/VBoxContainer/PointsSpan/Label
@@ -20,8 +21,10 @@ extends CanvasLayer
 @onready var ammo_container: HBoxContainer = $MarginContainer/LeftContainer/VBoxContainer/AmmoCounter
 @onready var ammo_label: Label = $MarginContainer/LeftContainer/VBoxContainer/AmmoCounter/Label
 @onready var game_over_panel: Control = $MarginContainer/GameOverPanel
-@onready var continue_button: Control = $MarginContainer/GameOverPanel/VBoxContainer/ContinueButton
+@onready var continue_button: Control = $MarginContainer/GameOverPanel/PanelContainer/VBoxContainer/ContinueButton
 @onready var player = $"../Player"
+
+var _game_over_tween: Tween  # NOVO
 
 
 func _process(delta: float) -> void:
@@ -39,6 +42,12 @@ func _ready() -> void:
 	print("Crates: ", crates.get_child_count())
 
 	game_over_panel.visible = false
+
+	# NOVO: estado inicial do painel pra animação (centralizado, invisível, um pouco menor)
+	game_over_panel.pivot_offset = game_over_panel.size / 2.0
+	game_over_panel.modulate.a = 0.0
+	game_over_panel.scale = Vector2(0.9, 0.9)
+
 	ammo_container.visible = false
 	var player := get_tree().get_first_node_in_group("player")
 
@@ -64,9 +73,11 @@ func _on_player_health_changed(current_health: int, _max_health: int) -> void:
 func _on_player_died() -> void:
 	if GameEvents.life_count <= 0:
 		continue_button.set_deferred("disabled", true)
-	game_over_panel.visible = true
+
 	control_hud.set_deferred("visible", false)
 	get_tree().paused = true
+
+	_animate_game_over_in()  # NOVO
 
 
 func _on_restart_button_pressed() -> void:
@@ -101,5 +112,39 @@ func _on_continue_button_pressed() -> void:
 	player._reset_status()
 	player.global_position = GameEvents.check_position
 	player.blink()
-	game_over_panel.visible = false
 	get_tree().paused = false
+
+	_animate_game_over_out()  # NOVO (substitui o "game_over_panel.visible = false" direto)
+
+
+# NOVO: animação de aparição do game over (fade + scale up)
+func _animate_game_over_in() -> void:
+	if _game_over_tween != null and _game_over_tween.is_valid():
+		_game_over_tween.kill()
+
+	game_over_panel.visible = true
+	game_over_panel.modulate.a = 0.0
+	game_over_panel.scale = Vector2(0.9, 0.9)
+
+	_game_over_tween = create_tween()
+	_game_over_tween.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)  # continua rodando com o jogo pausado
+	_game_over_tween.set_parallel(true)
+	_game_over_tween.tween_property(game_over_panel, "modulate:a", 1.0, panel_anim_duration)\
+		.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+	_game_over_tween.tween_property(game_over_panel, "scale", Vector2.ONE, panel_anim_duration)\
+		.set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+
+
+# NOVO: animação de saída do game over (fade + scale down)
+func _animate_game_over_out() -> void:
+	if _game_over_tween != null and _game_over_tween.is_valid():
+		_game_over_tween.kill()
+
+	_game_over_tween = create_tween()
+	_game_over_tween.set_parallel(true)
+	_game_over_tween.tween_property(game_over_panel, "modulate:a", 0.0, panel_anim_duration)\
+		.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
+	_game_over_tween.tween_property(game_over_panel, "scale", Vector2(0.9, 0.9), panel_anim_duration)\
+		.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
+
+	_game_over_tween.chain().tween_callback(func(): game_over_panel.visible = false)

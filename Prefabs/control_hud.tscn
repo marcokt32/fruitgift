@@ -73,9 +73,9 @@ expand_icon = true
 
 [node name="PauseButton" type="Button" parent="Root" unique_id=1324089827]
 layout_mode = 0
-offset_left = 664.0
+offset_left = 663.0
 offset_top = 102.0
-offset_right = 1192.5713
+offset_right = 1191.5713
 offset_bottom = 630.5713
 scale = Vector2(0.07, 0.07)
 icon = ExtResource("4_p15nb")
