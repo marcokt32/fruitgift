@@ -33,6 +33,7 @@ func _process(delta: float) -> void:
 
 
 func _ready() -> void:
+	visible = true
 	var level = get_parent().get_parent()
 	var crates = level.get_node("Crates")
 	var enemies = level.get_node("Enemies")

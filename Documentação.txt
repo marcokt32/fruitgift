@@ -1,0 +1,36 @@
+Fruit Gift 2026 - v0.1
+
+Decrição: jogo de plataforma 2d side scrolling desenvolvido para mobile
+
+MVP:
+Menu principal - área com acesso a botões de jogar e avaliar em um background chamativo
+Select-Slot - área para selecionar slots de salvamento - podendo iniciar ou continuar um jogo ou apagar um save
+Select-Level - área que mostra os leveis em um h slide menu -  e algumas informações de progresso - hiscore e frutas acima
+, e um botão de menu que dará acesso as informações de jogo e opções de configurações de jogo, além de um botão para voltar ao menu anterior
+ ---- Serão 16 leveis ao total com 3 Bosses
+ ---- Cada boss dará acesso a uma nova habilidade através de uma Golden fruit - ou Fruit Gift
+ ---- As habilidades pensadas até o momento serão :
+	- Pulo duplo
+	- Mais um slot de coração (resistência)
+	- Dash
+
+Cores do projeto:
+
+Tipografia:
+Fonte - Bangers
+Cor de Texto principal - #fff
+outline 10px - preto
+Font size: 20px
+Identidade visual:
+Azul primário (painel , botões)- #5271ff
+Azul secundário (botões desativados, pressionados)- #2a43b6
+Azul de apoio (bordas em contraste com fundos claros) - #ffde59
+Amarelo primário (borda em contraste com fundos claros) - #011229
+
+padrão para painéis e botões
+margin content top  e left 7px
+border radius 10px
+borda left e bottom - 5px amarelo primário
+shadow x 3px y 3px 3px
+background azul primário
+pressionado: azul secundário

@@ -3,14 +3,15 @@ extends Button
 var level_data: LevelData
 var level_index: int
 
-@onready var name_label: Label = $Panel/MarginContainer/VBoxContainer/NameLabel
 @onready var lock_icon: TextureRect = $LockIcon
 
 # NOVO: ajuste os paths pros nós reais da sua cena
-@onready var fruits_label: Label = $Panel/MarginContainer/VBoxContainer/FruitsLabel
-@onready var monsters_label: Label = $Panel/MarginContainer/VBoxContainer/MonstersLabel
-@onready var crates_label: Label = $Panel/MarginContainer/VBoxContainer/CratesLabel
-@onready var stars_container: HBoxContainer = $Panel/MarginContainer/VBoxContainer/StarsContainer
+@onready var name_label: Label = $MarginContainer/VBoxContainer/NameLabel
+@onready var fruits_label: Label = $MarginContainer/VBoxContainer/HBoxContainer/FruitsLabel
+@onready var monsters_label: Label = $MarginContainer/VBoxContainer/HBoxContainer2/MonstersLabel
+@onready var crates_label: Label = $MarginContainer/VBoxContainer/HBoxContainer3/CratesLabel
+@onready var stars_container: HBoxContainer = $MarginContainer/VBoxContainer/StarsContainer
+@onready var thumbnail: TextureRect = $MarginContainer/VBoxContainer/Thumb
 
 
 func setup(data: LevelData, index: int) -> void:
@@ -29,6 +30,7 @@ func setup(data: LevelData, index: int) -> void:
 func _update_progress_display() -> void:
 	var record := ProgressManager.get_level_record(level_index)
 
+	thumbnail.texture = level_data.thumbnail
 	fruits_label.text = "%d / %d" % [record["fruits"], level_data.total_fruits]
 	monsters_label.text = "%d / %d" % [record["monsters"], level_data.total_monsters]
 	crates_label.text = "%d / %d" % [record["crates"], level_data.total_crates]

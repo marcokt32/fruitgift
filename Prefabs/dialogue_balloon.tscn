@@ -1,0 +1,46 @@
+[gd_scene format=3 uid="uid://gyd3f6lydoao"]
+
+[ext_resource type="Script" uid="uid://bwce3yv2dfh5x" path="res://scripts/dialogue_balloon.gd" id="1_rufnv"]
+[ext_resource type="FontFile" uid="uid://bx3o38mv8l3n8" path="res://assets/Menu/Fonts/Bangers-Regular.ttf" id="2_ebkmc"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4qcx6"]
+bg_color = Color(0.32156864, 0.44313726, 1, 0.7764706)
+border_width_left = 2
+border_width_bottom = 2
+border_color = Color(1, 0.87058824, 0.34901962, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+shadow_color = Color(0, 0, 0, 0.5529412)
+shadow_size = 3
+shadow_offset = Vector2(3, 3)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ebkmc"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+
+[node name="DialogueBalloon" type="Node2D" unique_id=62221167]
+position = Vector2(0, -64)
+script = ExtResource("1_rufnv")
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=2120702483]
+offset_right = 150.0
+offset_bottom = 40.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_4qcx6")
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer" unique_id=326102539]
+layout_mode = 2
+
+[node name="Label" type="RichTextLabel" parent="PanelContainer/MarginContainer" unique_id=531226212]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme_override_constants/outline_size = 3
+theme_override_fonts/normal_font = ExtResource("2_ebkmc")
+theme_override_font_sizes/normal_font_size = 16
+theme_override_styles/normal = SubResource("StyleBoxEmpty_ebkmc")
+text = "áéi"
+fit_content = true
+scroll_active = false

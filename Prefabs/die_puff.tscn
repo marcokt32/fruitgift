@@ -1,0 +1,49 @@
+[gd_scene format=3 uid="uid://bfymsbboy5t05"]
+
+[ext_resource type="Texture2D" uid="uid://daqksg4qy4kwe" path="res://assets/Others/DieParticle(64x64).png" id="1_cuiex"]
+[ext_resource type="Script" uid="uid://c0pp56s4bgyh6" path="res://scripts/dust_puff.gd" id="2_0myt2"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0myt2"]
+atlas = ExtResource("1_cuiex")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_txd4l"]
+atlas = ExtResource("1_cuiex")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_donpd"]
+atlas = ExtResource("1_cuiex")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k6omk"]
+atlas = ExtResource("1_cuiex")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_l1xm8"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0myt2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_txd4l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_donpd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k6omk")
+}],
+"loop": 0,
+"name": &"default",
+"speed": 12.0
+}]
+
+[node name="DiePuff" type="AnimatedSprite2D" unique_id=798235089]
+sprite_frames = SubResource("SpriteFrames_l1xm8")
+autoplay = "default"
+frame = 3
+frame_progress = 1.0
+script = ExtResource("2_0myt2")
+
+[connection signal="animation_finished" from="." to="." method="_on_animation_finished"]

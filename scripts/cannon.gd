@@ -20,7 +20,6 @@ var player_in_range: Node2D = null
 var can_shoot: bool = true
 var facing_direction: int = -1
 
-
 func _ready() -> void:
 	sprite.frame_changed.connect(_on_frame_changed)
 	sprite.animation_finished.connect(_on_animation_finished)
@@ -65,6 +64,7 @@ func _fire_projectile() -> void:
 	if projectile_scene == null:
 		return
 
+	_spawn_shoot_puff()
 	var projectile := projectile_scene.instantiate()
 	get_tree().current_scene.add_child(projectile)
 	projectile.global_position = shoot_point.global_position
@@ -83,6 +83,7 @@ func _on_animation_finished() -> void:
 
 	elif anim == "hit":
 		if dead:
+			_spawn_die_puff()
 			GameEvents.register_monster_defeated()
 			queue_free()
 		else:
@@ -140,3 +141,19 @@ func take_projectile_hit() -> void:
 		dead = true
 
 	sprite.play("hit")
+
+const DiePuffScene := preload("res://Prefabs/die_puff.tscn")
+const ShootPuffScene := preload("res://Prefabs/fall_puff.tscn")
+
+func _spawn_die_puff() -> void:
+	var puff: Node2D = DiePuffScene.instantiate()
+	get_parent().add_child(puff)
+	puff.global_position = global_position
+	puff.flip_h = facing_direction > 0
+
+func _spawn_shoot_puff() -> void:
+	var puff: Node2D = ShootPuffScene.instantiate()
+	get_parent().add_child(puff)
+	puff.rotation_degrees = 90
+	puff.global_position = global_position + Vector2(-12 if facing_direction > 0 else 12,-12)
+	puff.flip_v = facing_direction > 0

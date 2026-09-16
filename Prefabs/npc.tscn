@@ -1,0 +1,68 @@
+[gd_scene format=3 uid="uid://csjei6j2fl0wl"]
+
+[ext_resource type="Script" uid="uid://djatx56xi7wi6" path="res://scripts/npc.gd" id="1_kd6ta"]
+[ext_resource type="Texture2D" uid="uid://ka45igqcgtpl" path="res://assets/Npcs/Idle (32x32).png" id="2_nrg37"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_si6ue"]
+size = Vector2(20, 32)
+
+[sub_resource type="Animation" id="Animation_c0dvn"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_gx746"]
+resource_name = "idle"
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.90000004, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_wvgss"]
+_data = {
+&"RESET": SubResource("Animation_c0dvn"),
+&"idle": SubResource("Animation_gx746")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hld54"]
+size = Vector2(64, 32)
+
+[node name="NPC" type="StaticBody2D" unique_id=959391075]
+script = ExtResource("1_kd6ta")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=316351181]
+texture = ExtResource("2_nrg37")
+hframes = 11
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1838904711]
+shape = SubResource("RectangleShape2D_si6ue")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=946693879]
+libraries/ = SubResource("AnimationLibrary_wvgss")
+speed_scale = 0.6
+
+[node name="InteractionArea" type="Area2D" parent="." unique_id=205339775]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea" unique_id=1423245020]
+shape = SubResource("RectangleShape2D_hld54")

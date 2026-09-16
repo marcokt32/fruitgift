@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://28b5cnmo7dyf" path="res://assets/Others/arts/lore-1.jpg" id="7_kdgdy"]
 [ext_resource type="Texture2D" uid="uid://cnvci8yck7rkt" path="res://assets/Others/arts/lore-5.jpg" id="7_lmrb3"]
 [ext_resource type="Texture2D" uid="uid://dloiv2jyl2tyo" path="res://assets/Others/arts/lore-6.jpg" id="8_x3k0h"]
+[ext_resource type="Texture2D" uid="uid://bfr5vxmsbyicr" path="res://assets/Menu/Buttons/PrevTexture.png" id="10_x3k0h"]
 
 [sub_resource type="Resource" id="Resource_3h63u"]
 script = ExtResource("2_aqvyq")
@@ -130,7 +131,15 @@ theme_override_font_sizes/normal_font_size = 24
 theme_override_styles/normal = SubResource("StyleBoxFlat_q34qr")
 
 [node name="SkipButton" type="Button" parent="CanvasLayer" unique_id=829295215]
-offset_left = 624.0
+offset_left = 544.0
 offset_top = 240.0
 offset_right = 704.0
-offset_bottom = 288.0
+offset_bottom = 320.0
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("5_jed33")
+theme_override_font_sizes/font_size = 32
+text = "pular"
+icon = ExtResource("10_x3k0h")
+flat = true
+icon_alignment = 2
+expand_icon = true

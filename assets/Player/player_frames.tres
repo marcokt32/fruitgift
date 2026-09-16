@@ -106,6 +106,9 @@ animations = [{
 "frames": [{
 "duration": 1.0,
 "texture": ExtResource("3_aa17n")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_aa17n")
 }],
 "loop": 0,
 "name": &"jump",
@@ -142,6 +145,21 @@ animations = [{
 "speed": 5.0
 }, {
 "frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rbwbu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w6jgx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_17l1u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xsxxh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2rm8v")
+}, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_rbwbu")
 }, {

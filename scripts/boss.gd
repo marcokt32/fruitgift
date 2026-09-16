@@ -17,6 +17,7 @@ enum BossState { IDLE, CHASE, BRAKING, TAUNT, STUNNED, HIT, DEAD }
 @export var speed := 250.0
 @export var irritable: bool = false
 @export var edge_ray_active: bool = true
+@export var shake_area_path: NodePath #define o alcance do shake
 
 @export_group("Boss behavior")
 @export var player_path: NodePath          # opcional: se nao setar, procura no grupo "player"
@@ -40,6 +41,7 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var player: Node2D = null
 var spawn_position: Vector2
 var trigger_area: Area2D = null
+var shake_area: Area2D = null
 
 @onready var angry_speed = speed * 1.6
 @onready var half_life = health / 2
@@ -55,6 +57,8 @@ func _ready() -> void:
 	spawn_position = global_position
 	hit_box.monitoring = false
 	_connect_trigger_area()
+	if shake_area_path != NodePath():
+		shake_area = get_node_or_null(shake_area_path)
 	if GameEvents.has_signal("player_respawned"):
 		GameEvents.player_respawned.connect(reset_boss)
 		print("Boss: conectado ao GameEvents.player_respawned")
@@ -236,6 +240,10 @@ func _start_stun() -> void:
 	velocity.x = 0
 	hit_box.monitoring = true
 	sprite.play("stun")
+	
+	if _player_in_shake_range():   # NOVO
+		GameEvents.boss_stun_shake.emit()
+	
 	await get_tree().create_timer(stun_duration).timeout
 	hit_box.monitoring = false
 	if state == BossState.STUNNED:
@@ -283,6 +291,7 @@ func _on_animated_sprite_2d_animation_finished() -> void:
 	match anim:
 		"hit":
 			if health <= 0:
+				_spawn_die_puff()
 				queue_free()
 			elif stun_hits >= MAX_STUN_HITS:
 				stun_hits = 0
@@ -367,3 +376,43 @@ func is_stunned() -> bool:
 
 func is_hitted() -> bool:
 	return state == BossState.HIT
+
+const DustPuffScene := preload("res://Prefabs/dust_puff.tscn")
+const DiePuffScene := preload("res://Prefabs/die_puff.tscn")
+const STEP_FRAMES := [2,8]
+
+func _spawn_die_puff() -> void:
+	var puff: Node2D = DiePuffScene.instantiate()
+	get_parent().add_child(puff)
+	puff.global_position = global_position
+	puff.flip_h = direction > 0
+
+func _on_animated_sprite_2d_frame_changed() -> void:
+	if sprite.animation != "angry" and sprite.animation != "run" and sprite.animation != "taunt":
+		return
+
+	if sprite.frame in STEP_FRAMES:
+		_spawn_dust_puff()
+
+func _spawn_dust_puff() -> void:
+	var scene: PackedScene
+	if sprite.animation == "angry" or sprite.animation == "run":
+		scene = DustPuffScene
+		var puff: Node2D = scene.instantiate()
+		get_parent().add_child(puff)
+		puff.global_position = global_position + Vector2(-48 if direction > 0 else 48, -16)
+		puff.flip_h = direction > 0
+	elif sprite.animation == "taunt":
+		scene = DustPuffScene
+		var puff: Node2D = scene.instantiate()
+		get_parent().add_child(puff)
+		puff.global_position = global_position + Vector2(-32 if direction > 0 else 32, -16)
+		puff.flip_h = direction > 0
+		
+	else:
+		return
+
+func _player_in_shake_range() -> bool:   # NOVO
+	if shake_area == null or player == null:
+		return true  # se nao configurou area, mantem comportamento antigo (sempre treme)
+	return shake_area.overlaps_body(player)

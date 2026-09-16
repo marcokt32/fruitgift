@@ -4,6 +4,8 @@ signal fruit_collected
 signal monster_defeated
 signal crate_collected
 signal player_respawned
+signal boss_stun_shake
+signal player_damaged
 
 var fruit_count: int = 0
 var monster_count: int = 0

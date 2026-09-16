@@ -11,7 +11,7 @@ modulate = Color(1, 1, 0, 1)
 z_index = 2
 position = Vector2(27, 20)
 collision_layer = 0
-collision_mask = 6
+collision_mask = 14
 script = ExtResource("1_2hugy")
 blink_interval = 0.08
 

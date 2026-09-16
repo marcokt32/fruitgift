@@ -7,7 +7,7 @@ extends CharacterBody2D
 @export var wall_ray_offset_x := 20.0
 @export var wall_ray_offset_y := 0.0
 @export var health := 1.0
-@export var speed := 50.0
+@export var speed := 60.0
 @export var irritable : bool = false
 @export var edge_ray_active : bool = true
 
@@ -24,13 +24,12 @@ var hitted := false
 @onready var wall_ray: RayCast2D = $WallRay
 @onready var reset_speed = speed
 
-
 func _physics_process(delta):
 	_set_animation()
 
 	if dead:
-		if not is_on_floor():
-			velocity.y += gravity * delta
+		#if not is_on_floor():
+		#	velocity.y += gravity * delta
 		move_and_slide()
 		return
 
@@ -100,6 +99,7 @@ func _on_animated_sprite_2d_animation_finished() -> void:
 
 	if anim == "hit":
 		if health <= 0:
+				_spawn_die_puff()
 				GameEvents.register_monster_defeated()
 				queue_free()
 		else:
@@ -134,3 +134,33 @@ func take_projectile_hit() -> void:
 		angry = true
 	velocity = Vector2.ZERO
 	sprite.play("hit")
+
+const DustPuffScene := preload("res://Prefabs/dust_puff.tscn")
+const DiePuffScene := preload("res://Prefabs/die_puff.tscn")
+const STEP_FRAMES := [2,8]
+
+func _spawn_die_puff() -> void:
+	var puff: Node2D = DiePuffScene.instantiate()
+	get_parent().add_child(puff)
+	puff.global_position = global_position
+	puff.flip_h = direction > 0
+
+func _on_animated_sprite_2d_frame_changed() -> void:
+	if sprite.animation != "angry":
+		return
+
+	if sprite.frame in STEP_FRAMES:
+		_spawn_dust_puff()
+
+func _spawn_dust_puff() -> void:
+	var scene: PackedScene
+	if sprite.animation == "angry":
+		scene = DustPuffScene
+	else:
+		return
+
+	var puff: Node2D = scene.instantiate()
+	get_parent().add_child(puff)
+	puff.global_position = global_position + Vector2(-8 if direction > 0 else 8, 8)
+	puff.flip_h = direction > 0
+	

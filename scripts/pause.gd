@@ -45,7 +45,7 @@ func _ready() -> void:
 	zoom_slider.min_value = 1.0
 	zoom_slider.max_value = 1.3
 	zoom_slider.step = 0.01
-	zoom_slider.value = ProgressManager.get_camera_zoom()
+	zoom_slider.value = SettingsManager.get_camera_zoom()
 
 	# NOVO: estado inicial do painel para a animação (invisível, um pouco menor)
 	panel_container.pivot_offset = panel_container.size / 2.0

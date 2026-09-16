@@ -1,0 +1,48 @@
+[gd_scene format=3 uid="uid://dq07fxo2lp5cn"]
+
+[ext_resource type="Script" uid="uid://cc4lkbvm37no8" path="res://scripts/golden_fruit.gd" id="1_f70tr"]
+[ext_resource type="Texture2D" uid="uid://byal0y4m0l87x" path="res://assets/Items/GoldenFruits/goldenApple(32x32).png" id="2_7hwpp"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0ha5f"]
+radius = 7.071068
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_40xpx"]
+atlas = ExtResource("2_7hwpp")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_lb70v"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_40xpx")
+}],
+"loop": 1,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[node name="GoldenFruit" type="Area2D" unique_id=1822754849]
+z_index = 1
+collision_layer = 0
+script = ExtResource("1_f70tr")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1799757912]
+position = Vector2(0, -4)
+shape = SubResource("CircleShape2D_0ha5f")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=563636113]
+position = Vector2(0, -4)
+sprite_frames = SubResource("SpriteFrames_lb70v")
+animation = &"idle"
+
+[node name="FadeLayer" type="CanvasLayer" parent="." unique_id=131163752]
+
+[node name="FadeRect" type="ColorRect" parent="FadeLayer" unique_id=16547267]
+modulate = Color(1, 1, 1, 0)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 1)

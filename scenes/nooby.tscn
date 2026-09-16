@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://dyb4fcwq2cqkx" path="res://assets/Enemies/Nooby/braking.png" id="2_unbw6"]
 [ext_resource type="Texture2D" uid="uid://b34qnils5pmod" path="res://assets/Enemies/Nooby/Nooby-hit (128x128).png" id="5_k5gwo"]
 [ext_resource type="Texture2D" uid="uid://kiqoyo6fu1wx" path="res://assets/Enemies/Nooby/Nooby-stun(128x128).png" id="6_6fa4h"]
+[ext_resource type="PackedScene" uid="uid://din40rmhyl3l" path="res://Prefabs/dust_puff.tscn" id="9_qihf0"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lvt81"]
 atlas = ExtResource("2_hvsli")
@@ -271,6 +272,9 @@ size = Vector2(96, 32)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1jtbt"]
 size = Vector2(96, 64)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_si6ue"]
+size = Vector2(928, 640)
+
 [node name="Nooby" type="CharacterBody2D" unique_id=717979164]
 z_index = 1
 collision_layer = 4
@@ -280,15 +284,16 @@ edge_ray_offset_x = 0.0
 edge_ray_offset_y = 80.0
 wall_ray_offset_x = 55.0
 health = 10.0
-speed = 150.0
+speed = 200.0
 irritable = true
+shake_area_path = NodePath("Area2D")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=55656400]
 position = Vector2(0, -64)
 sprite_frames = SubResource("SpriteFrames_si6ue")
-animation = &"stun"
+animation = &"idle"
 autoplay = "idle"
-frame_progress = 0.43149433
+frame_progress = 0.2810767
 
 [node name="HitBox" type="Area2D" parent="." unique_id=1712915083]
 position = Vector2(0, -64)
@@ -312,5 +317,14 @@ position = Vector2(0, -40)
 target_position = Vector2(-80, 0)
 collision_mask = 2
 
+[node name="DustPuff" parent="." unique_id=798235089 instance=ExtResource("9_qihf0")]
+position = Vector2(32, -16)
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1382241765]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1649736628]
+shape = SubResource("RectangleShape2D_si6ue")
+
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
+[connection signal="frame_changed" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_frame_changed"]
 [connection signal="area_entered" from="HitBox" to="." method="_on_hit_box_area_entered"]

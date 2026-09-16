@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="PowerData" format=3 uid="uid://cocwd1dyk07f5"]
+
+[ext_resource type="Texture2D" uid="uid://byal0y4m0l87x" path="res://assets/Items/GoldenFruits/goldenApple(32x32).png" id="1_6oof1"]
+[ext_resource type="Script" uid="uid://dg4swqj6qxljm" path="res://scripts/power_data.gd" id="1_hdhwh"]
+
+[resource]
+script = ExtResource("1_hdhwh")
+fruit_id = 0
+power_name = "Maçã Dourada"
+subtitle = "Domine a gravidade!"
+description = "Agora você pode executar pulos duplos ao apertar novamente o botão de pulo no ar!!!"
+icon = ExtResource("1_6oof1")
+metadata/_custom_type_script = "uid://dg4swqj6qxljm"

@@ -115,8 +115,9 @@ projectile_scene = ExtResource("2_0285d")
 z_index = 1
 position = Vector2(0, -21)
 sprite_frames = SubResource("SpriteFrames_si6ue")
-animation = &"idle"
-frame_progress = 0.03969205
+animation = &"shoot"
+frame = 4
+frame_progress = 1.0
 
 [node name="DetectionArea" type="Area2D" parent="." unique_id=1882653789]
 visible = false

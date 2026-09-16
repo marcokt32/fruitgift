@@ -1,0 +1,49 @@
+[gd_scene format=3 uid="uid://bsj588jatr733"]
+
+[ext_resource type="Texture2D" uid="uid://bd5whoa60gw0e" path="res://assets/Others/FallParticle(64x64).png" id="1_0wqpw"]
+[ext_resource type="Script" uid="uid://c0pp56s4bgyh6" path="res://scripts/dust_puff.gd" id="2_l1t3m"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l1t3m"]
+atlas = ExtResource("1_0wqpw")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5r6yu"]
+atlas = ExtResource("1_0wqpw")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iogjy"]
+atlas = ExtResource("1_0wqpw")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i5i0c"]
+atlas = ExtResource("1_0wqpw")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_si6ue"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l1t3m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5r6yu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iogjy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i5i0c")
+}],
+"loop": 0,
+"name": &"default",
+"speed": 12.0
+}]
+
+[node name="FallPuff" type="AnimatedSprite2D" unique_id=798235089]
+sprite_frames = SubResource("SpriteFrames_si6ue")
+autoplay = "default"
+frame = 3
+frame_progress = 1.0
+script = ExtResource("2_l1t3m")
+
+[connection signal="animation_finished" from="." to="." method="_on_animation_finished"]

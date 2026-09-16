@@ -57,14 +57,4 @@ func _generate_chain() -> void:
 
 		add_child(link)
 		if Engine.is_editor_hint():
-			link.owner = get_tree().edited_scene_rootextends Node2D
-
-
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
+			link.owner = get_tree().edited_scene_rootextends

@@ -1,0 +1,78 @@
+[gd_scene format=3 uid="uid://c5qrm1xuuupkv"]
+
+[ext_resource type="Texture2D" uid="uid://c3lt6hejdsm7r" path="res://assets/Items/Chest/Chest(48x48).png" id="1_ts4sy"]
+[ext_resource type="Script" uid="uid://g032eynkywts" path="res://scripts/chest.gd" id="1_yaanm"]
+[ext_resource type="PackedScene" uid="uid://dq07fxo2lp5cn" path="res://Prefabs/golden_fruit.tscn" id="2_kbimj"]
+[ext_resource type="Texture2D" uid="uid://cub5gmohsqbjm" path="res://assets/Items/Chest/ChestOpen(48x48).png" id="2_yaanm"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kbimj"]
+atlas = ExtResource("1_ts4sy")
+region = Rect2(0, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b1fom"]
+atlas = ExtResource("2_yaanm")
+region = Rect2(0, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_83v38"]
+atlas = ExtResource("2_yaanm")
+region = Rect2(48, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ei121"]
+atlas = ExtResource("2_yaanm")
+region = Rect2(96, 0, 48, 48)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_si6ue"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kbimj")
+}],
+"loop": 0,
+"name": &"closed",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b1fom")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_83v38")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ei121")
+}],
+"loop": 0,
+"name": &"open",
+"speed": 8.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_si6ue"]
+size = Vector2(40, 27)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hld54"]
+size = Vector2(96, 64)
+
+[node name="Chest" type="StaticBody2D" unique_id=1105377337 node_paths=PackedStringArray("apple_spawn_point")]
+script = ExtResource("1_yaanm")
+golden_apple_scene = ExtResource("2_kbimj")
+apple_spawn_point = NodePath("Marker2D")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=749559867]
+sprite_frames = SubResource("SpriteFrames_si6ue")
+animation = &"closed"
+autoplay = "closed"
+offset = Vector2(24, -24)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1566390301]
+position = Vector2(20, -13.5)
+shape = SubResource("RectangleShape2D_si6ue")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=137680337]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=94979160]
+position = Vector2(16, -32)
+shape = SubResource("RectangleShape2D_hld54")
+
+[node name="Marker2D" type="Marker2D" parent="." unique_id=545849204]
+position = Vector2(20, -27)

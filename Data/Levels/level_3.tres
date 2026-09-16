@@ -1,11 +1,14 @@
 [gd_resource type="Resource" script_class="LevelData" format=3 uid="uid://c7d0i8ndel34f"]
 
 [ext_resource type="Script" uid="uid://ciu8cnfhwxba0" path="res://scripts/levelData.gd" id="1_bor75"]
+[ext_resource type="Texture2D" uid="uid://doyilk7yi03xm" path="res://assets/Thumbs/lvl3thumb.png" id="2_u05rw"]
 
 [resource]
 script = ExtResource("1_bor75")
-level_name = "Vila da Fruta 3"
+level_index = 2
+level_name = "Os portões"
 scene_path = "res://Levels/level_3.tscn"
+thumbnail = ExtResource("2_u05rw")
 total_fruits = 56
 total_monsters = 13
 total_crates = 6

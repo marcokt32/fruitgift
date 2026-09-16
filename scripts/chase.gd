@@ -23,7 +23,7 @@ var hitted := false
 var state: EnemyState = EnemyState.IDLE
 var player_in_range: Node2D = null
 var start_position: Vector2
-
+##PONTO DE PATRULHA
 var patrol_point_a: Vector2
 var patrol_point_b: Vector2
 var patrol_target: Vector2
@@ -31,10 +31,13 @@ var patrol_target: Vector2
 var retreat_timer: float = 0.0
 var retreat_direction: Vector2 = Vector2.ZERO
 
+const DiePuffScene := preload("res://Prefabs/die_puff.tscn")
+
 
 func _ready() -> void:
+	#SALVA POSIÇÃO ASSIM QUE INICIA
 	start_position = global_position
-
+	#EM MODO DE PATRULHA SEGUE DO PONTO A AO PONTO B
 	if patrol_enabled:
 		var node_a := get_node_or_null(patrol_point_a_path)
 		var node_b := get_node_or_null(patrol_point_b_path)
@@ -197,6 +200,14 @@ func _on_hit_box_area_entered(area: Area2D) -> void:
 		if player.velocity.y >= 0 and player.global_position.y < global_position.y:
 			_hit(player)
 
+func take_projectile_hit() -> void:
+	health -= 1
+	hitted = not hitted
+	if health <= 0:
+		dead = true
+	velocity = Vector2.ZERO
+	sprite.play("hit")
+
 
 func _hit(player) -> void:
 	health -= 1
@@ -212,7 +223,13 @@ func _on_animated_sprite_2d_animation_finished() -> void:
 	var anim = sprite.animation
 	if anim == "hit":
 		if health <= 0:
+			_spawn_die_puff()
 			GameEvents.register_monster_defeated()
 			queue_free()
 		else:
 			hitted = false
+
+func _spawn_die_puff() -> void:
+	var puff: Node2D = DiePuffScene.instantiate()
+	get_parent().add_child(puff)
+	puff.global_position = global_position

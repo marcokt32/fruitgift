@@ -1,12 +1,9 @@
 extends Control
 
 @export var level_select_path: String = ""
-@export var intro_scene_path: String = ""
 
 @onready var play_button:= $MarginContainer/VBoxContainer2/HBoxContainer/PlayButton
-@onready var options_button: TextureButton = $MarginContainer/VBoxContainer/OptionsButton
-@onready var quit_button: TextureButton = $MarginContainer/VBoxContainer/QuitButton
-@onready var options_menu: CanvasLayer = $Pause  # ou onde você instanciou
+@onready var quit_button:= $MarginContainer/VBoxContainer/QuitButton
 @onready var main_texture:= $MarginContainer/VBoxContainer2/MainTexture
 
 # Configurações do efeito (ajuste como preferir)
@@ -18,10 +15,7 @@ var tempo: float = 0.0
 
 func _ready() -> void:
 	play_button.pressed.connect(_on_play_pressed)
-	options_button.pressed.connect(_on_options_pressed)
 	quit_button.pressed.connect(_on_quit_pressed)
-
-	options_menu.visible = false
 
 	play_button.grab_focus()
 
@@ -38,18 +32,7 @@ func _process(delta: float) -> void:
 
 
 func _on_play_pressed() -> void:
-	if ProgressManager.has_seen_intro:
-		get_tree().change_scene_to_file(level_select_path)
-	else:
-		get_tree().change_scene_to_file(intro_scene_path)
-	
-
-func _on_options_pressed() -> void:
-	options_menu.open_menu()
-
-
-func _on_options_closed() -> void:
-	options_button.grab_focus()
+	get_tree().change_scene_to_file(level_select_path)
 
 
 func _on_quit_pressed() -> void:

@@ -3,8 +3,7 @@ extends Area2D
 @export var forward_speed := 220.0
 @export var travel_time := 1.5
 @export var fade_duration := 1.0
-@export var level_index := 0
-@export var level_data: LevelData  # NOVO: mesma resource usada no LevelCard, arraste o .tres correspondente
+@export var level_data: LevelData
 
 @onready var sprite := $AnimatedSprite2D
 @onready var fade_rect: ColorRect = $FadeLayer/FadeRect
@@ -15,9 +14,8 @@ var triggered: bool = false
 func _ready() -> void:
 	fade_rect.modulate.a = 0.0
 
-	# NOVO: inicia o rastreio da fase assim que ela carrega
 	if level_data != null:
-		ProgressManager.start_level(level_index, {
+		ProgressManager.start_level(level_data.level_index, {
 			"fruits": level_data.total_fruits,
 			"monsters": level_data.total_monsters,
 			"crates": level_data.total_crates,
@@ -46,9 +44,8 @@ func _start_sequence(player: Node2D) -> void:
 	tween.tween_property(fade_rect, "modulate:a", 1.0, fade_duration)
 	await tween.finished
 
-	# NOVO: fecha o registro da fase e recebe quantas estrelas o jogador fez
 	var stars := ProgressManager.finish_level()
-	print("Fase %d concluída com %d estrela(s)" % [level_index, stars])
+	print("Fase %d concluída com %d estrela(s)" % [level_data.level_index, stars])
 
-	ProgressManager.complete_level(level_index)
+	ProgressManager.complete_level(level_data.level_index)
 	get_tree().change_scene_to_file("res://Prefabs/level_select.tscn")

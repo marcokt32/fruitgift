@@ -1,0 +1,113 @@
+[gd_scene format=3 uid="uid://k4c1b74jb1x6"]
+
+[ext_resource type="Script" uid="uid://wc67sy7kyqyq" path="res://scripts/full_dialogue_ui.gd" id="1_2ychk"]
+[ext_resource type="Texture2D" uid="uid://drb8fay4rscxw" path="res://assets/Menu/Icons/label.png" id="2_iuadl"]
+[ext_resource type="Texture2D" uid="uid://bfr5vxmsbyicr" path="res://assets/Menu/Buttons/PrevTexture.png" id="2_s2q6w"]
+[ext_resource type="FontFile" uid="uid://bx3o38mv8l3n8" path="res://assets/Menu/Fonts/Bangers-Regular.ttf" id="2_v7cv2"]
+
+[sub_resource type="Gradient" id="Gradient_v7cv2"]
+colors = PackedColorArray(0.003921569, 0.07058824, 0.16078432, 1, 0.32156864, 0.44313726, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_c74xd"]
+gradient = SubResource("Gradient_v7cv2")
+fill_from = Vector2(0, 0.22463769)
+fill_to = Vector2(1, 0.38405797)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_xyuvl"]
+texture = SubResource("GradientTexture2D_c74xd")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_iuadl"]
+texture = ExtResource("2_iuadl")
+texture_margin_left = 7.0
+texture_margin_top = 7.0
+expand_margin_left = 5.0
+expand_margin_top = 1.0
+expand_margin_right = 5.0
+expand_margin_bottom = 7.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_iuadl"]
+content_margin_left = 7.0
+content_margin_top = 7.0
+
+[node name="FullDialogueUI" type="Control" unique_id=239381279]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_2ychk")
+
+[node name="Background" type="ColorRect" parent="." unique_id=1887749000]
+custom_minimum_size = Vector2(720, 324)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 681.0
+offset_bottom = 283.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0.5882353)
+
+[node name="DialogueBox" type="PanelContainer" parent="." unique_id=460584441]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 160.0
+offset_right = 681.0
+offset_bottom = 284.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_xyuvl")
+
+[node name="MarginContainer" type="MarginContainer" parent="DialogueBox" unique_id=660339024]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="DialogueBox/MarginContainer" unique_id=1269610532]
+layout_mode = 2
+
+[node name="PortraitTexture" type="TextureRect" parent="DialogueBox/MarginContainer/HBoxContainer" unique_id=309286225]
+custom_minimum_size = Vector2(108, 108)
+layout_mode = 2
+expand_mode = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="DialogueBox/MarginContainer/HBoxContainer" unique_id=1106582770]
+custom_minimum_size = Vector2(480, 0)
+layout_mode = 2
+
+[node name="NameLabel" type="Label" parent="DialogueBox/MarginContainer/HBoxContainer/VBoxContainer" unique_id=1330928362]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("2_v7cv2")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxTexture_iuadl")
+
+[node name="DialogueText" type="RichTextLabel" parent="DialogueBox/MarginContainer/HBoxContainer/VBoxContainer" unique_id=1274219051]
+layout_mode = 2
+theme_override_constants/outline_size = 5
+theme_override_fonts/normal_font = ExtResource("2_v7cv2")
+theme_override_font_sizes/normal_font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxEmpty_iuadl")
+text = "Ãéiô"
+fit_content = true
+
+[node name="SkipButton" type="Button" parent="DialogueBox/MarginContainer/HBoxContainer" unique_id=1079134796]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+size_flags_vertical = 4
+icon = ExtResource("2_s2q6w")
+flat = true
+icon_alignment = 1
+expand_icon = true
+
+[connection signal="pressed" from="DialogueBox/MarginContainer/HBoxContainer/SkipButton" to="." method="_on_skip_button_pressed"]

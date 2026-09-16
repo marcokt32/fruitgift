@@ -28,6 +28,7 @@ corner_radius_bottom_right = 15
 corner_radius_bottom_left = 15
 
 [node name="BossHealthBar" type="CanvasLayer" unique_id=978260287]
+visible = false
 script = ExtResource("1_n2ca8")
 
 [node name="Control" type="Control" parent="." unique_id=341330957]

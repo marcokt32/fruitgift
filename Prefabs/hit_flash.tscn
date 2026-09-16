@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://3vduk4shrod7"]
+
+[ext_resource type="Script" uid="uid://dstwrd1yxdf5u" path="res://scripts/hit_flash.gd" id="1_kmbvq"]
+
+[sub_resource type="Gradient" id="Gradient_1coii"]
+colors = PackedColorArray(0, 0, 0, 0, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_si6ue"]
+gradient = SubResource("Gradient_1coii")
+fill = 1
+fill_from = Vector2(0.49411765, 0.48235294)
+fill_to = Vector2(0.9647059, 0.052941177)
+
+[node name="HitFlash" type="CanvasLayer" unique_id=245525380]
+process_mode = 3
+script = ExtResource("1_kmbvq")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1537402061]
+modulate = Color(1, 1, 1, 0)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = SubResource("GradientTexture2D_si6ue")

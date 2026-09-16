@@ -31,7 +31,14 @@ signal died
 @onready var shoot_point: Marker2D = $AnimatedSprite2D/ShootPoint
 @onready var initial_position = position
 @onready var camera := $Camera2D
+@onready var collision := $CollisionShape2D
 
+@export var double_jump_fruit_id := 0   # qual fruit_id (do PowerData) libera o pulo duplo
+@export var double_jump_velocity := -360.0  # geralmente um pouco mais fraco que o pulo normal
+var has_double_jump: bool = false
+var jumps_used: int = 0
+
+var camera_local_pos: Vector2
 var is_shooting :bool = false
 var level_complete: bool = false
 var run_speed: float
@@ -44,23 +51,32 @@ var hurt_timer := 0.0
 var is_dead := false
 var has_slingshot: bool = false
 var can_shoot: bool = true
-
+var was_on_floor := true
 
 func _ready() -> void:
+	# NOVO: já nasce com pulo duplo se o jogador já coletou a fruta em qualquer fase anterior
+	has_double_jump = ProgressManager.is_golden_fruit_collected(double_jump_fruit_id)
 	# VERIFICA SE TEM MUNIÇÃO, SE SIM, DA AO PLAYER O SLINGSHOOT
 	if GameEvents.ammo > 0:
 		equip_slingshot()
+	if camera != null:
+		camera_local_pos = camera.position
 	run_speed = walk_speed * run_speed_multiplier
 	current_max_speed = walk_speed
 	health_changed.emit(health, max_health)
 	GameEvents.check_position = initial_position
 	if camera != null:
-		var saved_zoom := ProgressManager.get_camera_zoom()
+		var saved_zoom := SettingsManager.get_camera_zoom()
 		camera.zoom = Vector2(saved_zoom, saved_zoom)
 
 
 func _physics_process(delta: float) -> void:
-	if is_dead:
+	#if is_dead:
+	#	return --------- retirado para garantir a animação do player ao morrer
+	if input_locked:
+		velocity.x = 0
+		move_and_slide()  # mantém gravidade agindo, mas sem movimento horizontal
+		_set_animation()
 		return
 	
 	if level_complete:
@@ -72,10 +88,19 @@ func _physics_process(delta: float) -> void:
 
 	if not is_on_floor():
 		velocity.y += gravity * delta
-
-	_get_input(delta)
+	
+	if !is_dead:
+		_get_input(delta)
 	_update_floor_snap(delta)
 	move_and_slide()
+	
+	# ATERRISSAGEM: estava no ar e agora tocou o chão
+	if is_on_floor() and not was_on_floor:
+		_spawn_land_puff()
+	was_on_floor = is_on_floor()
+	
+	if is_on_floor():
+		jumps_used = 0   # NOVO
 
 	if is_hurt:
 		hurt_timer -= delta
@@ -114,8 +139,15 @@ func _get_input(delta: float) -> void:
 		sprite.flip_h = true
 		shoot_point.position.x = -15
 
-	if Input.is_action_just_pressed("jump") and is_on_floor():
-		velocity.y = jump_velocity
+	if Input.is_action_just_pressed("jump"):
+		if is_on_floor():
+			_spawn_jump_puff()
+			velocity.y = jump_velocity
+			jumps_used = 1
+		elif has_double_jump and jumps_used < 2:
+			_spawn_jump_puff()
+			velocity.y = double_jump_velocity
+			jumps_used = 2
 
 	if velocity.y < 0.0 and Input.is_action_just_released("jump"):
 		velocity.y = lerp(velocity.y, 0.0, 0.5)
@@ -129,27 +161,30 @@ func _update_floor_snap(delta: float) -> void:
 
 func _set_animation() -> void:
 	var anim: String = "idle"
-
-	if is_hurt:
-		anim = "hurt"
-	elif is_shooting:
-		anim = "shoot"
+	
+	if input_locked:
+		anim = "idle"
 	else:
-		var speed_abs: float = abs(velocity.x)
-		var is_running: bool = speed_abs > walk_speed * 1.4  # margem pra evitar flicker no limiar
+		if is_hurt or is_dead:
+			anim = "hurt"
+		elif is_shooting:
+			anim = "shoot"
+		else:
+			var speed_abs: float = abs(velocity.x)
+			var is_running: bool = speed_abs > walk_speed * 1.4
 
-		if speed_abs > 40.0:
-			anim = "walk"
-		if is_running:
-			anim = "run"
-
-		if not is_on_floor():
+			if speed_abs > 40.0:
+				anim = "walk"
 			if is_running:
-				anim = "run_jump"
-			else:
-				anim = "jump"
-				if velocity.y > 10.0:
-					anim = "fall"
+				anim = "run"
+
+			if not is_on_floor():
+				if is_running:
+					anim = "run_jump"
+				else:
+					anim = "jump"
+					if velocity.y > 10.0:
+						anim = "fall"
 
 	if sprite.animation != anim:
 		sprite.play(anim)
@@ -169,16 +204,18 @@ func _on_hurt_box_body_entered(body: Node2D) -> void:
 	
 	if "hitted"in body and body.hitted:
 		return
-
+	
+	GameEvents.boss_stun_shake.emit()
+	GameEvents.player_damaged.emit()
 	health -= 1
 
 	health_changed.emit(health, max_health)
+	_knockback(body.global_position)
 
 	if health <= 0:
 		_die()
 		return
 
-	_knockback(body.global_position)
 	is_hurt = true
 	hurt_timer = hurt_duration
 	blink()
@@ -195,15 +232,26 @@ func _knockback(source_position: Vector2) -> void:
 	velocity.x = away_from_source * kb_velocity
 
 
+
 func _die() -> void:
+	if camera != null:
+		var current_global_pos: Vector2 = camera.global_position
+		camera.top_level = true
+		camera.global_position = current_global_pos
 	GameEvents.life_count -= 1
 	emit_signal("lifes_changed",GameEvents.life_count)
 	is_dead = true
-	velocity = Vector2.ZERO
 	is_invincible = true
 	sprite.play("hurt")
-	died.emit()
-
+	collision.set_deferred("disabled", true)
+	await get_tree().create_timer(.7).timeout
+	if GameEvents.life_count <= 0:
+		died.emit()
+	else:
+		GameEvents.player_respawned.emit()
+		_reset_status()
+		global_position = GameEvents.check_position
+		blink()
 
 func blink() -> void:
 	is_invincible = true
@@ -253,7 +301,6 @@ func _start_shoot_cooldown() -> void:
 	await get_tree().create_timer(shoot_cooldown).timeout
 	can_shoot = true
 
-
 func start_level_complete(speed: float) -> void:
 	if level_complete or is_dead:
 		return
@@ -264,8 +311,11 @@ func start_level_complete(speed: float) -> void:
 		var current_global_pos: Vector2 = camera.global_position
 		camera.top_level = true
 		camera.global_position = current_global_pos
-		
+	
+	direction = 1
 	velocity.x = direction * speed
+	is_invincible = true
+	sprite.flip_h = false
 
 
 func _on_animated_sprite_2d_animation_finished() -> void:
@@ -273,8 +323,69 @@ func _on_animated_sprite_2d_animation_finished() -> void:
 		is_shooting = false
 
 func _reset_status():
+	if camera != null:
+		camera.top_level = false
+		camera.position = camera_local_pos
+	collision.set_deferred("disabled", false)
 	velocity = Vector2.ZERO
 	health = max_health
 	health_changed.emit(health, max_health)
 	is_invincible = false
 	is_dead = false
+
+# PARTICULA DE POEIRA DOS PÉS
+const DustPuffScene := preload("res://Prefabs/dust_puff.tscn")
+const DustPuffScene2 := preload("res://Prefabs/dust_puff_2.tscn")
+const JumpPuffScene := preload("res://Prefabs/jump_puff.tscn")
+const FallPuffScene := preload("res://Prefabs/fall_puff.tscn")
+const STEP_FRAMES := [2,8]
+
+func _on_animated_sprite_2d_frame_changed() -> void:
+	if sprite.animation != "run" and sprite.animation != "walk":
+		return
+
+	if sprite.frame in STEP_FRAMES:
+		_spawn_dust_puff()
+
+func _spawn_dust_puff() -> void:
+	var scene: PackedScene
+	if sprite.animation == "run":
+		scene = DustPuffScene
+	elif sprite.animation == "walk":
+		scene = DustPuffScene2
+	else:
+		return
+
+	var puff: Node2D = scene.instantiate()
+	get_parent().add_child(puff)
+	puff.global_position = global_position + Vector2(-8 if direction > 0 else 8, 0)
+	puff.flip_h = direction > 0
+
+func _spawn_jump_puff() -> void:
+	var puff: Node2D = JumpPuffScene.instantiate()
+	get_parent().add_child(puff)
+	puff.global_position = global_position + Vector2(0, -16)  # ajuste o offset conforme necessário
+	puff.flip_h = direction > 0
+
+func _spawn_land_puff() -> void:
+	var puff: Node2D = FallPuffScene.instantiate()
+	get_parent().add_child(puff)
+	puff.global_position = global_position + Vector2(0, -16)  # ajuste o offset conforme necessário
+	puff.flip_h = direction > 0
+
+#LÓGICA DE TRAVA DE INPUT
+
+var input_locked: bool = false
+
+func lock_input() -> void:
+	input_locked = true
+	velocity.x = 0
+	# se usar animação de idle/parado, force ela aqui:
+	# animated_sprite.play("idle")
+
+func unlock_input() -> void:
+	input_locked = false
+
+func grant_power(fruit_id: int) -> void:
+	if fruit_id == double_jump_fruit_id:
+		has_double_jump = true

@@ -1,11 +1,13 @@
 [gd_scene format=3 uid="uid://b2u3xiqb2qb48"]
 
 [ext_resource type="Script" uid="uid://dkunymh1130te" path="res://scripts/control_hud.gd" id="1_7clc0"]
+[ext_resource type="Texture2D" uid="uid://cjgg0o6iumnbh" path="res://assets/Menu/Buttons/Interact Button 150x150.png" id="2_kr77e"]
 [ext_resource type="Texture2D" uid="uid://dm1s2cp56x2yc" path="res://assets/Menu/Buttons/Left Button 150x150.png" id="2_p15nb"]
 [ext_resource type="Texture2D" uid="uid://3wmieyrjsryx" path="res://assets/Menu/Buttons/Right Button 150x150.png" id="3_a40tv"]
 [ext_resource type="Texture2D" uid="uid://clq2x4pl8dwaf" path="res://assets/Menu/Buttons/shot.png" id="3_cvwaq"]
 [ext_resource type="Texture2D" uid="uid://dsgcf74y0pdli" path="res://assets/Menu/Buttons/Jump Button 150x150.png" id="4_kr77e"]
-[ext_resource type="Texture2D" uid="uid://da51cxmywsndh" path="res://assets/Menu/Buttons/pause.png" id="4_p15nb"]
+[ext_resource type="PackedScene" uid="uid://k4c1b74jb1x6" path="res://Prefabs/full_dialogue_ui.tscn" id="7_a40tv"]
+[ext_resource type="Texture2D" uid="uid://bxofw5u5lpxtu" path="res://assets/Menu/Buttons/Pause Button 150x150.png" id="7_rx2g1"]
 
 [node name="ControlHUD" type="CanvasLayer" unique_id=708115110]
 script = ExtResource("1_7clc0")
@@ -78,7 +80,20 @@ offset_top = 102.0
 offset_right = 1191.5713
 offset_bottom = 630.5713
 scale = Vector2(0.07, 0.07)
-icon = ExtResource("4_p15nb")
+icon = ExtResource("7_rx2g1")
+flat = true
+icon_alignment = 1
+expand_icon = true
+
+[node name="FullDialogueUI" parent="." unique_id=239381279 instance=ExtResource("7_a40tv")]
+
+[node name="InteractButton" type="Button" parent="." unique_id=182841820]
+offset_left = 373.0
+offset_top = 260.0
+offset_right = 901.5712
+offset_bottom = 788.5713
+scale = Vector2(0.07, 0.07)
+icon = ExtResource("2_kr77e")
 flat = true
 icon_alignment = 1
 expand_icon = true
