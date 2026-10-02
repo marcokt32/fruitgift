@@ -1,0 +1,31 @@
+[gd_scene format=3 uid="uid://mn5mh18o7cay"]
+
+[ext_resource type="Script" uid="uid://h6ac00ydi4cq" path="res://scripts/projectile.gd" id="1_kbam3"]
+[ext_resource type="Texture2D" uid="uid://bcadwgehv8kyd" path="res://assets/Enemies/Aimbee/Sting.png" id="2_kbam3"]
+
+[sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_vm0xl"]
+points = PackedVector2Array(-8, -8, 8, -8, 0, 0)
+
+[sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_gkfmy"]
+points = PackedVector2Array(-8, -8, 8, -8, 0, 8)
+
+[node name="Sting" type="StaticBody2D" unique_id=1485975017]
+z_index = 2
+collision_layer = 4
+script = ExtResource("1_kbam3")
+speed = null
+lifetime = null
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1763961292]
+shape = SubResource("ConvexPolygonShape2D_vm0xl")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1405070245]
+texture = ExtResource("2_kbam3")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1409509965]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=2145132409]
+shape = SubResource("ConvexPolygonShape2D_gkfmy")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

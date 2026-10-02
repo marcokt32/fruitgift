@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://dqsovm170cuum"]
 
 [ext_resource type="Script" uid="uid://qiyaduim70r" path="res://scripts/box_particle.gd" id="2_562fg"]
+[ext_resource type="AudioStream" uid="uid://bc1jchp8nyq2c" path="res://assets/Sounds/breakingwood.mp3" id="3_1ofi8"]
 [ext_resource type="Texture2D" uid="uid://8yjdini2r0rc" path="res://assets/Items/Box/Box1/Break (32x32).png" id="3_burjl"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_562fg"]
@@ -46,3 +47,8 @@ script = ExtResource("2_562fg")
 sprite_frames = SubResource("SpriteFrames_2wii0")
 autoplay = "default"
 frame_progress = 0.205105
+
+[node name="BreakinSfx" type="AudioStreamPlayer2D" parent="." unique_id=1743558036]
+stream = ExtResource("3_1ofi8")
+volume_db = -15.0
+pitch_scale = 1.5

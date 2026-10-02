@@ -1,11 +1,14 @@
 extends Node
 
 const SAVE_DIR := "user://saves/"
-const SAVE_VERSION := 1
+const SAVE_VERSION := 2
 
 # Conjunto fixo de frutas douradas do jogo (não ligadas a fase específica).
 # Ajuste esse número para a quantidade real de frutas douradas do seu jogo.
 const TOTAL_GOLDEN_FRUITS := 12
+
+# Cada fase tem um conjunto fixo de moedas (ids 0, 1, 2)
+const COINS_PER_LEVEL := 3
 
 # -1 = nenhum slot selecionado ainda (tela de seleção deve rodar antes de qualquer coisa)
 var current_slot: int = -1
@@ -22,12 +25,13 @@ var total_fruit_score: int = 0
 # Soma de estrelas de todas as fases
 var total_stars: int = 0
 
-# level_records["0"] = {"fruits": int, "monsters": int, "crates": int, "stars": int}
+# level_records["0"] = {"fruits": int, "monsters": int, "coins": [bool, bool, bool], "stars": int}
 var level_records: Dictionary = {}
 
 # Contexto da fase em andamento
 var _current_level_index: int = -1
 var _current_level_totals: Dictionary = {}
+var _current_run_coins: Array = []
 
 
 func _ready() -> void:
@@ -106,13 +110,17 @@ func _reset_to_defaults() -> void:
 
 
 # ---------------------------------------------------------------------------
-# Lógica de jogo (inalterada)
+# Lógica de fase
 # ---------------------------------------------------------------------------
 
-# Chame no _ready() da fase, informando os totais dela
-func start_level(level_index: int, totals: Dictionary) -> void:
-	_current_level_index = level_index
-	_current_level_totals = totals
+# Chame no _ready() do final level, passando o LevelData da fase.
+func start_level(level_data: LevelData) -> void:
+	_current_level_index = level_data.level_index
+	_current_level_totals = {
+		"fruits": level_data.total_fruits,
+		"monsters": level_data.total_monsters,
+	}
+	_current_run_coins = _empty_coins()
 	GameEvents.reset()
 
 
@@ -123,31 +131,36 @@ func finish_level() -> int:
 
 	var fruits := GameEvents.fruit_count
 	var monsters := GameEvents.monster_count
-	var crates := GameEvents.crate_count
 	var totals := _current_level_totals
+
+	# Une as moedas já salvas com as pegas nesta tentativa
+	var previous := get_level_record(_current_level_index)
+	var coins := _empty_coins()
+	for i in COINS_PER_LEVEL:
+		coins[i] = previous["coins"][i] or _current_run_coins[i]
 
 	var stars := 0
 	if totals.get("fruits", 0) > 0 and fruits >= totals["fruits"]:
 		stars += 1
 	if totals.get("monsters", 0) > 0 and monsters >= totals["monsters"]:
 		stars += 1
-	if totals.get("crates", 0) > 0 and crates >= totals["crates"]:
+	if _count_true(coins) >= COINS_PER_LEVEL:
 		stars += 1
 
-	_update_level_record(_current_level_index, fruits, monsters, crates, stars)
+	_update_level_record(_current_level_index, fruits, monsters, coins, stars)
 	_save()
 
 	return stars
 
 
-func _update_level_record(level_index: int, fruits: int, monsters: int, crates: int, stars: int) -> void:
+func _update_level_record(level_index: int, fruits: int, monsters: int, coins: Array, stars: int) -> void:
 	var key := str(level_index)
-	var previous: Dictionary = level_records.get(key, {"fruits": 0, "monsters": 0, "crates": 0, "stars": 0})
+	var previous: Dictionary = level_records.get(key, _default_record())
 
 	level_records[key] = {
 		"fruits": max(previous.get("fruits", 0), fruits),
 		"monsters": max(previous.get("monsters", 0), monsters),
-		"crates": max(previous.get("crates", 0), crates),
+		"coins": coins,
 		"stars": max(previous.get("stars", 0), stars),
 	}
 
@@ -161,9 +174,20 @@ func _recalculate_total_stars() -> void:
 	total_stars = sum
 
 
-# Usado pelo card da fase pra exibir o recorde salvo
+func _default_record() -> Dictionary:
+	return {"fruits": 0, "monsters": 0, "coins": _empty_coins(), "stars": 0}
+
+
+# Usado pelo card da fase pra exibir o recorde salvo (sempre com "coins" normalizado)
 func get_level_record(level_index: int) -> Dictionary:
-	return level_records.get(str(level_index), {"fruits": 0, "monsters": 0, "crates": 0, "stars": 0})
+	var record: Dictionary = level_records.get(str(level_index), _default_record()).duplicate(true)
+	var coins: Array = record.get("coins", [])
+	while coins.size() < COINS_PER_LEVEL:
+		coins.append(false)
+	if coins.size() > COINS_PER_LEVEL:
+		coins.resize(COINS_PER_LEVEL)
+	record["coins"] = coins
+	return record
 
 
 func _on_fruit_collected() -> void:
@@ -180,6 +204,65 @@ func complete_level(level_index: int) -> void:
 func is_unlocked(level_index: int) -> bool:
 	return level_index < unlocked_levels
 
+
+# ---------------------------------------------------------------------------
+# Moedas
+# ---------------------------------------------------------------------------
+
+func _empty_coins() -> Array:
+	var coins := []
+	coins.resize(COINS_PER_LEVEL)
+	coins.fill(false)
+	return coins
+
+
+func _count_true(arr: Array) -> int:
+	var count := 0
+	for v in arr:
+		if v:
+			count += 1
+	return count
+
+
+# Chame no script da moeda quando o jogador pegá-la: ProgressManager.collect_coin(1)
+# A moeda só é gravada no save ao terminar a fase (finish_level).
+func collect_coin(coin_id: int) -> void:
+	if coin_id < 0 or coin_id >= COINS_PER_LEVEL:
+		push_warning("collect_coin: id inválido (%d)" % coin_id)
+		return
+	if _current_level_index == -1:
+		push_warning("collect_coin: nenhuma fase em andamento")
+		return
+	_current_run_coins[coin_id] = true
+
+
+# A moeda usa isso no _ready() pra sumir se já foi pega em outra tentativa.
+func is_coin_collected(level_index: int, coin_id: int) -> bool:
+	if coin_id < 0 or coin_id >= COINS_PER_LEVEL:
+		return false
+	var coins: Array = get_level_record(level_index)["coins"]
+	return coins[coin_id]
+
+
+# Moedas pegas na tentativa atual (HUD durante a fase).
+func get_run_coins_count() -> int:
+	return _count_true(_current_run_coins)
+
+
+func get_level_coins_count(level_index: int) -> int:
+	return _count_true(get_level_record(level_index)["coins"])
+
+
+func get_total_coins_count() -> int:
+	var count := 0
+	for key in level_records.keys():
+		count += _count_true(get_level_record(int(key))["coins"])
+	return count
+
+
+# ---------------------------------------------------------------------------
+# Frutas douradas
+# ---------------------------------------------------------------------------
 
 # Chame quando o jogador pegar uma fruta dourada específica no mundo, ex:
 # ProgressManager.collect_golden_fruit(3)
@@ -205,11 +288,7 @@ func get_golden_fruits_status() -> Array:
 
 
 func get_golden_fruits_count() -> int:
-	var count := 0
-	for collected in golden_fruits_collected:
-		if collected:
-			count += 1
-	return count
+	return _count_true(golden_fruits_collected)
 
 
 func mark_intro_seen() -> void:
@@ -226,7 +305,7 @@ func reset_progress() -> void:
 
 
 # ---------------------------------------------------------------------------
-# Persistência (agora por slot)
+# Persistência (por slot)
 # ---------------------------------------------------------------------------
 
 func _save() -> void:
@@ -272,10 +351,15 @@ func _normalize_golden_fruits_size() -> void:
 
 
 # Aplique transformações incrementais aqui conforme o formato do save evolui.
-# Exemplo (quando a versão 2 existir):
-# func _migrate(from_version: int) -> void:
-#     if from_version < 2:
-#         ... transforma dados antigos ...
-#     _save()
-func _migrate(_from_version: int) -> void:
-	pass
+func _migrate(from_version: int) -> void:
+	if from_version < 2:
+		# v1 -> v2: caixas viraram moedas
+		for key in level_records.keys():
+			var record: Dictionary = level_records[key]
+			record.erase("crates")
+			record["coins"] = _empty_coins()
+			# Não dá pra saber qual estrela veio das caixas, então limitamos a 2
+			# (frutas + monstros). O jogador recupera a 3ª pegando as moedas.
+			record["stars"] = mini(record.get("stars", 0), 2)
+		_recalculate_total_stars()
+	_save()

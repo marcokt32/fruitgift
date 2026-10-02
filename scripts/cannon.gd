@@ -12,6 +12,8 @@ enum TurretState { IDLE, SHOOTING }
 @onready var detection_area: Area2D = $DetectionArea
 @onready var shoot_point: Marker2D = $ShootPoint
 @onready var hit_box: Area2D = $HitBox
+@onready var shriek_sfx : AudioStreamPlayer2D
+@onready var hitsfx := $HitSfx
 
 var dead := false
 var hitted := false
@@ -21,6 +23,8 @@ var can_shoot: bool = true
 var facing_direction: int = -1
 
 func _ready() -> void:
+	if has_node("ShriekSfx"):
+		shriek_sfx = $ShriekSfx
 	sprite.frame_changed.connect(_on_frame_changed)
 	sprite.animation_finished.connect(_on_animation_finished)
 	sprite.play("idle")
@@ -63,7 +67,7 @@ func _on_frame_changed() -> void:
 func _fire_projectile() -> void:
 	if projectile_scene == null:
 		return
-
+	$ShootSfx.play()
 	_spawn_shoot_puff()
 	var projectile := projectile_scene.instantiate()
 	get_tree().current_scene.add_child(projectile)
@@ -87,6 +91,8 @@ func _on_animation_finished() -> void:
 			GameEvents.register_monster_defeated()
 			queue_free()
 		else:
+			if shriek_sfx:
+				shriek_sfx.play()
 			hitted = false
 			hit_box.set_deferred("monitoring", true)
 			sprite.play("idle")
@@ -126,6 +132,7 @@ func _hit(player) -> void:
 		dead = true
 
 	player.velocity.y = -400
+	hitsfx.play()
 	sprite.play("hit")
 
 
@@ -148,7 +155,7 @@ const ShootPuffScene := preload("res://Prefabs/fall_puff.tscn")
 func _spawn_die_puff() -> void:
 	var puff: Node2D = DiePuffScene.instantiate()
 	get_parent().add_child(puff)
-	puff.global_position = global_position
+	puff.global_position = global_position + Vector2(0,-12)
 	puff.flip_h = facing_direction > 0
 
 func _spawn_shoot_puff() -> void:

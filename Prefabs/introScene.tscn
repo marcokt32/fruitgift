@@ -13,8 +13,7 @@
 
 [sub_resource type="Resource" id="Resource_3h63u"]
 script = ExtResource("2_aqvyq")
-text = "Humanos e Monstros, não são extamente melhores amigos ...
-... Eles brigam por eras."
+text = "INTRO_BEAT_01"
 texture = ExtResource("7_kdgdy")
 move_target = 1
 direction = Vector2(0, 1)
@@ -23,9 +22,7 @@ metadata/_custom_type_script = "uid://gtg3pfktqk01"
 
 [sub_resource type="Resource" id="Resource_ugwa6"]
 script = ExtResource("2_aqvyq")
-text = "Mas com o passar dos anos, cada um foi para seu canto,
-e viveu cada um a sua maneira.
-criando então um período de paz ..."
+text = "INTRO_BEAT_02"
 texture = ExtResource("4_qlx33")
 move_target = 2
 direction = Vector2(0, 1)
@@ -34,7 +31,7 @@ metadata/_custom_type_script = "uid://gtg3pfktqk01"
 
 [sub_resource type="Resource" id="Resource_jed33"]
 script = ExtResource("2_aqvyq")
-text = "Com o fim do conflito os humanos prosperaram e festejavam as suas colheitas de frutas ..."
+text = "INTRO_BEAT_03"
 texture = ExtResource("5_kdgdy")
 move_target = 2
 direction = Vector2(0, -1)
@@ -43,7 +40,7 @@ metadata/_custom_type_script = "uid://gtg3pfktqk01"
 
 [sub_resource type="Resource" id="Resource_qlx33"]
 script = ExtResource("2_aqvyq")
-text = "Mas os monstros sentiram inveja dos humanos novamente e planejaram roubar suas frutas no dia da sua grande festa."
+text = "INTRO_BEAT_04"
 texture = ExtResource("6_lmrb3")
 move_target = 2
 direction = Vector2(0, -1)
@@ -52,7 +49,7 @@ metadata/_custom_type_script = "uid://gtg3pfktqk01"
 
 [sub_resource type="Resource" id="Resource_4pk32"]
 script = ExtResource("2_aqvyq")
-text = "Neste dia, eles partiram com tudo o que tinham, para roubar aquilo que os humanos mais veneravam."
+text = "INTRO_BEAT_05"
 texture = ExtResource("7_lmrb3")
 move_target = 1
 direction = Vector2(0, -1)
@@ -61,7 +58,7 @@ metadata/_custom_type_script = "uid://gtg3pfktqk01"
 
 [sub_resource type="Resource" id="Resource_q34qr"]
 script = ExtResource("2_aqvyq")
-text = "Roubaram todas as frutas, quem vai nos salvar dos monstros?"
+text = "INTRO_BEAT_06"
 texture = ExtResource("8_x3k0h")
 move_target = 1
 direction = Vector2(0, 1)
@@ -131,6 +128,7 @@ theme_override_font_sizes/normal_font_size = 24
 theme_override_styles/normal = SubResource("StyleBoxFlat_q34qr")
 
 [node name="SkipButton" type="Button" parent="CanvasLayer" unique_id=829295215]
+auto_translate_mode = 1
 offset_left = 544.0
 offset_top = 240.0
 offset_right = 704.0
@@ -138,7 +136,7 @@ offset_bottom = 320.0
 theme_override_constants/outline_size = 5
 theme_override_fonts/font = ExtResource("5_jed33")
 theme_override_font_sizes/font_size = 32
-text = "pular"
+text = "BTN_SKIP"
 icon = ExtResource("10_x3k0h")
 flat = true
 icon_alignment = 2

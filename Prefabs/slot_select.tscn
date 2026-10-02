@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://dr1j8dwip1uwk" path="res://assets/Menu/Buttons/PlayTexture 100x100.png" id="4_jh8w3"]
 [ext_resource type="Texture2D" uid="uid://b1msbufy58fc0" path="res://assets/Menu/Buttons/Bucket Icon 100x100.png" id="5_i4gqj"]
 [ext_resource type="Texture2D" uid="uid://dnhdr3w6uqco8" path="res://assets/Menu/Buttons/Voltar Button 150x150.png" id="6_jh8w3"]
+[ext_resource type="AudioStream" uid="uid://bbyu0hifxv05v" path="res://assets/Sounds/clickpop.mp3" id="7_1sux7"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wwo83"]
 bg_color = Color(0.32156864, 0.44313726, 1, 1)
@@ -31,7 +32,7 @@ corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1sux7"]
-bg_color = Color(0.16470589, 0.2627451, 0.7137255, 1)
+bg_color = Color(0.003921569, 0.07058824, 0.16078432, 1)
 border_width_left = 3
 border_width_bottom = 3
 border_color = Color(1, 0.87058824, 0.34901962, 1)
@@ -243,6 +244,7 @@ alignment = 1
 
 [node name="PlayButton1" type="Button" parent="MarginContainer/VBoxContainer/SlotPanel1/MarginContainer/VBoxContainer/HBoxContainer" unique_id=369632489]
 unique_name_in_owner = true
+auto_translate_mode = 1
 custom_minimum_size = Vector2(64, 32)
 layout_mode = 2
 theme_override_constants/outline_size = 3
@@ -253,12 +255,13 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_1sux7")
 theme_override_styles/hover = SubResource("StyleBoxFlat_3kem2")
 theme_override_styles/disabled = SubResource("StyleBoxFlat_od855")
 theme_override_styles/focus = SubResource("StyleBoxFlat_i5440")
-text = "continuar"
+text = "BTN_RESUME"
 icon = ExtResource("4_jh8w3")
 expand_icon = true
 
 [node name="DeleteButton1" type="Button" parent="MarginContainer/VBoxContainer/SlotPanel1/MarginContainer/VBoxContainer/HBoxContainer" unique_id=474155950]
 unique_name_in_owner = true
+auto_translate_mode = 1
 custom_minimum_size = Vector2(64, 32)
 layout_mode = 2
 theme_override_constants/outline_size = 3
@@ -269,7 +272,7 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_1sux7")
 theme_override_styles/hover = SubResource("StyleBoxFlat_3kem2")
 theme_override_styles/disabled = SubResource("StyleBoxFlat_od855")
 theme_override_styles/focus = SubResource("StyleBoxFlat_i5440")
-text = "apagar"
+text = "BTN_DELETE"
 icon = ExtResource("5_i4gqj")
 expand_icon = true
 
@@ -338,6 +341,7 @@ alignment = 1
 
 [node name="PlayButton2" type="Button" parent="MarginContainer/VBoxContainer/SlotPanel2/MarginContainer/VBoxContainer/HBoxContainer" unique_id=2081207173]
 unique_name_in_owner = true
+auto_translate_mode = 1
 custom_minimum_size = Vector2(64, 32)
 layout_mode = 2
 theme_override_constants/outline_size = 3
@@ -348,12 +352,13 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_1sux7")
 theme_override_styles/hover = SubResource("StyleBoxFlat_3kem2")
 theme_override_styles/disabled = SubResource("StyleBoxFlat_od855")
 theme_override_styles/focus = SubResource("StyleBoxFlat_i5440")
-text = "continuar"
+text = "BTN_RESUME"
 icon = ExtResource("4_jh8w3")
 expand_icon = true
 
 [node name="DeleteButton2" type="Button" parent="MarginContainer/VBoxContainer/SlotPanel2/MarginContainer/VBoxContainer/HBoxContainer" unique_id=2090623666]
 unique_name_in_owner = true
+auto_translate_mode = 1
 custom_minimum_size = Vector2(64, 32)
 layout_mode = 2
 theme_override_constants/outline_size = 3
@@ -364,7 +369,7 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_1sux7")
 theme_override_styles/hover = SubResource("StyleBoxFlat_3kem2")
 theme_override_styles/disabled = SubResource("StyleBoxFlat_od855")
 theme_override_styles/focus = SubResource("StyleBoxFlat_i5440")
-text = "apagar"
+text = "BTN_DELETE"
 icon = ExtResource("5_i4gqj")
 expand_icon = true
 
@@ -433,6 +438,7 @@ alignment = 1
 
 [node name="PlayButton3" type="Button" parent="MarginContainer/VBoxContainer/SlotPanel3/MarginContainer/VBoxContainer/HBoxContainer" unique_id=226750664]
 unique_name_in_owner = true
+auto_translate_mode = 1
 custom_minimum_size = Vector2(64, 32)
 layout_mode = 2
 theme_override_constants/outline_size = 3
@@ -443,12 +449,13 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_1sux7")
 theme_override_styles/hover = SubResource("StyleBoxFlat_3kem2")
 theme_override_styles/disabled = SubResource("StyleBoxFlat_od855")
 theme_override_styles/focus = SubResource("StyleBoxFlat_i5440")
-text = "continuar"
+text = "BTN_RESUME"
 icon = ExtResource("4_jh8w3")
 expand_icon = true
 
 [node name="DeleteButton3" type="Button" parent="MarginContainer/VBoxContainer/SlotPanel3/MarginContainer/VBoxContainer/HBoxContainer" unique_id=988376129]
 unique_name_in_owner = true
+auto_translate_mode = 1
 custom_minimum_size = Vector2(64, 32)
 layout_mode = 2
 theme_override_constants/outline_size = 3
@@ -459,11 +466,12 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_1sux7")
 theme_override_styles/hover = SubResource("StyleBoxFlat_3kem2")
 theme_override_styles/disabled = SubResource("StyleBoxFlat_od855")
 theme_override_styles/focus = SubResource("StyleBoxFlat_i5440")
-text = "apagar"
+text = "BTN_DELETE"
 icon = ExtResource("5_i4gqj")
 expand_icon = true
 
 [node name="BackButton" type="Button" parent="MarginContainer" unique_id=536983774]
+auto_translate_mode = 1
 custom_minimum_size = Vector2(90, 32)
 layout_mode = 2
 size_flags_horizontal = 8
@@ -471,7 +479,7 @@ size_flags_vertical = 0
 theme_override_constants/outline_size = 5
 theme_override_fonts/font = ExtResource("3_i4gqj")
 theme_override_font_sizes/font_size = 20
-text = "voltar"
+text = "BTN_BACK"
 icon = ExtResource("6_jh8w3")
 flat = true
 icon_alignment = 2
@@ -492,6 +500,7 @@ color = Color(0, 0, 0, 0.5882353)
 
 [node name="ConfirmDeleteDialog" type="ConfirmationDialog" parent="ConfirmOverlay" unique_id=2015023751]
 unique_name_in_owner = true
+auto_translate_mode = 1
 transparent_bg = true
 oversampling_override = 1.0
 title = ""
@@ -507,5 +516,9 @@ min_size = Vector2i(200, 100)
 theme = SubResource("Theme_s2641")
 dialog_autowrap = true
 cancel_button_text = "Cancelar"
+
+[node name="SelectSfx" type="AudioStreamPlayer" parent="." unique_id=853740124]
+stream = ExtResource("7_1sux7")
+volume_db = 5.0
 
 [connection signal="pressed" from="MarginContainer/BackButton" to="." method="_on_back_button_pressed"]

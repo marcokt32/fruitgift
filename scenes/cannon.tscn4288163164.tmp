@@ -1,0 +1,164 @@
+[gd_scene format=3 uid="uid://bkpjhbtfjn21x"]
+
+[ext_resource type="Script" uid="uid://ch6fp7lged80t" path="res://scripts/cannon.gd" id="1_yjxeu"]
+[ext_resource type="PackedScene" uid="uid://c6t36ogpcuyn1" path="res://Prefabs/projectile.tscn" id="2_0285d"]
+[ext_resource type="Texture2D" uid="uid://bie2vvrif0ssf" path="res://assets/Enemies/Cannon/Attack (44x42).png" id="2_jfr8q"]
+[ext_resource type="Texture2D" uid="uid://mcuqinqw04f8" path="res://assets/Enemies/Cannon/Hit (44x42).png" id="3_22shy"]
+[ext_resource type="Texture2D" uid="uid://butcsg1a3s2oc" path="res://assets/Enemies/Cannon/Idle (44x42).png" id="3_0285d"]
+[ext_resource type="AudioStream" uid="uid://ksha127fprya" path="res://assets/Sounds/EnemyHit.wav" id="6_8ssa1"]
+[ext_resource type="AudioStream" uid="uid://ybuqikkekf8x" path="res://assets/Sounds/PigShriek.ogg" id="7_5saov"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ediu4"]
+atlas = ExtResource("3_22shy")
+region = Rect2(0, 0, 44, 42)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vda2x"]
+atlas = ExtResource("3_22shy")
+region = Rect2(44, 0, 44, 42)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0285d"]
+atlas = ExtResource("3_0285d")
+region = Rect2(0, 0, 44, 42)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uvlre"]
+atlas = ExtResource("3_0285d")
+region = Rect2(44, 0, 44, 42)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ogt75"]
+atlas = ExtResource("3_0285d")
+region = Rect2(88, 0, 44, 42)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4a4je"]
+atlas = ExtResource("3_0285d")
+region = Rect2(132, 0, 44, 42)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_22shy"]
+atlas = ExtResource("2_jfr8q")
+region = Rect2(0, 0, 44, 42)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8ssa1"]
+atlas = ExtResource("2_jfr8q")
+region = Rect2(44, 0, 44, 42)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5saov"]
+atlas = ExtResource("2_jfr8q")
+region = Rect2(88, 0, 44, 42)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_si6ue"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ediu4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ediu4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vda2x")
+}],
+"loop": 0,
+"name": &"hit",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0285d")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uvlre")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ogt75")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4a4je")
+}],
+"loop": 1,
+"name": &"idle",
+"speed": 7.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_22shy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_22shy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_22shy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8ssa1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5saov")
+}],
+"loop": 0,
+"name": &"shoot",
+"speed": 15.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yjxeu"]
+size = Vector2(319, 48)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jfr8q"]
+size = Vector2(30, 24)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_si6ue"]
+size = Vector2(34, 18)
+
+[node name="Cannon" type="StaticBody2D" unique_id=713631733 groups=["enemy"]]
+collision_layer = 4
+collision_mask = 2
+script = ExtResource("1_yjxeu")
+projectile_scene = ExtResource("2_0285d")
+shoot_cooldown = null
+fire_frame = null
+health = null
+shoot_point_offset_x = null
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=2032368557]
+z_index = 1
+position = Vector2(0, -21)
+sprite_frames = SubResource("SpriteFrames_si6ue")
+animation = &"shoot"
+frame = 4
+frame_progress = 1.0
+
+[node name="DetectionArea" type="Area2D" parent="." unique_id=1882653789]
+visible = false
+position = Vector2(21, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea" unique_id=1988299158]
+z_index = 1
+position = Vector2(-21.5, -24)
+shape = SubResource("RectangleShape2D_yjxeu")
+
+[node name="HitBox" type="Area2D" parent="." unique_id=516988080]
+visible = false
+position = Vector2(10, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox" unique_id=102876839]
+position = Vector2(0, -24)
+shape = SubResource("RectangleShape2D_jfr8q")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=220551477]
+visible = false
+position = Vector2(0, -9)
+shape = SubResource("RectangleShape2D_si6ue")
+
+[node name="ShootPoint" type="Marker2D" parent="." unique_id=1198585953]
+position = Vector2(-23, -13)
+
+[node name="HitSfx" type="AudioStreamPlayer2D" parent="." unique_id=1672513763]
+stream = ExtResource("6_8ssa1")
+
+[node name="ShriekSfx" type="AudioStreamPlayer2D" parent="." unique_id=1568837018]
+stream = ExtResource("7_5saov")
+pitch_scale = 2.0
+
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
+[connection signal="frame_changed" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_frame_changed"]
+[connection signal="body_entered" from="DetectionArea" to="." method="_on_detection_area_body_entered"]
+[connection signal="body_exited" from="DetectionArea" to="." method="_on_detection_area_body_exited"]
+[connection signal="area_entered" from="HitBox" to="." method="_on_hit_box_area_entered"]

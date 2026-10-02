@@ -10,6 +10,7 @@ var elapsed: float = 0.0
 
 
 func _ready() -> void:
+	$BreakinSfx.play()
 	if sprite.sprite_frames != null and sprite.sprite_frames.has_animation("default"):
 		sprite.play("default")  # ajuste pro nome real da sua animação
 

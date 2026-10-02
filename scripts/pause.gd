@@ -3,20 +3,15 @@ extends CanvasLayer
 @onready var panel_container: PanelContainer = $PanelContainer  # NOVO
 @onready var pause_menu: VBoxContainer = $PanelContainer/PauseMenu
 @onready var options_menu: VBoxContainer = $PanelContainer/OptionsMenu
-@onready var camera_menu: VBoxContainer = $PanelContainer/CameraMenu
-@onready var confirm_dialog: ConfirmationDialog = $ConfirmDialog
 
 @onready var options_button: Button = $PanelContainer/PauseMenu/HBoxContainer/OptionsButton
 @onready var continue_button: Button = $PanelContainer/PauseMenu/HBoxContainer/ContinueButton
 @onready var replay_button: Button = $PanelContainer/PauseMenu/HBoxContainer/ReplayButton
 @onready var quit_button: Button = $PanelContainer/PauseMenu/HBoxContainer/QuitButton
 
-@onready var camera_button: Button = $PanelContainer/OptionsMenu/HBoxContainer/CameraButton
-@onready var progress_button: Button = $PanelContainer/OptionsMenu/HBoxContainer/ProgressButton
-@onready var options_back_button: Button = $PanelContainer/OptionsMenu/HBoxContainer/BackButton
+@onready var options_back_button: Button = %BackButton
 
-@onready var camera_back_button: Button = $PanelContainer/CameraMenu/HBoxContainer/BackButton
-@onready var zoom_slider: HSlider = $PanelContainer/CameraMenu/HBoxContainer/HBoxContainer/HSlider
+@onready var zoom_slider: HSlider = %ZoomSlider
 
 @onready var background_scroll: Control = $Banner/BackgroundScroll
 @onready var background_rect: Control = $Banner/TextureRect
@@ -37,10 +32,6 @@ func _ready() -> void:
 
 	pause_menu.visible = false
 	options_menu.visible = false
-	camera_menu.visible = false
-	confirm_dialog.visible = false
-
-	progress_button.visible = show_progress_button
 
 	zoom_slider.min_value = 1.0
 	zoom_slider.max_value = 1.3
@@ -57,18 +48,13 @@ func _ready() -> void:
 	replay_button.pressed.connect(_on_replay_pressed)
 	quit_button.pressed.connect(_on_quit_pressed)
 
-	camera_button.pressed.connect(_on_camera_pressed)
-	progress_button.pressed.connect(_on_progress_pressed)
 	options_back_button.pressed.connect(_on_options_back_pressed)
 
-	camera_back_button.pressed.connect(_on_camera_back_pressed)
 	zoom_slider.value_changed.connect(_on_zoom_changed)
 	
 	#FUNÇÃO ESMAECER FUNDO DESCONTINUADA
 	#zoom_slider.drag_started.connect(_on_zoom_drag_started)
 	#zoom_slider.drag_ended.connect(_on_zoom_drag_ended)
-
-	confirm_dialog.confirmed.connect(_on_progress_reset_confirmed)
 
 	GameEvents.player_respawned.connect(_on_player_respawned)
 
@@ -78,6 +64,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		return
 
 	if event.is_action_pressed("pause"):
+		$PauseSfx.play()
 		if is_paused:
 			_close_pause()
 		else:
@@ -110,23 +97,30 @@ func _close_pause() -> void:
 func _show_only(menu: Control) -> void:
 	pause_menu.visible = menu == pause_menu
 	options_menu.visible = menu == options_menu
-	camera_menu.visible = menu == camera_menu
 
 
 func _on_continue_pressed() -> void:
+	$PauseSfx.play()
+	await get_tree().create_timer(0.4).timeout
 	_close_pause()
 
 
 func _on_quit_pressed() -> void:
+	$SelectSfx.play()
+	await get_tree().create_timer(0.4).timeout
 	get_tree().paused = false
 	get_tree().change_scene_to_file(level_select_path)
 
 
 func _on_options_pressed() -> void:
+	$SelectSfx.play()
+	await get_tree().create_timer(0.4).timeout
 	_show_only(options_menu)
 
 
 func _on_options_back_pressed() -> void:
+	$SelectSfx.play()
+	await get_tree().create_timer(0.4).timeout
 	if start_on_options:
 		_close_pause()
 	else:
@@ -134,23 +128,29 @@ func _on_options_back_pressed() -> void:
 
 
 func _on_camera_pressed() -> void:
-	_show_only(camera_menu)
+	$SelectSfx.play()
+	await get_tree().create_timer(0.4).timeout
 
 
 func _on_camera_back_pressed() -> void:
+	$SelectSfx.play()
+	await get_tree().create_timer(0.4).timeout
 	_show_only(options_menu)
 
 
 func _on_progress_pressed() -> void:
-	confirm_dialog.popup_centered()
+	$SelectSfx.play()
+	await get_tree().create_timer(0.4).timeout
 
 
 func _on_progress_reset_confirmed() -> void:
+	$SelectSfx.play()
+	await get_tree().create_timer(0.4).timeout
 	ProgressManager.reset_progress()
 
 
 func _on_zoom_changed(value: float) -> void:
-	ProgressManager.set_camera_zoom(value)
+	SettingsManager.set_camera_zoom(value)
 
 	var player := get_tree().get_first_node_in_group("player")
 	if player == null:
@@ -162,6 +162,8 @@ func _on_zoom_changed(value: float) -> void:
 
 
 func _on_replay_pressed() -> void:
+	$SelectSfx.play()
+	await get_tree().create_timer(0.4).timeout
 	get_tree().paused = false
 	get_tree().reload_current_scene()
 

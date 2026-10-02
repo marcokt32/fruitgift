@@ -5,6 +5,6 @@
 [resource]
 script = ExtResource("1_py4pm")
 level_index = -1
-level_name = "Área de Testes"
+level_name = "TEST_LEVEL_NAME"
 scene_path = "res://Levels/test_level.tscn"
 metadata/_custom_type_script = "uid://ciu8cnfhwxba0"

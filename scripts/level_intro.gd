@@ -8,10 +8,10 @@ extends CanvasLayer
 
 @onready var fade_rect: ColorRect = $FadeRect
 @onready var banner: Control = $Banner
-@onready var name_label: Label = $Banner/PanelContainer/VBoxContainer/Panel/NameLabel
-@onready var fruits_label: Label = $Banner/PanelContainer/VBoxContainer/HBoxContainer/FruitLabel
-@onready var monsters_label: Label = $Banner/PanelContainer/VBoxContainer/HBoxContainer2/MonsterLabel
-@onready var crates_label: Label = $Banner/PanelContainer/VBoxContainer/HBoxContainer3/CrateLabel
+@onready var name_label: Label = %NameLabel
+@onready var fruits_label: Label = %FruitLabel
+@onready var monsters_label: Label = %MonsterLabel
+@onready var coins_label: Label = %CoinsLabel
 
 
 func _ready() -> void:
@@ -50,17 +50,21 @@ func _play_intro() -> void:
 	await slide_out.finished
 
 	queue_free()
-	
+
 
 func _update_progress_display() -> void:
 	if record == null:
 		name_label.text = ""
 		fruits_label.text = ""
 		monsters_label.text = ""
-		crates_label.text = ""
+		coins_label.text = ""
 		return
 
-	name_label.text = record.level_name
-	fruits_label.text = "Frutas: %d" % record.total_fruits
-	monsters_label.text = "Monstros: %d" % record.total_monsters
-	crates_label.text = "Caixas: %d" % record.total_crates
+	name_label.text = tr(record.level_name)
+	fruits_label.text = "%s: %d" % [tr("HUD_FRUITS"), record.total_fruits]
+	monsters_label.text = "%s: %d" % [tr("HUD_MONSTERS"), record.total_monsters]
+	coins_label.text = "%s: %d/%d" % [
+		tr("HUD_COINS"),
+		ProgressManager.get_level_coins_count(record.level_index),
+		record.total_coins,
+	]

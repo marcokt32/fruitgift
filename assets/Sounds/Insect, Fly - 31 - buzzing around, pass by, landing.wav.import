@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://bctbl6b00t3bv"
+path="res://.godot/imported/Insect, Fly - 31 - buzzing around, pass by, landing.wav-3cc63651c1f43fefeb44b5b5e43fced5.sample"
+
+[deps]
+
+source_file="res://assets/Sounds/Insect, Fly - 31 - buzzing around, pass by, landing.wav"
+dest_files=["res://.godot/imported/Insect, Fly - 31 - buzzing around, pass by, landing.wav-3cc63651c1f43fefeb44b5b5e43fced5.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

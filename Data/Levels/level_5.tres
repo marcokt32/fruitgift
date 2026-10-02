@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="LevelData" format=3 uid="uid://bmurhmrm2t2hx"]
+
+[ext_resource type="Script" uid="uid://ciu8cnfhwxba0" path="res://scripts/levelData.gd" id="1_y0avl"]
+[ext_resource type="Texture2D" uid="uid://bgenok1f4yro6" path="res://assets/Thumbs/lvl5thumb.png" id="2_c1yay"]
+
+[resource]
+script = ExtResource("1_y0avl")
+level_index = 4
+level_name = "LEVEL_05_NAME"
+scene_path = "res://Levels/level_5.tscn"
+thumbnail = ExtResource("2_c1yay")
+metadata/_custom_type_script = "uid://ciu8cnfhwxba0"

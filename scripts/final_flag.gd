@@ -15,22 +15,18 @@ func _ready() -> void:
 	fade_rect.modulate.a = 0.0
 
 	if level_data != null:
-		ProgressManager.start_level(level_data.level_index, {
-			"fruits": level_data.total_fruits,
-			"monsters": level_data.total_monsters,
-			"crates": level_data.total_crates,
-		})
+		ProgressManager.start_level(level_data)
 
 
 func _on_body_entered(body: Node2D) -> void:
-	sprite.play("move")
-
 	if triggered:
 		return
 	if not body.is_in_group("player"):
 		return
 
 	triggered = true
+	sprite.play("move")
+	$CompleteSfx.play()
 	_start_sequence(body)
 
 

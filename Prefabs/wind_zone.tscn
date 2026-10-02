@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://khdjo7qv6djt"]
+
+[ext_resource type="Script" uid="uid://ctf0u4ih63b2y" path="res://scripts/wind_zone.gd" id="1_3wddr"]
+[ext_resource type="Texture2D" uid="uid://c4ytsu41u6b6w" path="res://assets/Others/WindParticle.png" id="2_aohn6"]
+[ext_resource type="AudioStream" uid="uid://ce7wig2oqqyee" path="res://assets/Sounds/wind.mp3" id="3_lrclw"]
+
+[sub_resource type="Curve" id="Curve_aohn6"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[node name="WindZone" type="Area2D" unique_id=435637078 node_paths=PackedStringArray("particles")]
+script = ExtResource("1_3wddr")
+particles = NodePath("CPUParticles2D")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="." unique_id=326754231]
+amount = 150
+texture = ExtResource("2_aohn6")
+emission_shape = 3
+emission_rect_extents = Vector2(50, 50)
+spread = 180.0
+scale_amount_min = 0.1
+scale_amount_curve = SubResource("Curve_aohn6")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=1917183343]
+stream = ExtResource("3_lrclw")

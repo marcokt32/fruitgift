@@ -24,11 +24,7 @@ func _ready() -> void:
 	monitorable = false
 
 	if level_data != null:
-		ProgressManager.start_level(level_data.level_index, {
-			"fruits": level_data.total_fruits,
-			"monsters": level_data.total_monsters,
-			"crates": level_data.total_crates,
-		})
+		ProgressManager.start_level(level_data)
 
 
 func collect(player: Node2D = null) -> void:

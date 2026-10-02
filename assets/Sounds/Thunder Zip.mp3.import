@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://c2tkiih82t1cm"
+path="res://.godot/imported/Thunder Zip.mp3-63845922411ac9be4bb1667a8744e180.mp3str"
+
+[deps]
+
+source_file="res://assets/Sounds/Thunder Zip.mp3"
+dest_files=["res://.godot/imported/Thunder Zip.mp3-63845922411ac9be4bb1667a8744e180.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

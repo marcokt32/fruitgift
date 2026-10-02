@@ -79,6 +79,7 @@ func _on_body_entered(body: Node2D) -> void:
 
 
 func _collect() -> void:
+	$CollectedSfx.play()
 	if collected_flag:
 		return
 	ProgressManager._on_fruit_collected()

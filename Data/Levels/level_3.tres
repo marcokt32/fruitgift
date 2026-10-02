@@ -6,10 +6,10 @@
 [resource]
 script = ExtResource("1_bor75")
 level_index = 2
-level_name = "Os portões"
+level_name = "LEVEL_03_NAME"
 scene_path = "res://Levels/level_3.tscn"
 thumbnail = ExtResource("2_u05rw")
-total_fruits = 56
-total_monsters = 13
-total_crates = 6
+total_fruits = 50
+total_monsters = 8
+total_crates = 5
 metadata/_custom_type_script = "uid://ciu8cnfhwxba0"

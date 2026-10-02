@@ -13,7 +13,6 @@ radius = 5.0
 z_index = 2
 collision_layer = 4
 script = ExtResource("1_guspc")
-speed = 200.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1763961292]
 shape = SubResource("CircleShape2D_jfr8q")

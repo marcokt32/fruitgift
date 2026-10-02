@@ -22,11 +22,13 @@ func setup(npc: NPC) -> void:
 
 
 func _on_line_changed(text: String, speaker_name: String) -> void:
-	name_label.text = speaker_name
-	_full_text = text
-	dialogue_text.text = text
+	name_label.text = tr(speaker_name)
+	_full_text = tr(text)
+
+	dialogue_text.text = _full_text
 	dialogue_text.visible_characters = 0
 	_typing = true
+
 	_type_text()
 
 

@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://b2551f74djs62" path="res://scripts/switch.gd" id="1_3lvf2"]
 [ext_resource type="Texture2D" uid="uid://jrv1ldqdtwsw" path="res://assets/Others/switch.png" id="1_wgobc"]
 [ext_resource type="Texture2D" uid="uid://hsnh4bf2wf3v" path="res://assets/Others/SwitchBase.png" id="2_3lvf2"]
+[ext_resource type="AudioStream" uid="uid://muorylxnp1uj" path="res://assets/Sounds/switch.ogg" id="4_kwrve"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_e5vl7"]
 size = Vector2(15, 18)
@@ -60,7 +61,7 @@ _data = {
 }
 
 [node name="Switch" type="Area2D" unique_id=1357767212]
-collision_layer = 0
+collision_layer = 8
 script = ExtResource("1_3lvf2")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1378555458]
@@ -80,5 +81,9 @@ texture = ExtResource("2_3lvf2")
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1274327754]
 libraries/ = SubResource("AnimationLibrary_lv02i")
 autoplay = &"off"
+
+[node name="SwitchSfx" type="AudioStreamPlayer2D" parent="." unique_id=318732958]
+stream = ExtResource("4_kwrve")
+volume_db = 5.0
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

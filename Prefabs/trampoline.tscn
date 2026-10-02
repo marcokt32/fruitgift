@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://q51lx3ia4y4k" path="res://scripts/trampoline.gd" id="1_hk2ey"]
 [ext_resource type="Texture2D" uid="uid://rlas5lplvnbx" path="res://assets/Traps/Trampoline/Idle.png" id="1_v4qh5"]
 [ext_resource type="Texture2D" uid="uid://jcuekbr1egcr" path="res://assets/Traps/Trampoline/Jump (28x28).png" id="2_hk2ey"]
+[ext_resource type="AudioStream" uid="uid://bud0ed32dl8f3" path="res://assets/Sounds/spring.mp3" id="4_us0n4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hld54"]
 size = Vector2(23, 11)
@@ -100,5 +101,8 @@ animation = &"idle"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=629834416]
 position = Vector2(13.5, -5.5)
 shape = SubResource("RectangleShape2D_si6ue")
+
+[node name="SpringSfx" type="AudioStreamPlayer2D" parent="." unique_id=683781829]
+stream = ExtResource("4_us0n4")
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

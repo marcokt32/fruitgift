@@ -21,6 +21,7 @@ GameEvents="*uid://dltj7ux4ypgpl"
 ProgressManager="*uid://dro6cf6jgm42h"
 DialogueManager="*uid://86wqt3jom3rl"
 SettingsManager="*uid://co5fsuckqigi3"
+MusicPlayer="*uid://ddx136yeq1poq"
 
 [display]
 
@@ -54,6 +55,10 @@ interact={
 , Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":67,"key_label":0,"unicode":99,"location":0,"echo":false,"script":null)
 ]
 }
+
+[internationalization]
+
+locale/translations=PackedStringArray("res://Translations/translations.en.translation", "res://Translations/translations.es.translation", "res://Translations/translations.pt_BR.translation")
 
 [layer_names]
 

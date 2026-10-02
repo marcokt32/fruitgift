@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://bh6xn7kf0canb"]
+
+[ext_resource type="Script" uid="uid://csnehvu0l6c00" path="res://scripts/tongue.gd" id="1_2m83u"]
+[ext_resource type="Texture2D" uid="uid://dlj5qkr6nkwul" path="res://assets/Enemies/Lizzie/tongue(80x48).png" id="1_mvn7x"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_si6ue"]
+size = Vector2(80, 4)
+
+[node name="Tongue" type="StaticBody2D" unique_id=677369854]
+script = ExtResource("1_2m83u")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=233689224]
+texture = ExtResource("1_mvn7x")
+offset = Vector2(40, 0)
+
+[node name="Area2D" type="Area2D" parent="Sprite2D" unique_id=1082456042]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D/Area2D" unique_id=2016761371]
+position = Vector2(40, 0)
+shape = SubResource("RectangleShape2D_si6ue")

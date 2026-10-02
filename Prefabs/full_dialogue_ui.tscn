@@ -93,15 +93,17 @@ theme_override_font_sizes/font_size = 20
 theme_override_styles/normal = SubResource("StyleBoxTexture_iuadl")
 
 [node name="DialogueText" type="RichTextLabel" parent="DialogueBox/MarginContainer/HBoxContainer/VBoxContainer" unique_id=1274219051]
+auto_translate_mode = 1
 layout_mode = 2
 theme_override_constants/outline_size = 5
 theme_override_fonts/normal_font = ExtResource("2_v7cv2")
 theme_override_font_sizes/normal_font_size = 20
 theme_override_styles/normal = SubResource("StyleBoxEmpty_iuadl")
-text = "Ãéiô"
 fit_content = true
+autowrap_mode = 2
 
 [node name="SkipButton" type="Button" parent="DialogueBox/MarginContainer/HBoxContainer" unique_id=1079134796]
+auto_translate_mode = 1
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 size_flags_vertical = 4

@@ -14,6 +14,8 @@ var tempo: float = 0.0
 
 
 func _ready() -> void:
+	var menu_music := preload("res://assets/Sounds/Real Mccoy.mp3")
+	MusicPlayer.play_menu_music(menu_music)
 	play_button.pressed.connect(_on_play_pressed)
 	quit_button.pressed.connect(_on_quit_pressed)
 
@@ -32,8 +34,12 @@ func _process(delta: float) -> void:
 
 
 func _on_play_pressed() -> void:
+	$SelectSfx.play()
+	await get_tree().create_timer(0.4).timeout
 	get_tree().change_scene_to_file(level_select_path)
 
 
 func _on_quit_pressed() -> void:
+	$SelectSfx.play()
+	await get_tree().create_timer(0.4).timeout
 	get_tree().quit()

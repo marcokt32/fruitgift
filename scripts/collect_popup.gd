@@ -17,7 +17,7 @@ var _closed_emitted := false
 func setup(power_data: PowerData) -> void:
 	if power_data == null:
 		return
-	title_label.text = "Você ganhou: %s!" % power_data.power_name
+	title_label.text = tr("MSG_POWER_ACQUIRED") % tr(power_data.power_name)
 	subtitle_label.text = power_data.subtitle
 	desc_label.text = power_data.description
 	icon_rect.visible = power_data.icon != null
@@ -26,6 +26,7 @@ func setup(power_data: PowerData) -> void:
 
 
 func _ready() -> void:
+	$CompleteSfx.play()
 	close_button.pressed.connect(_on_close_pressed)
 	timer.wait_time = auto_close_time
 	timer.one_shot = true

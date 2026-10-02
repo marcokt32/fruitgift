@@ -4,6 +4,7 @@ extends CanvasLayer
 @export var full_heart: Texture2D
 @export var empty_heart: Texture2D
 @export var panel_anim_duration := 0.25  # NOVO
+@export var level_select_path: String = "res://Prefabs/level_select.tscn"
 
 @onready var fruit_label: Label = $MarginContainer/LeftContainer/VBoxContainer/LevelFruitsCounter/FruitLabel
 @onready var points_label: Label = $MarginContainer/RightContainer/VBoxContainer/PointsSpan/Label
@@ -33,6 +34,7 @@ func _process(delta: float) -> void:
 
 
 func _ready() -> void:
+	print_tree_pretty()
 	visible = true
 	var level = get_parent().get_parent()
 	var crates = level.get_node("Crates")
@@ -82,6 +84,7 @@ func _on_player_died() -> void:
 
 
 func _on_restart_button_pressed() -> void:
+	$SelectSfx.play()
 	control_hud.set_deferred("visible", true)
 	get_tree().paused = false
 	GameEvents.life_count = 3
@@ -108,6 +111,7 @@ func _on_lifes_changed(current_life: int) -> void:
 
 
 func _on_continue_button_pressed() -> void:
+	$SelectSfx.play()
 	control_hud.set_deferred("visible", true)
 	GameEvents.player_respawned.emit()
 	player._reset_status()
@@ -149,3 +153,10 @@ func _animate_game_over_out() -> void:
 		.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
 
 	_game_over_tween.chain().tween_callback(func(): game_over_panel.visible = false)
+
+
+func _on_quit_button_pressed() -> void:
+	$SelectSfx.play()
+	await get_tree().create_timer(0.4).timeout
+	get_tree().paused = false
+	get_tree().change_scene_to_file(level_select_path)

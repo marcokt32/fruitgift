@@ -32,12 +32,12 @@ signal died
 @onready var initial_position = position
 @onready var camera := $Camera2D
 @onready var collision := $CollisionShape2D
+@onready var jumpsfx := $JumpSfx
 
 @export var double_jump_fruit_id := 0   # qual fruit_id (do PowerData) libera o pulo duplo
 @export var double_jump_velocity := -360.0  # geralmente um pouco mais fraco que o pulo normal
 var has_double_jump: bool = false
 var jumps_used: int = 0
-
 var camera_local_pos: Vector2
 var is_shooting :bool = false
 var level_complete: bool = false
@@ -141,6 +141,7 @@ func _get_input(delta: float) -> void:
 
 	if Input.is_action_just_pressed("jump"):
 		if is_on_floor():
+			jumpsfx.play()
 			_spawn_jump_puff()
 			velocity.y = jump_velocity
 			jumps_used = 1
@@ -179,7 +180,9 @@ func _set_animation() -> void:
 				anim = "run"
 
 			if not is_on_floor():
-				if is_running:
+				if jumps_used >= 2:
+					anim = "double_jump"
+				elif is_running:
 					anim = "run_jump"
 				else:
 					anim = "jump"
@@ -191,34 +194,7 @@ func _set_animation() -> void:
 
 
 func _on_hurt_box_body_entered(body: Node2D) -> void:
-	if body.has_method("is_stunned") and body.is_stunned():
-		return
-	if body.has_method("is_hitted") and body.is_hitted():
-		return
-	
-	if is_invincible or is_dead:
-		return
-	
-	if "dead" in body and body.dead:
-		return
-	
-	if "hitted"in body and body.hitted:
-		return
-	
-	GameEvents.boss_stun_shake.emit()
-	GameEvents.player_damaged.emit()
-	health -= 1
-
-	health_changed.emit(health, max_health)
-	_knockback(body.global_position)
-
-	if health <= 0:
-		_die()
-		return
-
-	is_hurt = true
-	hurt_timer = hurt_duration
-	blink()
+	take_damage(body)
 
 
 func _knockback(source_position: Vector2) -> void:
@@ -234,13 +210,16 @@ func _knockback(source_position: Vector2) -> void:
 
 
 func _die() -> void:
+	if is_dead:
+		return
+	is_dead = true
 	if camera != null:
 		var current_global_pos: Vector2 = camera.global_position
 		camera.top_level = true
 		camera.global_position = current_global_pos
 	GameEvents.life_count -= 1
+	$FailSfx.play()
 	emit_signal("lifes_changed",GameEvents.life_count)
-	is_dead = true
 	is_invincible = true
 	sprite.play("hurt")
 	collision.set_deferred("disabled", true)
@@ -283,6 +262,7 @@ func _fire_slingshot() -> void:
 	
 	is_shooting = true
 	sprite.play("shoot")
+	$ShootSfx.play()
 
 	var projectile := slingshot_projectile_scene.instantiate()
 	get_tree().current_scene.add_child(projectile)
@@ -323,15 +303,23 @@ func _on_animated_sprite_2d_animation_finished() -> void:
 		is_shooting = false
 
 func _reset_status():
+	# 1) move para longe da dead zone ainda com a colisão desligada
+	global_position = GameEvents.check_position
+	velocity = Vector2.ZERO
 	if camera != null:
 		camera.top_level = false
 		camera.position = camera_local_pos
-	collision.set_deferred("disabled", false)
-	velocity = Vector2.ZERO
+
+	# 2) espera a física aplicar a nova posição
+	await get_tree().physics_frame
+	await get_tree().physics_frame
+
+	# 3) só agora volta ao normal
+	collision.disabled = false
 	health = max_health
 	health_changed.emit(health, max_health)
-	is_invincible = false
 	is_dead = false
+	blink()
 
 # PARTICULA DE POEIRA DOS PÉS
 const DustPuffScene := preload("res://Prefabs/dust_puff.tscn")
@@ -389,3 +377,33 @@ func unlock_input() -> void:
 func grant_power(fruit_id: int) -> void:
 	if fruit_id == double_jump_fruit_id:
 		has_double_jump = true
+
+func take_damage(body):
+	if body.has_method("is_stunned") and body.is_stunned():
+		return
+	if body.has_method("is_hitted") and body.is_hitted():
+		return
+	
+	if is_invincible or is_dead:
+		return
+	
+	if "dead" in body and body.dead:
+		return
+	
+	if "hitted"in body and body.hitted:
+		return
+	$PlayerHitSfx.play()
+	GameEvents.boss_stun_shake.emit()
+	GameEvents.player_damaged.emit()
+	health -= 1
+
+	health_changed.emit(health, max_health)
+	_knockback(body.global_position)
+
+	if health <= 0:
+		_die()
+		return
+
+	is_hurt = true
+	hurt_timer = hurt_duration
+	blink()

@@ -1,0 +1,59 @@
+[gd_scene format=3 uid="uid://2v1ubi1qgj1u"]
+
+[ext_resource type="Texture2D" uid="uid://b5n5fdkvtuusq" path="res://assets/Items/Others/FinalFlag/WindSock idle (48x80).png" id="1_lirkg"]
+[ext_resource type="Texture2D" uid="uid://bahsqr38yxp7r" path="res://assets/Items/Others/FinalFlag/WindSock move (48x80).png" id="2_qu2qb"]
+[ext_resource type="Script" uid="uid://yqbtxby6xk3g" path="res://scripts/wind_sock.gd" id="3_qu2qb"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qqtjf"]
+atlas = ExtResource("1_lirkg")
+region = Rect2(0, 0, 48, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sxnen"]
+atlas = ExtResource("2_qu2qb")
+region = Rect2(0, 0, 48, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2hu27"]
+atlas = ExtResource("2_qu2qb")
+region = Rect2(48, 0, 48, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_td2xf"]
+atlas = ExtResource("2_qu2qb")
+region = Rect2(96, 0, 48, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_teh0r"]
+atlas = ExtResource("2_qu2qb")
+region = Rect2(144, 0, 48, 80)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_si6ue"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qqtjf")
+}],
+"loop": 1,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sxnen")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2hu27")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_td2xf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_teh0r")
+}],
+"loop": 1,
+"name": &"move",
+"speed": 15.0
+}]
+
+[node name="WindSock" type="AnimatedSprite2D" unique_id=530199246]
+sprite_frames = SubResource("SpriteFrames_si6ue")
+animation = &"move"
+frame_progress = 0.379278
+script = ExtResource("3_qu2qb")

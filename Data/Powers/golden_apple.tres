@@ -6,8 +6,8 @@
 [resource]
 script = ExtResource("1_hdhwh")
 fruit_id = 0
-power_name = "Maçã Dourada"
-subtitle = "Domine a gravidade!"
-description = "Agora você pode executar pulos duplos ao apertar novamente o botão de pulo no ar!!!"
+power_name = "POWER_GOLDEN_APPLE_NAME"
+subtitle = "POWER_GOLDEN_APPLE_SUBTITLE"
+description = "POWER_GOLDEN_APPLE_DESC"
 icon = ExtResource("1_6oof1")
 metadata/_custom_type_script = "uid://dg4swqj6qxljm"

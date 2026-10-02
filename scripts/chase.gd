@@ -152,12 +152,12 @@ func _start_retreat(player: Node2D) -> void:
 func _update_facing() -> void:
 	if abs(velocity.x) > 5.0:
 		sprite.flip_h = velocity.x > 0
-	if sprite.flip_h == true:
-		$CollisionShape2D.position.x = 22
-		$HitBox.position.x = 15
-	else:
-		$CollisionShape2D.position.x = 2
-		$HitBox.position.x = 0
+	#if sprite.flip_h == true:
+	#	$CollisionShape2D.position.x = 22
+	#	$HitBox.position.x = 15
+	#else:
+	#	$CollisionShape2D.position.x = 2
+	#	$HitBox.position.x = 0
 
 
 func _set_animation() -> void:
@@ -177,6 +177,7 @@ func _set_animation() -> void:
 
 func _on_detection_area_body_entered(body: Node2D) -> void:
 	if body.is_in_group("player") and not hitted:
+		$ShriekSfx.play()
 		player_in_range = body
 		if state != EnemyState.RETREATING:
 			state = EnemyState.CHASING
@@ -206,6 +207,7 @@ func take_projectile_hit() -> void:
 	if health <= 0:
 		dead = true
 	velocity = Vector2.ZERO
+	$HitSfx.play()
 	sprite.play("hit")
 
 
@@ -216,6 +218,7 @@ func _hit(player) -> void:
 		dead = true
 	velocity = Vector2.ZERO
 	player.velocity.y = -400
+	$HitSfx.play()
 	sprite.play("hit")
 
 

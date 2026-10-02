@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://c2nkdyuweg3u0" path="res://scripts/bridge.gd" id="1_lxrsb"]
 [ext_resource type="Texture2D" uid="uid://vbij3bd37ner" path="res://assets/TileMap/TileMap.png" id="2_dtnh3"]
+[ext_resource type="AudioStream" uid="uid://cc7q71q3b3oiq" path="res://assets/Sounds/SLIDER Swipe Drag Movement Stone 08.ogg" id="3_5i4qa"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lxrsb"]
 size = Vector2(160, 17)
@@ -177,5 +178,10 @@ region_rect = Rect2(112, 144, 16, 32)
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=334173513]
 libraries/ = SubResource("AnimationLibrary_it7mg")
 autoplay = &"up"
+
+[node name="MoveSfx" type="AudioStreamPlayer2D" parent="." unique_id=806482920]
+stream = ExtResource("3_5i4qa")
+volume_db = -1.0
+pitch_scale = 6.0
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

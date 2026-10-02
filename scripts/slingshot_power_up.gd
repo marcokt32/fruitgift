@@ -7,6 +7,9 @@ extends Area2D
 @onready var sprite: Sprite2D = $Sprite2D
 @onready var ground_ray: RayCast2D = $GroundRay
 
+const CollectEffect := preload("res://Prefabs/collect_effect.tscn")
+
+
 var collected_flag: bool = false
 var is_popping: bool = false
 var pop_velocity: Vector2 = Vector2.ZERO
@@ -43,9 +46,14 @@ func _physics_process(delta: float) -> void:
 func _on_body_entered(body: Node2D) -> void:
 	if collected_flag:
 		return
-
 	if body.is_in_group("player") and body.has_method("equip_slingshot"):
 		collected_flag = true
 		set_deferred("monitoring", false)
 		body.equip_slingshot(ammo_amount)
+		_spawn_collect()
 		queue_free()
+
+func _spawn_collect():
+	var collect: Node2D = CollectEffect.instantiate()
+	get_parent().add_child(collect)
+	collect.global_position = global_position

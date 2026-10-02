@@ -5,10 +5,10 @@
 
 [resource]
 script = ExtResource("1_rdqbj")
-level_name = "A vila"
+level_name = "LEVEL_01_NAME"
 scene_path = "res://Levels/level_1.tscn"
 thumbnail = ExtResource("2_26s7i")
-total_fruits = 31
-total_monsters = 12
-total_crates = 10
+total_fruits = 30
+total_monsters = 5
+total_crates = 5
 metadata/_custom_type_script = "uid://ciu8cnfhwxba0"

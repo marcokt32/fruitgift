@@ -16,6 +16,15 @@ var _slot_pending_delete: int = -1
 
 
 func _ready() -> void:
+	var ok_button: Button = %ConfirmDeleteDialog.get_ok_button()
+	ok_button.text = "BTN_CONFIRM"
+	ok_button.auto_translate_mode = Node.AUTO_TRANSLATE_MODE_ALWAYS
+
+	var cancel_button: Button = %ConfirmDeleteDialog.get_cancel_button()
+	cancel_button.text = "BTN_CANCEL"
+	cancel_button.auto_translate_mode = Node.AUTO_TRANSLATE_MODE_ALWAYS
+	
+	
 	_refresh_all_slots()
 
 	%PlayButton1.pressed.connect(_on_slot_pressed.bind(0))
@@ -52,10 +61,10 @@ func _refresh_slot(
 	var summary := ProgressManager.get_slot_summary(slot)
 
 	if summary.get("empty", true):
-		levels_label.text = "Slot %d — vazio" % (slot + 1)
+		levels_label.text = tr("MSG_EMPTY_SLOT") % (slot + 1)
 		stars_label.text = ""
 		fruit_label.text = ""
-		play_button.text = "Novo Jogo"
+		play_button.text = "BTN_NEW_GAME"
 		delete_button.disabled = true
 		delete_button.visible = false
 		grid.visible = false
@@ -68,11 +77,11 @@ func _refresh_slot(
 	# "Fases avançadas" = fases já desbloqueadas menos a atual em progresso.
 	var levels_advanced: int = max(levels - 1, 0)
 
-	levels_label.text = "Fases: %d" % levels_advanced
-	stars_label.text = "Estrelas: %d" % stars
-	fruit_label.text = "Frutas: %d" % fruit_score
+	levels_label.text = "%s: %d" % [tr("HUD_LEVEL"), levels_advanced]
+	stars_label.text = "%s: %d" % [tr("HUD_STARS"), stars]
+	fruit_label.text = "%s: %d" % [tr("HUD_FRUITS"), fruit_score]
 
-	play_button.text = "Continuar"
+	play_button.text = "BTN_RESUME"
 	delete_button.disabled = false
 	delete_button.visible = true
 
@@ -99,6 +108,8 @@ func _populate_golden_grid(grid: GridContainer, golden_fruits: Array) -> void:
 
 
 func _on_slot_pressed(slot: int) -> void:
+	$SelectSfx.play()
+	await get_tree().create_timer(0.4).timeout
 	ProgressManager.select_slot(slot)
 	if not ProgressManager.has_seen_intro:
 		get_tree().change_scene_to_file(intro_scene_path)
@@ -107,13 +118,17 @@ func _on_slot_pressed(slot: int) -> void:
 
 
 func _on_delete_pressed(slot: int) -> void:
+	$SelectSfx.play()
+	await get_tree().create_timer(0.4).timeout
 	_slot_pending_delete = slot
-	%ConfirmDeleteDialog.dialog_text = "Apagar o progresso do Slot %d? Isso não pode ser desfeito." % (slot + 1)
+	%ConfirmDeleteDialog.dialog_text = tr("MSG_DELETE_SLOT") % (slot + 1)
 	%ConfirmOverlay.visible = true
 	%ConfirmDeleteDialog.popup_centered()
 
 
 func _on_delete_confirmed() -> void:
+	$SelectSfx.play()
+	await get_tree().create_timer(0.4).timeout
 	if _slot_pending_delete == -1:
 		return
 	ProgressManager.delete_slot(_slot_pending_delete)
@@ -127,4 +142,6 @@ func _on_confirm_dialog_visibility_changed() -> void:
 	%ConfirmOverlay.visible = %ConfirmDeleteDialog.visible
 
 func _on_back_button_pressed() -> void:
+	$SelectSfx.play()
+	await get_tree().create_timer(0.4).timeout
 	get_tree().change_scene_to_file("res://scenes/main_menu.tscn")

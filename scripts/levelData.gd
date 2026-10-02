@@ -9,4 +9,4 @@ class_name LevelData
 @export_group("Objetivos da fase")
 @export var total_fruits: int = 0
 @export var total_monsters: int = 0
-@export var total_crates: int = 0
+@export_range(3, 3) var total_coins: int = 3

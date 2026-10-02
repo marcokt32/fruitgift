@@ -5,6 +5,9 @@
 [ext_resource type="Texture2D" uid="uid://bie2vvrif0ssf" path="res://assets/Enemies/Cannon/Attack (44x42).png" id="2_jfr8q"]
 [ext_resource type="Texture2D" uid="uid://mcuqinqw04f8" path="res://assets/Enemies/Cannon/Hit (44x42).png" id="3_22shy"]
 [ext_resource type="Texture2D" uid="uid://butcsg1a3s2oc" path="res://assets/Enemies/Cannon/Idle (44x42).png" id="3_0285d"]
+[ext_resource type="AudioStream" uid="uid://ksha127fprya" path="res://assets/Sounds/EnemyHit.wav" id="6_8ssa1"]
+[ext_resource type="AudioStream" uid="uid://ybuqikkekf8x" path="res://assets/Sounds/PigShriek.ogg" id="7_5saov"]
+[ext_resource type="AudioStream" uid="uid://mohkhp1nctia" path="res://assets/Sounds/cannonfire.mp3" id="8_5saov"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ediu4"]
 atlas = ExtResource("3_22shy")
@@ -97,7 +100,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yjxeu"]
-size = Vector2(319, 48)
+size = Vector2(415, 48)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jfr8q"]
 size = Vector2(30, 24)
@@ -110,6 +113,7 @@ collision_layer = 4
 collision_mask = 2
 script = ExtResource("1_yjxeu")
 projectile_scene = ExtResource("2_0285d")
+health = 2
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=2032368557]
 z_index = 1
@@ -120,7 +124,6 @@ frame = 4
 frame_progress = 1.0
 
 [node name="DetectionArea" type="Area2D" parent="." unique_id=1882653789]
-visible = false
 position = Vector2(21, 0)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea" unique_id=1988299158]
@@ -143,6 +146,18 @@ shape = SubResource("RectangleShape2D_si6ue")
 
 [node name="ShootPoint" type="Marker2D" parent="." unique_id=1198585953]
 position = Vector2(-23, -13)
+
+[node name="HitSfx" type="AudioStreamPlayer2D" parent="." unique_id=1672513763]
+stream = ExtResource("6_8ssa1")
+
+[node name="ShriekSfx" type="AudioStreamPlayer2D" parent="." unique_id=1568837018]
+stream = ExtResource("7_5saov")
+pitch_scale = 2.0
+
+[node name="ShootSfx" type="AudioStreamPlayer2D" parent="." unique_id=858785043]
+stream = ExtResource("8_5saov")
+volume_db = 10.0
+pitch_scale = 2.0
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="frame_changed" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_frame_changed"]

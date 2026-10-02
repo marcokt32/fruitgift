@@ -6,6 +6,8 @@
 [ext_resource type="Texture2D" uid="uid://d08oecik1ch20" path="res://assets/Enemies/Hog/Idle (48x48).png" id="4_l1xm8"]
 [ext_resource type="Texture2D" uid="uid://c1kltoe0ww6tc" path="res://assets/Enemies/Hog/IdleAngry (36x30).png" id="5_l1xm8"]
 [ext_resource type="Texture2D" uid="uid://yfmbvhr2qnyi" path="res://assets/Enemies/Hog/Run (48x48).png" id="6_l1xm8"]
+[ext_resource type="AudioStream" uid="uid://ybuqikkekf8x" path="res://assets/Sounds/PigShriek.ogg" id="7_bs7w8"]
+[ext_resource type="AudioStream" uid="uid://ksha127fprya" path="res://assets/Sounds/EnemyHit.wav" id="7_y08g5"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_idrt1"]
 atlas = ExtResource("2_l1xm8")
@@ -182,6 +184,8 @@ edge_ray_offset_x = 18.0
 edge_ray_offset_y = 35.0
 wall_ray_offset_x = 25.0
 wall_ray_offset_y = 15.0
+health = 2.0
+irritable = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1349976636]
 sprite_frames = SubResource("SpriteFrames_si6ue")
@@ -206,6 +210,13 @@ collision_mask = 2
 [node name="WallRay" type="RayCast2D" parent="." unique_id=286927960]
 target_position = Vector2(-25, 15)
 collision_mask = 2
+
+[node name="HitSfx" type="AudioStreamPlayer2D" parent="." unique_id=18343704]
+stream = ExtResource("7_y08g5")
+
+[node name="ShriekSfx" type="AudioStreamPlayer2D" parent="." unique_id=692139015]
+stream = ExtResource("7_bs7w8")
+pitch_scale = 2.0
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="frame_changed" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_frame_changed"]

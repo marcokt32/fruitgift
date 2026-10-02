@@ -20,6 +20,7 @@ enum BossState { IDLE, CHASE, BRAKING, TAUNT, STUNNED, HIT, DEAD }
 @export var shake_area_path: NodePath #define o alcance do shake
 
 @export_group("Boss behavior")
+@export var boss_music: AudioStream
 @export var player_path: NodePath          # opcional: se nao setar, procura no grupo "player"
 @export var trigger_area_path: NodePath    # Area2D que ativa o boss quando o player entra; vazio = comeca ativo
 @export var brake_deceleration := 150.0    # quanto a velocidade cai por segundo ao frear
@@ -42,6 +43,7 @@ var player: Node2D = null
 var spawn_position: Vector2
 var trigger_area: Area2D = null
 var shake_area: Area2D = null
+var previous_music: AudioStream
 
 @onready var angry_speed = speed * 1.6
 @onready var half_life = health / 2
@@ -97,6 +99,10 @@ func _activate() -> void:
 		var start_dir: float = sign(player.global_position.x - global_position.x)
 		direction = int(start_dir) if start_dir != 0 else -1
 	_start_taunt()
+	
+	if boss_music:
+		previous_music = MusicPlayer.player.stream
+		MusicPlayer.play_menu_music(boss_music)
 
 
 func _physics_process(delta: float) -> void:
@@ -219,6 +225,8 @@ func _process_braking(delta: float) -> void:
 
 func _start_braking() -> void:
 	state = BossState.BRAKING
+	$GallopSfx.stop()
+	$BrakingSfx.play()
 	sprite.play("braking")
 
 
@@ -239,6 +247,8 @@ func _start_stun() -> void:
 	stun_hits = 0
 	velocity.x = 0
 	hit_box.monitoring = true
+	$GallopSfx.stop()
+	$ImpactSfx.play()
 	sprite.play("stun")
 	
 	if _player_in_shake_range():   # NOVO
@@ -301,6 +311,8 @@ func _on_animated_sprite_2d_animation_finished() -> void:
 				hit_box.monitoring = true
 				sprite.play("stun")
 		"taunt":
+			$GallopSfx.play()
+			$ShriekSfx.play()
 			state = BossState.CHASE
 			velocity.x = 0  # deixa o _process_chase acelerar suavemente a partir do zero
 		# "stun" nao precisa de callback aqui: quem controla é o timer em _start_stun()
@@ -328,6 +340,7 @@ func _hit(hitter) -> void:
 	if health <= half_life and irritable and not angry:
 		angry = true
 	velocity = Vector2.ZERO
+	$HitSfx.play()
 	sprite.play("hit")
 
 	if health <= 0:
@@ -340,6 +353,8 @@ func _hit(hitter) -> void:
 		hitter.velocity.y = -400
 		defeated.emit()
 		_set_doors_open(true)
+		if previous_music:
+			MusicPlayer.play_menu_music(previous_music)
 		return
 
 	if stun_hits >= MAX_STUN_HITS:
@@ -365,6 +380,7 @@ func take_projectile_hit() -> void:
 	if health <= half_life and irritable and not angry:
 		angry = true
 	velocity = Vector2.ZERO
+	$HitSfx.play()
 	sprite.play("hit")
 	if health <= 0:
 		state = BossState.DEAD
@@ -384,8 +400,8 @@ const STEP_FRAMES := [2,8]
 func _spawn_die_puff() -> void:
 	var puff: Node2D = DiePuffScene.instantiate()
 	get_parent().add_child(puff)
-	puff.global_position = global_position
-	puff.flip_h = direction > 0
+	puff.global_position = global_position + Vector2(0,-8)
+	puff.scale = Vector2(3,3)
 
 func _on_animated_sprite_2d_frame_changed() -> void:
 	if sprite.animation != "angry" and sprite.animation != "run" and sprite.animation != "taunt":
@@ -395,6 +411,8 @@ func _on_animated_sprite_2d_frame_changed() -> void:
 		_spawn_dust_puff()
 
 func _spawn_dust_puff() -> void:
+	if sprite.animation == "taunt":
+		$SteamSfx.play()
 	var scene: PackedScene
 	if sprite.animation == "angry" or sprite.animation == "run":
 		scene = DustPuffScene

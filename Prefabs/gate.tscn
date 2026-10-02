@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://nlyy0e337acu" path="res://scripts/gate.gd" id="1_oi61f"]
 [ext_resource type="Texture2D" uid="uid://vbij3bd37ner" path="res://assets/TileMap/TileMap.png" id="2_dtnh3"]
+[ext_resource type="AudioStream" uid="uid://cc7q71q3b3oiq" path="res://assets/Sounds/SLIDER Swipe Drag Movement Stone 08.ogg" id="3_dtnh3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_oi61f"]
 size = Vector2(80, 18)
@@ -221,5 +222,10 @@ region_rect = Rect2(192, 144, 16, 32)
 root_node = NodePath("../..")
 libraries/ = SubResource("AnimationLibrary_dtnh3")
 autoplay = &"down"
+
+[node name="MoveSfx" type="AudioStreamPlayer2D" parent="." unique_id=1345388205]
+stream = ExtResource("3_dtnh3")
+volume_db = -1.0
+pitch_scale = 6.0
 
 [connection signal="animation_finished" from="Body/AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

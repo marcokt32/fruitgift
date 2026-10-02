@@ -34,9 +34,11 @@ func _ready() -> void:
 	if trigger_area == null:
 		return
 
-	trigger_area.body_entered.connect(_on_trigger_area_body_entered)
+	trigger_area.active.connect(_activate)
 
-func _on_trigger_area_body_entered(body):
+
+func _activate():
+	$MoveSfx.play()
 	animation.speed_scale = move_speed
 	if animation.assigned_animation == "up":
 		animation.play("set_down")
@@ -45,6 +47,8 @@ func _on_trigger_area_body_entered(body):
 
 
 func _on_animation_player_animation_finished(anim_name: StringName) -> void:
+	$MoveSfx.stop()
+	animation.speed_scale = move_speed
 	if anim_name == "set_down":
 		animation.play("down")
 	if anim_name == "set_up":

@@ -1,59 +1,61 @@
 [gd_scene format=3 uid="uid://mbdv2qxo2hv8"]
 
-[ext_resource type="Texture2D" uid="uid://crl0vceormbor" path="res://assets/Enemies/Ptero/Flying (32x32).png" id="1_ksykq"]
 [ext_resource type="Script" uid="uid://cln747y4vjrmo" path="res://scripts/enemyBase.gd" id="1_vitff"]
-[ext_resource type="Texture2D" uid="uid://cquiyl6xwiune" path="res://assets/Enemies/Ptero/Hit (32x32).png" id="2_vitff"]
+[ext_resource type="Texture2D" uid="uid://cvwe7en0p41ip" path="res://assets/Enemies/Ptero/Hit (48x48).png" id="2_qlwtw"]
+[ext_resource type="Texture2D" uid="uid://beu2octx0c2u2" path="res://assets/Enemies/Ptero/Flying (48x48).png" id="3_qlwtw"]
+[ext_resource type="AudioStream" uid="uid://ksha127fprya" path="res://assets/Sounds/EnemyHit.wav" id="4_qlwtw"]
 
 [sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_wqki0"]
-points = PackedVector2Array(-20, 2, 0, -12, 20, 2, 0, 12)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_vitff"]
-atlas = ExtResource("2_vitff")
-region = Rect2(0, 0, 42, 42)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_qlwtw"]
-atlas = ExtResource("2_vitff")
-region = Rect2(42, 0, 42, 42)
+points = PackedVector2Array(-20, 2, 0, -12, 20, 2, 0, 15)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0ji8k"]
-atlas = ExtResource("2_vitff")
-region = Rect2(84, 0, 42, 42)
+atlas = ExtResource("2_qlwtw")
+region = Rect2(0, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i4fs4"]
+atlas = ExtResource("2_qlwtw")
+region = Rect2(48, 0, 48, 48)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_71kcg"]
-atlas = ExtResource("1_ksykq")
-region = Rect2(0, 0, 42, 42)
+atlas = ExtResource("3_qlwtw")
+region = Rect2(0, 0, 48, 48)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_dtnts"]
-atlas = ExtResource("1_ksykq")
-region = Rect2(42, 0, 42, 42)
+atlas = ExtResource("3_qlwtw")
+region = Rect2(48, 0, 48, 48)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ktuy2"]
-atlas = ExtResource("1_ksykq")
-region = Rect2(84, 0, 42, 42)
+atlas = ExtResource("3_qlwtw")
+region = Rect2(96, 0, 48, 48)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2kw4p"]
-atlas = ExtResource("1_ksykq")
-region = Rect2(0, 0, 42, 42)
+atlas = ExtResource("3_qlwtw")
+region = Rect2(144, 0, 48, 48)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4hvy0"]
-atlas = ExtResource("1_ksykq")
-region = Rect2(42, 0, 42, 42)
+atlas = ExtResource("3_qlwtw")
+region = Rect2(0, 0, 48, 48)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bh3xl"]
-atlas = ExtResource("1_ksykq")
-region = Rect2(84, 0, 42, 42)
+atlas = ExtResource("3_qlwtw")
+region = Rect2(48, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8ix7c"]
+atlas = ExtResource("3_qlwtw")
+region = Rect2(96, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e0r7a"]
+atlas = ExtResource("3_qlwtw")
+region = Rect2(144, 0, 48, 48)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_vitff"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_vitff")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_qlwtw")
-}, {
-"duration": 1.0,
 "texture": SubResource("AtlasTexture_0ji8k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i4fs4")
 }],
 "loop": 0,
 "name": &"hit",
@@ -70,6 +72,9 @@ animations = [{
 "texture": SubResource("AtlasTexture_ktuy2")
 }, {
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_2kw4p")
+}, {
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_71kcg")
 }, {
 "duration": 1.0,
@@ -77,28 +82,34 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_ktuy2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2kw4p")
 }],
 "loop": 0,
 "name": &"idle",
-"speed": 12.0
+"speed": 15.0
 }, {
 "frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_2kw4p")
-}, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_4hvy0")
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_bh3xl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8ix7c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e0r7a")
 }],
-"loop": 1,
+"loop": 2,
 "name": &"run",
 "speed": 8.0
 }]
 
 [sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_ferg5"]
-points = PackedVector2Array(-20, 2, 0, -12, 20, 2, 0, 12)
+points = PackedVector2Array(-21, 2, 0, -13, 21, 2, 0, 12)
 
 [node name="Ptero" type="CharacterBody2D" unique_id=1968208331 groups=["enemy"]]
 z_index = 1
@@ -115,6 +126,7 @@ shape = SubResource("ConvexPolygonShape2D_wqki0")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=36804422]
 sprite_frames = SubResource("SpriteFrames_vitff")
 animation = &"run"
+frame_progress = 0.5474245
 
 [node name="HitBox" type="Area2D" parent="." unique_id=643735529]
 collision_layer = 4
@@ -123,11 +135,15 @@ collision_layer = 4
 shape = SubResource("ConvexPolygonShape2D_ferg5")
 
 [node name="EdgeRay" type="RayCast2D" parent="." unique_id=1274342351]
+target_position = Vector2(0, 100)
 collision_mask = 2
 
 [node name="WallRay" type="RayCast2D" parent="." unique_id=215897383]
 target_position = Vector2(-25, 0)
 collision_mask = 2
+
+[node name="HitSfx" type="AudioStreamPlayer2D" parent="." unique_id=91333010]
+stream = ExtResource("4_qlwtw")
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="area_entered" from="HitBox" to="." method="_on_hit_box_area_entered"]

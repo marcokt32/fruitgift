@@ -5,8 +5,9 @@
 [ext_resource type="Texture2D" uid="uid://7acc8cxh4pso" path="res://assets/Menu/Icons/star.png" id="3_ok5p3"]
 [ext_resource type="FontFile" uid="uid://bx3o38mv8l3n8" path="res://assets/Menu/Fonts/Bangers-Regular.ttf" id="3_xxp4r"]
 [ext_resource type="Texture2D" uid="uid://b62tj6i0c0yyy" path="res://assets/Menu/Icons/Apple.png" id="5_ee83d"]
+[ext_resource type="Texture2D" uid="uid://6anlvlbdpu11" path="res://assets/Items/Coin/idle.png" id="6_6i2o3"]
 [ext_resource type="Texture2D" uid="uid://du4wrvryw42dt" path="res://assets/Menu/Icons/monster.png" id="6_06r74"]
-[ext_resource type="Texture2D" uid="uid://6uqxyjhy4otq" path="res://assets/Items/Box/Box1/Idle (32x32).png" id="6_ee83d"]
+[ext_resource type="AudioStream" uid="uid://bbyu0hifxv05v" path="res://assets/Sounds/clickpop.mp3" id="8_06r74"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xxp4r"]
 bg_color = Color(0.32156864, 0.44313726, 1, 1)
@@ -22,7 +23,7 @@ shadow_size = 7
 shadow_offset = Vector2(2, 2)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mta2d"]
-bg_color = Color(0.32156864, 0.44313726, 1, 1)
+bg_color = Color(0.003921569, 0.07058824, 0.16078432, 1)
 border_width_left = 4
 border_width_bottom = 4
 border_color = Color(1, 0.87058824, 0.34901962, 1)
@@ -75,8 +76,10 @@ shadow_offset = Vector2(2, 2)
 
 [node name="LevelCard" type="Button" unique_id=1036470898]
 custom_minimum_size = Vector2(124, 0)
+custom_maximum_size = Vector2(-1, 280)
 offset_right = 128.0
 offset_bottom = 292.0
+mouse_filter = 1
 theme_override_styles/normal = SubResource("StyleBoxFlat_xxp4r")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_mta2d")
 theme_override_styles/hover = SubResource("StyleBoxFlat_mag48")
@@ -102,6 +105,7 @@ layout_mode = 2
 alignment = 1
 
 [node name="NameLabel" type="Label" parent="MarginContainer/VBoxContainer" unique_id=839521580]
+auto_translate_mode = 1
 layout_mode = 2
 theme_override_constants/outline_size = 5
 theme_override_fonts/font = ExtResource("3_xxp4r")
@@ -121,6 +125,7 @@ layout_mode = 2
 layout_mode = 2
 texture = ExtResource("5_ee83d")
 expand_mode = 3
+stretch_mode = 4
 
 [node name="FruitsLabel" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=1429667481]
 layout_mode = 2
@@ -136,6 +141,7 @@ layout_mode = 2
 layout_mode = 2
 texture = ExtResource("6_06r74")
 expand_mode = 3
+stretch_mode = 4
 
 [node name="MonstersLabel" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer2" unique_id=1863610798]
 layout_mode = 2
@@ -149,8 +155,9 @@ layout_mode = 2
 
 [node name="TextureRect2" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer3" unique_id=1812405997]
 layout_mode = 2
-texture = ExtResource("6_ee83d")
+texture = ExtResource("6_6i2o3")
 expand_mode = 3
+stretch_mode = 4
 
 [node name="CratesLabel" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer3" unique_id=1601190344]
 layout_mode = 2
@@ -168,16 +175,19 @@ alignment = 1
 custom_maximum_size = Vector2(30, 30)
 layout_mode = 2
 texture = ExtResource("3_ok5p3")
+stretch_mode = 4
 
 [node name="TextureRect2" type="TextureRect" parent="MarginContainer/VBoxContainer/StarsContainer" unique_id=891772548]
 custom_maximum_size = Vector2(30, 30)
 layout_mode = 2
 texture = ExtResource("3_ok5p3")
+stretch_mode = 4
 
 [node name="TextureRect3" type="TextureRect" parent="MarginContainer/VBoxContainer/StarsContainer" unique_id=1953850926]
 custom_maximum_size = Vector2(30, 30)
 layout_mode = 2
 texture = ExtResource("3_ok5p3")
+stretch_mode = 4
 
 [node name="LockIcon" type="TextureRect" parent="." unique_id=1309835049]
 layout_mode = 1
@@ -186,5 +196,9 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="SelectSfx" type="AudioStreamPlayer" parent="." unique_id=1350567889]
+stream = ExtResource("8_06r74")
+volume_db = 5.0
 
 [connection signal="pressed" from="." to="." method="_on_pressed"]

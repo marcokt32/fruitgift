@@ -5,7 +5,7 @@
 [ext_resource type="FontFile" uid="uid://bx3o38mv8l3n8" path="res://assets/Menu/Fonts/Bangers-Regular.ttf" id="3_fgl5u"]
 [ext_resource type="Texture2D" uid="uid://b62tj6i0c0yyy" path="res://assets/Menu/Icons/Apple.png" id="4_jpkwb"]
 [ext_resource type="Texture2D" uid="uid://du4wrvryw42dt" path="res://assets/Menu/Icons/monster.png" id="5_vot2y"]
-[ext_resource type="Texture2D" uid="uid://6uqxyjhy4otq" path="res://assets/Items/Box/Box1/Idle (32x32).png" id="6_jpkwb"]
+[ext_resource type="Texture2D" uid="uid://6anlvlbdpu11" path="res://assets/Items/Coin/idle.png" id="6_jpkwb"]
 
 [sub_resource type="Gradient" id="Gradient_l8wru"]
 offsets = PackedFloat32Array(0.29411766, 1)
@@ -963,7 +963,6 @@ visible = false
 script = ExtResource("1_v5cok")
 fade_duration = 1.5
 slide_in_duration = 0.3
-hold_duration = null
 slide_out_duration = 0.6
 
 [node name="FadeRect" type="ColorRect" parent="." unique_id=283118422]
@@ -1041,6 +1040,7 @@ size_flags_horizontal = 4
 texture = SubResource("CompressedTexture2D_m6f4a")
 
 [node name="NameLabel" type="Label" parent="Banner/PanelContainer/VBoxContainer/Panel" unique_id=603940732]
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1055,11 +1055,12 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="ObjectiveLabel" type="Label" parent="Banner/PanelContainer/VBoxContainer" unique_id=944678115]
+auto_translate_mode = 1
 layout_mode = 2
 theme_override_constants/outline_size = 5
 theme_override_fonts/font = ExtResource("3_fgl5u")
 theme_override_font_sizes/font_size = 30
-text = "Objetivos:"
+text = "MENU_OBJECTIVES"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Banner/PanelContainer/VBoxContainer" unique_id=1864002084]
 layout_mode = 2
@@ -1070,6 +1071,7 @@ layout_mode = 2
 texture = ExtResource("4_jpkwb")
 
 [node name="FruitLabel" type="Label" parent="Banner/PanelContainer/VBoxContainer/HBoxContainer" unique_id=1120078076]
+unique_name_in_owner = true
 layout_mode = 2
 theme_override_constants/outline_size = 5
 theme_override_fonts/font = ExtResource("3_fgl5u")
@@ -1086,6 +1088,7 @@ texture = ExtResource("5_vot2y")
 expand_mode = 3
 
 [node name="MonsterLabel" type="Label" parent="Banner/PanelContainer/VBoxContainer/HBoxContainer2" unique_id=470044264]
+unique_name_in_owner = true
 layout_mode = 2
 theme_override_constants/outline_size = 5
 theme_override_fonts/font = ExtResource("3_fgl5u")
@@ -1101,7 +1104,8 @@ layout_mode = 2
 texture = ExtResource("6_jpkwb")
 expand_mode = 3
 
-[node name="CrateLabel" type="Label" parent="Banner/PanelContainer/VBoxContainer/HBoxContainer3" unique_id=1437762016]
+[node name="CoinsLabel" type="Label" parent="Banner/PanelContainer/VBoxContainer/HBoxContainer3" unique_id=1437762016]
+unique_name_in_owner = true
 layout_mode = 2
 theme_override_constants/outline_size = 5
 theme_override_fonts/font = ExtResource("3_fgl5u")

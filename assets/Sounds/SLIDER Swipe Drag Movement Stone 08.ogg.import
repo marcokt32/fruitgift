@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://cc7q71q3b3oiq"
+path="res://.godot/imported/SLIDER Swipe Drag Movement Stone 08.ogg-3f97b4c60aa4bf3d511a2e2bf2918b57.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/Sounds/SLIDER Swipe Drag Movement Stone 08.ogg"
+dest_files=["res://.godot/imported/SLIDER Swipe Drag Movement Stone 08.ogg-3f97b4c60aa4bf3d511a2e2bf2918b57.oggvorbisstr"]
+
+[params]
+
+loop=true
+loop_offset=0.0
+bpm=0.0
+beat_count=0
+bar_beats=4

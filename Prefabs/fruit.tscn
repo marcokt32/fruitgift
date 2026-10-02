@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://4nkewu80wyhd" path="res://assets/Items/Fruits/Orange.png" id="7_hwwvg"]
 [ext_resource type="Texture2D" uid="uid://pxohagbbf0b0" path="res://assets/Items/Fruits/Pineapple.png" id="8_4eilp"]
 [ext_resource type="Texture2D" uid="uid://dhsry67nc81a4" path="res://assets/Items/Fruits/Strawberry.png" id="9_g46o1"]
+[ext_resource type="AudioStream" uid="uid://b52fsfxpki8ks" path="res://assets/Sounds/collected.wav" id="11_w0ufg"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qtydk"]
 atlas = ExtResource("2_gsfce")
@@ -1404,7 +1405,7 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_hld54"]
-radius = 7.071068
+radius = 18.110771
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_vd2rh"]
 animations = [{
@@ -1444,3 +1445,7 @@ shape = SubResource("CircleShape2D_si6ue")
 position = Vector2(0, -4)
 target_position = Vector2(0, 20)
 collision_mask = 2
+
+[node name="CollectedSfx" type="AudioStreamPlayer2D" parent="." unique_id=579620552]
+stream = ExtResource("11_w0ufg")
+pitch_scale = 2.0

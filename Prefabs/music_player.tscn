@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://ddx136yeq1poq"]
+
+[ext_resource type="Script" uid="uid://xvqvs027lbh3" path="res://scripts/music_player.gd" id="1_d6wh6"]
+[ext_resource type="AudioStream" uid="uid://bf1hs6f1w8d0p" path="res://assets/Sounds/Real Mccoy.mp3" id="2_dhs35"]
+
+[node name="MusicPlayer" type="Node2D" unique_id=1095458663]
+script = ExtResource("1_d6wh6")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=612210361]
+stream = ExtResource("2_dhs35")

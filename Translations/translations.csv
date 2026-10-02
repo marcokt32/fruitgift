@@ -1,0 +1,108 @@
+keys,en,pt_BR,es
+BTN_PLAY,Play,Jogar,Jugar
+BTN_CONTINUE,Continue,Continuar,Continuar
+BTN_NEW_GAME,New Game,Novo Jogo,Nuevo Juego
+BTN_LOAD,Load,Carregar,Cargar
+BTN_SAVE,Save,Salvar,Guardar
+BTN_OPTIONS,Options,Opções,Opciones
+BTN_SETTINGS,Settings,Configurações,Configuración
+BTN_BACK,Back,Voltar,Volver
+BTN_EXIT,Exit,Sair,Salir
+BTN_QUIT,Quit,Sair,Salir
+BTN_RESTART,Restart,Reiniciar,Reiniciar
+BTN_CAMERA,Camera,Câmera,Cámara
+BTN_PAUSE,Pause,Pausar,Pausar
+BTN_RESUME,Resume,Continuar,Continuar
+BTN_CONFIRM,Confirm,Confirmar,Confirmar
+BTN_CANCEL,Cancel,Cancelar,Cancelar
+BTN_YES,Yes,Sim,Sí
+BTN_NO,No,Não,No
+BTN_OK,OK,OK,OK
+BTN_CLOSE,Close,Fechar,Cerrar
+BTN_NEXT,Next,Próximo,Siguiente
+BTN_PREVIOUS,Previous,Anterior,Anterior
+BTN_SELECT,Select,Selecionar,Seleccionar
+BTN_LANGUAGE,Language,Idioma,Idioma
+BTN_APPLY,Apply,Aplicar,Aplicar
+BTN_RESET,Reset,Redefinir,Restablecer
+BTN_RESUME_GAME,Resume Game,Continuar Jogo,Continuar Juego
+BTN_MAIN_MENU,Main Menu,Menu Principal,Menú Principal
+BTN_LEVEL_SELECT,Level Select,Seleção de Fase,Selección de Nivel
+BTN_RETRY,Retry,Tentar Novamente,Reintentar
+BTN_RETURN,Return,Retornar,Regresar
+BTN_SKIP,Skip,Pular,Saltar
+HUD_SCORE,Score,Pontuação,Puntuación
+HUD_LIVES,Lives,Vidas,Vidas
+HUD_HEALTH,Health,Vida,Vida
+HUD_TIME,Time,Tempo,Tiempo
+HUD_LEVEL,Level,Fase,Nivel
+HUD_PAUSED,Paused,Pausado,Pausado
+HUD_GAME_OVER,Game Over,Fim de Jogo,Fin del Juego
+HUD_VICTORY,Victory,Vitória,Victoria
+HUD_COMPLETE,Complete,Concluído,Completado
+HUD_NEW_RECORD,New Record,Novo Recorde,Nuevo Récord
+MENU_AUDIO,Audio,Áudio,Audio
+MENU_MUSIC,Music,Música,Música
+MENU_SOUND_EFFECTS,Sound Effects,Efeitos Sonoros,Efectos de Sonido
+MENU_FULLSCREEN,Fullscreen,Tela Cheia,Pantalla Completa
+MENU_LANGUAGE,Language,Idioma,Idioma
+MENU_CONTROLS,Controls,Controles,Controles
+MENU_GAMEPLAY,Gameplay,Jogabilidade,Jugabilidad
+MENU_GRAPHICS,Graphics,Gráficos,Gráficos
+MENU_ACCESSIBILITY,Accessibility,Acessibilidade,Accesibilidad
+MSG_ARE_YOU_SURE,Are you sure?,Tem certeza?,¿Tem certeza?
+MSG_PAUSED,Game Paused,Jogo Pausado,Juego Pausado
+MSG_LEVEL_COMPLETE,Level Complete,Fase Concluída,Nivel Completado
+MSG_GAME_OVER,Game Over,Fim de Jogo,Fin del Juego
+MSG_LOADING,Loading...,Carregando...,Cargando...
+MSG_SAVING,Saving...,Salvando...,Guardando...
+BTN_RATE,Rate,Avaliar,Valorar
+HUD_CRATES,Crates,Caixas,Cajas
+HUD_MONSTERS,Monsters,Monstros,Monstruos
+HUD_STARS,Stars,Estrelas,Estrellas
+HUD_FRUITS,Fruits,Frutas,Frutas
+MENU_HUD,HUD,HUD,HUD
+MENU_CAMERA,Camera,Câmera,Cámara
+MENU_OPTIONS,Options,Opções,Opciones
+MENU_SETTINGS,Settings,Configurações,Configuración
+MENU_DISTANCE,Distance,Distância,Distancia
+MENU_PAUSE,Pause,Pausa,Pausa
+MENU_OBJECTIVES,Objectives,Objetivos,Objetivos
+BTN_DELETE,Delete,Excluir,Eliminar
+BTN_TEST,Tests,Testes,Pruebas
+BTN_LANGUAGE,Language,Idioma,Idioma
+MSG_POWER_ACQUIRED,You got: %s!,Você ganhou: %s!,¡Has conseguido: %s!
+MSG_EMPTY_SLOT,Slot %d — Empty,Slot %d — Vazio,Slot %d — Vacío
+MSG_DELETE_SLOT,Delete the progress of Slot %d? This cannot be undone.,Apagar o progresso do Slot %d? Isso não pode ser desfeito.,¿Eliminar el progreso del Slot %d? Esta acción no se puede deshacer.
+LEVEL_01_NAME,The Village,A Vila,El Pueblo
+LEVEL_02_NAME,The Fountain,A Fonte,La Fuente
+LEVEL_03_NAME,The Gates,Os Portões,Las Puertas
+LEVEL_04_NAME,The Winds,Os Ventos,Los Vientos
+LEVEL_05_NAME,Flying,Voando,Volando
+TEST_LEVEL_NAME,Test Area,Área de Testes,Área de Pruebas
+INTRO_BEAT_01,"Humans and Monsters are not exactly best friends ... ... They have been fighting for ages.","Humanos e Monstros não são exatamente melhores amigos ... ... Eles brigam por eras.","Los Humanos y los Monstruos no son exactamente los mejores amigos ... ... Han estado peleando durante eras."
+INTRO_BEAT_02,"But as the years went by, each went their own way, and lived their own lives. Thus creating a period of peace ...","Mas com o passar dos anos, cada um foi para seu canto, e viveu cada um a sua maneira. Criando então um período de paz ...","Pero con el paso de los años, cada uno siguió su propio camino y vivió a su manera. Creando así un período de paz ..."
+INTRO_BEAT_03,"With the end of the conflict, humans prospered and celebrated their fruit harvests ...","Com o fim do conflito os humanos prosperaram e festejavam as suas colheitas de frutas ...","Con el fin del conflicto, los humanos prosperaron y celebraron sus cosechas de frutas ..."
+INTRO_BEAT_04,"But the monsters became jealous of the humans once again and planned to steal their fruits on the day of their great festival.","Mas os monstros sentiram inveja dos humanos novamente e planejaram roubar suas frutas no dia da sua grande festa.","Pero los monstruos volvieron a sentir envidia de los humanos y planearon robar sus frutas el día de su gran festival."
+INTRO_BEAT_05,"On this day, they set out with everything they had to steal what humans valued most.","Neste dia, eles partiram com tudo o que tinham, para roubar aquilo que os humanos mais veneravam.","Ese día, partieron con todo lo que tenían para robar aquello que los humanos más veneraban."
+INTRO_BEAT_06,"They stole all the fruits. Who will save us from the monsters?","Roubaram todas as frutas. Quem vai nos salvar dos monstros?","Robaron todas las frutas. ¿Quién nos salvará de los monstruos?"
+NPC_CRIS_01,Those monsters took all our fruits...,Aqueles monstros levaram todas as nossas frutas...,Esos monstruos se llevaron todas nuestras frutas...
+NPC_CRIS_02,They scattered most of them around the area in boxes and hid the FRUIT GIFTS in chests...,Espalharam a maioria por aí dentro de caixas e esconderam as FRUIT GIFTS em baús...,Esparcieron la mayoría por ahí dentro de cajas y escondieron las FRUIT GIFTS en cofres...
+NPC_CRIS_03,Recover as many as you can and especially the legendary FRUIT GIFTS!!!,Recupere o máximo que puder e principalmente as lendárias FRUIT GIFTS!!!,¡Recupera tantas como puedas y sobre todo las legendarias FRUIT GIFTS!!!
+NPC_01_01,Jump with the up arrow button...,Pule com o botão de seta para cima...,Salta con el botón de flecha hacia arriba...
+NPC_01_02,Some crates may contain items to help you...,Algumas caixas podem ter itens para te ajudar...,Algunas cajas pueden contener objetos para ayudarte...
+NPC_01_03,To use the slingshot use the target button. Good luck!,Para usar o estilingue use o botão de alvo. Boa sorte!,¡Para usar la honda usa el botón de objetivo. Buena suerte!
+SIGN_01,Like details? Change the camera distance in the game menu!,Gosta de detalhes? Altere a distância da câmera no menu do jogo!,¿Te gustan los detalles? ¡Cambia la distancia de la cámara en el menú del juego!
+SIGN_02,Safe Zone,Zona Segura,Zona Segura
+NPC_02_01,Monster bandits!!!...,Monstros bandidos!!!...,¡Monstruos bandidos!...
+NPC_02_02,Without the Fruit Gifts we are at a disadvantage...,Sem as Fruit Gifts estamos em desvantagem...,Sin las Fruit Gifts estamos en desventaja...
+NPC_02_03,Defeat the bosses to recover them!!!,Derrote os chefes para recuperá-las!!!,¡¡Derrota a los jefes para recuperarlas!!!
+NPC_03_01,Whenever something blocks your path there will always be a button like this nearby...,Quando algo bloquear o caminho sempre vai ter um botão como esse por perto...,Cuando algo bloquee tu camino siempre habrá un botón como este cerca...
+NPC_03_02,Sometimes hidden. Just look carefully!!!,Às vezes escondido. Basta olhar com atenção!!!,A veces escondido. ¡¡¡Solo tienes que mirar con atención!!!
+POWER_GOLDEN_APPLE_NAME,Golden Apple,Maçã Dourada,Manzana Dorada
+POWER_GOLDEN_APPLE_SUBTITLE,Master gravity!,Domine a gravidade!,¡Domina la gravedad!
+POWER_GOLDEN_APPLE_DESC,You can now perform double jumps by pressing the jump button again in mid-air!!!,Agora você pode executar pulos duplos ao apertar novamente o botão de pulo no ar!!!,¡Ahora puedes realizar saltos dobles pulsando de nuevo el botón de salto en el aire!
+HUD_GAME_OVER,Game Over,Fim de Jogo,Fin del Juego
+HUD_COINS,Coins,Moedas,Monedas
+NPC_04_01,Do you see that coin up there?,Está vendo aquela moeda lá em cima?,¿Ves esa moneda allá arriba?
+NPC_04_02,Maybe if you could jump higher...,Talvez se você conseguisse pular mais alto...,Quizás si pudieras saltar más alto...

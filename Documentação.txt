@@ -10,9 +10,9 @@ Select-Level - área que mostra os leveis em um h slide menu -  e algumas inform
  ---- Serão 16 leveis ao total com 3 Bosses
  ---- Cada boss dará acesso a uma nova habilidade através de uma Golden fruit - ou Fruit Gift
  ---- As habilidades pensadas até o momento serão :
-	- Pulo duplo
-	- Mais um slot de coração (resistência)
-	- Dash
+	- Pulo duplo - Maçã
+	- Mais um slot de coração (resistência) - Banana
+	- Dash - 
 
 Cores do projeto:
 
@@ -24,8 +24,8 @@ Font size: 20px
 Identidade visual:
 Azul primário (painel , botões)- #5271ff
 Azul secundário (botões desativados, pressionados)- #2a43b6
-Azul de apoio (bordas em contraste com fundos claros) - #ffde59
-Amarelo primário (borda em contraste com fundos claros) - #011229
+Azul de apoio (bordas em contraste com fundos claros) - #011229
+Amarelo primário (borda em contraste com fundos claros) - #ffde59
 
 padrão para painéis e botões
 margin content top  e left 7px

@@ -7,13 +7,19 @@ enum SpikeState { IDLE, SHAKING, FALLING, LANDED }
 @export var shake_intensity := 2.0
 @export var fall_speed := 600.0
 @export var gravity := 1200.0
-@export var respawn_delay := 2.0
+@export var respawn_delay := 1.5
+
+# Se ligado, o spike respawna depois de force_respawn_time segundos caindo,
+# mesmo que nunca tenha encostado no terreno (ex.: caiu num buraco).
+@export var force_respawn := false
+@export var force_respawn_time := 4.0  # segundos contados a partir do início da queda
 
 @onready var sprite: Sprite2D = $Sprite2D
 
 var trigger_area: Area2D
 var state: SpikeState = SpikeState.IDLE
 var shake_elapsed: float = 0.0
+var fall_elapsed: float = 0.0
 var sprite_origin: Vector2
 var spawn_position: Vector2
 var respawn_timer: Timer
@@ -49,9 +55,17 @@ func _physics_process(delta: float) -> void:
 			if shake_elapsed >= shake_time:
 				sprite.position = sprite_origin
 				state = SpikeState.FALLING
+				fall_elapsed = 0.0
 				trigger_area.set_deferred("monitoring", false)
 
 		SpikeState.FALLING:
+			fall_elapsed += delta
+
+			# Respawn forçado: passou o tempo e ainda não pousou
+			if force_respawn and fall_elapsed >= force_respawn_time:
+				_respawn()
+				return
+
 			velocity.x = 0.0  # garante que nada nunca empurre lateralmente durante a queda
 			velocity.y += gravity * delta
 			velocity.y = min(velocity.y, fall_speed)
@@ -69,11 +83,20 @@ func _on_trigger_area_body_entered(body: Node2D) -> void:
 
 	if body.is_in_group("player"):
 		state = SpikeState.SHAKING
+		await get_tree().create_timer(0.4).timeout
+		$FallSfx.play()
 
 
 func _on_respawn_timer_timeout() -> void:
+	_respawn()
+
+
+func _respawn() -> void:
+	respawn_timer.stop()
 	global_position = spawn_position
+	velocity = Vector2.ZERO
 	shake_elapsed = 0.0
+	fall_elapsed = 0.0
 	sprite.position = sprite_origin
 	state = SpikeState.IDLE
 	trigger_area.set_deferred("monitoring", true)

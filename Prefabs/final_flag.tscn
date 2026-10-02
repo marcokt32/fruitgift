@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://btnflv83sjqa6" path="res://scripts/final_flag.gd" id="1_tyj3k"]
 [ext_resource type="Texture2D" uid="uid://c025v4y10st73" path="res://assets/Items/Others/FinalFlag/FinalFlag idle (48x80).png" id="1_u5goc"]
 [ext_resource type="Texture2D" uid="uid://17li4odybx8" path="res://assets/Items/Others/FinalFlag/FinalFlag move (48x80).png" id="2_tyj3k"]
+[ext_resource type="AudioStream" uid="uid://bcelbi7q2ri8i" path="res://assets/Sounds/level_completed.wav" id="4_2uwit"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_tyj3k"]
 atlas = ExtResource("2_tyj3k")
@@ -54,6 +55,9 @@ size = Vector2(16, 285)
 [node name="FinalFlag" type="Area2D" unique_id=1298458719]
 collision_layer = 0
 script = ExtResource("1_tyj3k")
+forward_speed = null
+travel_time = null
+fade_duration = null
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1013525608]
 position = Vector2(24, -40)
@@ -78,5 +82,8 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 color = Color(0, 0, 0, 1)
+
+[node name="CompleteSfx" type="AudioStreamPlayer2D" parent="." unique_id=825728249]
+stream = ExtResource("4_2uwit")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
